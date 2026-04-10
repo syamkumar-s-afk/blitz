@@ -1,0 +1,12 @@
+export { default as Hero } from './Hero';
+export { default as ClientStrip } from './ClientStrip';
+export { default as ValueProps } from './ValueProps';
+export { default as Services } from './Services';
+export { default as EngagementModels } from './EngagementModels';
+export { default as TechStack } from './TechStack';
+export { default as FAQ } from './FAQ';
+export { default as Projects } from './Projects';
+export { default as KPISection } from './KPISection';
+export { default as Testimonials } from './Testimonials';
+export { default as About } from './About';
+export { default as Contact } from './Contact';

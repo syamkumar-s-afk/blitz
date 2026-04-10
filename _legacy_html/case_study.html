@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#f9f9f9",
+              "on-error": "#ffffff",
+              "secondary": "#8a4e40",
+              "on-tertiary-container": "#ffffff",
+              "secondary-fixed-dim": "#e39988",
+              "on-primary": "#e2e2e2",
+              "outline-variant": "#c6c6c6",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#e2e2e2",
+              "on-tertiary": "#d4e3ff",
+              "on-secondary-container": "#370e05",
+              "on-primary-fixed": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#777777",
+              "on-background": "#1a1c1c",
+              "inverse-primary": "#c6c6c6",
+              "on-error-container": "#410002",
+              "inverse-surface": "#2f3131",
+              "tertiary-fixed": "#0060ac",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container": "#eeeeee",
+              "on-tertiary-fixed": "#ffffff",
+              "secondary-fixed": "#ffb4a3",
+              "on-primary-container": "#ffffff",
+              "surface-container-highest": "#e2e2e2",
+              "primary-container": "#3b3b3b",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#474747",
+              "on-surface-variant": "#474747",
+              "primary": "#000000",
+              "surface-container-low": "#f3f3f3",
+              "surface-dim": "#dadada",
+              "on-surface": "#1a1c1c",
+              "surface-variant": "#e2e2e2",
+              "on-secondary-fixed": "#370e05",
+              "secondary-container": "#ffc8bb",
+              "surface-tint": "#5e5e5e",
+              "surface-bright": "#f9f9f9",
+              "tertiary-container": "#2976c7",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#004883",
+              "on-secondary-fixed-variant": "#602d20",
+              "primary-fixed": "#5e5e5e",
+              "tertiary": "#003c70",
+              "on-tertiary-fixed-variant": "#d4e3ff",
+              "surface-container-high": "#e8e8e8",
+              "surface": "#f9f9f9"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.grain-overlay {
+    position: relative
+    }
+.grain-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB0Tnv9YIgToI1_tKquiqdKuw9WAMbWa8UsbLhu_sCdTQg_bCAPT2RYwOGVvosapxASwur_g_YWNUMLF2vHlz-RfRCr1goJoTQtuT6OXBvwtJ2v-9QNbgGdEkz_o56ZZOFvlg1L3oRagFcUuOqwPDJd8tkZhc1iAm_qhZK0DkMZqdgnN9LAIYhEfxlEldZZ5Sgwi46GiIbISy_J6kpo2qJs01ZzxY-ZzTHF57MRIa6khFy_iwjObofWdNQ1QCpH_Ewx1Vh5TOSlBHk);
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 10
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-black/10">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a href="index.html" class="text-2xl font-black tracking-tighter text-black uppercase">BLITZ</a>
+<div class="hidden md:flex items-center gap-12 font-inter tracking-tighter font-bold uppercase">
+<a class="text-zinc-500 hover:text-black transition-colors" href="index.html">Home</a>
+<a class="text-zinc-500 hover:text-black transition-colors" href="services.html">Services</a>
+<a class="text-black border-b-2 border-black pb-1" href="work.html">Projects</a>
+<a class="text-zinc-500 hover:text-black transition-colors" href="about.html">About</a>
+</div>
+<button class="hidden md:block font-inter tracking-tighter font-bold uppercase px-6 py-2 bg-primary text-on-primary rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                CONTACT US
+            </button>
+<button id="mobile-menu-btn" class="md:hidden text-black"><span class="material-symbols-outlined text-3xl">menu</span></button>
+</div>
+</div>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-zinc-50/95 backdrop-blur-2xl flex flex-col justify-center px-12 transition-all duration-500 opacity-0 pointer-events-none translate-y-8 md:hidden">
+<div class="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
+<a href="index.html" class="text-zinc-400 hover:text-black transition-colors">Home</a>
+<a href="services.html" class="text-zinc-400 hover:text-black transition-colors">Services</a>
+<a href="work.html" class="text-black hover:text-primary transition-colors">Projects</a>
+<a href="about.html" class="text-zinc-400 hover:text-black transition-colors">About</a>
+<a href="contact.html" class="text-zinc-400 hover:text-black transition-colors">Contact</a>
+</div>
+<div class="text-xs font-bold tracking-widest uppercase text-zinc-500">
+        Inquiries <br>
+        <a href="mailto:hello@blitz.studio" class="text-black text-sm mt-2 block">hello@blitz.studio</a>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const nav = document.querySelector('nav') || document.querySelector('header');
+        if(btn && menu) {
+            btn.addEventListener('click', () => {
+                const isOpen = !menu.classList.contains('opacity-0');
+                if (isOpen) {
+                    menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+                    document.body.style.overflow = '';
+                    if(nav) {
+                        nav.classList.remove('bg-white', 'dark:bg-black');
+                        nav.classList.add('bg-white/70');
+                    }
+                } else {
+                    menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+                    document.body.style.overflow = 'hidden';
+                    if(nav) {
+                        nav.classList.remove('bg-white/70');
+                        nav.classList.add('bg-white', 'dark:bg-black');
+                    }
+                }
+            });
+        }
+    });
+</script>
+<!-- Hero Section -->
+<header class="pt-40 pb-20 px-8 max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end mb-16">
+<div class="md:col-span-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest text-secondary px-3 py-1 bg-secondary-container/30 rounded-full">Fintech Ecosystem</span>
+<span class="text-outline-variant text-xs">•</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest text-outline">2024 Global Release</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] text-primary mb-8">
+                    NEO-CHASE<br/>PLATFORM.
+                </h1>
+<p class="text-xl md:text-2xl text-on-surface-variant max-w-2xl leading-relaxed">
+                    Building the future of decentralized asset management through high-performance engineering and intuitive interface design.
+                </p>
+</div>
+<div class="md:col-span-4 flex md:justify-end">
+<div class="w-16 h-16 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-3xl">arrow_downward</span>
+</div>
+</div>
+</div>
+<div class="relative w-full aspect-[21/9] rounded-xl overflow-hidden bg-surface-container-highest grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Modern high-tech workspace with professional dashboard displayed on wide curved monitors, cinematic lighting, sleek architectural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNdBGAm48JqSBRj-PKhTsCPcHtAt5OPlnnnkgdmIqOZR6M3TWt9JN2Hh1cK_VbhXBWlnCQndTW99OI1y6WQ_XAI3KZAyurvU1vWQxYJJqB1mlh8hcMjm8Xm9JYqu5e-s7TdGdegboOaFwIlrqWySHoodE9a4-ytN6nQzgJaGj1JGbCU2XW9Um0PnfeJAWRMmmuo9DKp96UdHNlERCUAZvoiCFYDjL9-9nMiBIa_8ufsSfqGA9xaFQavCBSNAuUbG2OpOrEmpDRA44"/>
+</div>
+</header>
+<!-- Challenge Section -->
+<section class="py-32 px-8 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+<div class="md:col-span-4">
+<span class="text-[0.6875rem] font-black uppercase tracking-[0.2em] text-outline mb-4 block">01 / Challenge</span>
+<h2 class="text-4xl font-bold tracking-tighter text-primary leading-tight">Complexity hidden in plain sight.</h2>
+</div>
+<div class="md:col-span-7 md:col-start-6">
+<p class="text-2xl font-light text-on-surface leading-snug mb-8">
+                    The existing infrastructure was a fragmented ecosystem of legacy tools. Users were drowning in cognitive load, forced to navigate twelve separate interfaces just to execute a single cross-border settlement.
+                </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+<div class="p-8 border border-outline-variant/30 rounded-xl bg-surface">
+<span class="material-symbols-outlined text-secondary text-3xl mb-4">analytics</span>
+<h4 class="font-bold mb-2">Data Overload</h4>
+<p class="text-sm text-on-surface-variant">Real-time streams were refreshing at inconsistent intervals, causing terminal lag during peak trading hours.</p>
+</div>
+<div class="p-8 border border-outline-variant/30 rounded-xl bg-surface">
+<span class="material-symbols-outlined text-secondary text-3xl mb-4">security</span>
+<h4 class="font-bold mb-2">Security Friction</h4>
+<p class="text-sm text-on-surface-variant">Rigid multi-factor authentication was slowing down critical transactions by an average of 45 seconds.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Solution Section -->
+<section class="py-32 px-8">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+<div class="relative rounded-xl overflow-hidden aspect-square grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Professional designer working on a high-end web application interface with clean typography and complex data visualizations on a large screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVlp6RQOYtmZk4OaYcr-ZMYSfdqYkqtxTphoxI-9NyfqSavtmFPl4HBDdcdmpUnR93GuMzpDADFKsheiOb-UtjBgDB0CmN9_r-_OHpcwdBKSPHzuYIeEUAndmlw8oIQRRDBqrGTONV20VN1xNqkh3Kz9U1RTOs3754eVFL82Ppt3uTMHnTb6XPXfFcj2uB0159H9-k2TMJ8U0DlQREZcNJqlzHUj8Qvk2-QoSA7CUvDNjW_U5tl7DC-Zx_LpgkpxXBwHv3evExULM"/>
+<div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur p-6 rounded-lg max-w-xs shadow-xl">
+<p class="text-sm font-bold italic">"We didn't just redesign the UI; we re-engineered the decision-making pipeline for the modern trader."</p>
+</div>
+</div>
+<div>
+<span class="text-[0.6875rem] font-black uppercase tracking-[0.2em] text-outline mb-4 block">02 / Solution</span>
+<h2 class="text-5xl font-extrabold tracking-tighter text-primary mb-8">The Unified Core.</h2>
+<div class="space-y-6">
+<p class="text-lg text-on-surface-variant">
+                        We developed a custom reactive architecture using Flutter and a proprietary state management library to ensure 60fps performance even with thousands of concurrent data points.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<div>
+<span class="font-bold block">Dynamic Layout Engine</span>
+<p class="text-sm text-outline">Users can now compose their own dashboards using a modular bento-grid system.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<div>
+<span class="font-bold block">Neural Search Integration</span>
+<p class="text-sm text-outline">A global command bar that predicts user intent, reducing menu navigation by 70%.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Gallery -->
+<section class="py-32 bg-white">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="flex justify-between items-end mb-16">
+<h2 class="text-5xl font-black tracking-tighter">THE INTERFACE.</h2>
+<span class="text-outline text-sm font-mono tracking-widest uppercase">Visual Artifacts_04</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Large Feature -->
+<div class="md:col-span-8 aspect-video rounded-xl overflow-hidden bg-surface-container grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Detailed close-up of a dark-themed financial dashboard with glowing green and red charts, minimalist fonts, and clean lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChZgLwyTs5qXa_6pAXafxJ5dXgsHYAFkqCk4MKQE8n1wyk30nwAC7f6UR-AJ8e0TCzlUCoYywsqFlLaPLBOW2-7p-8NKp1YY2l4C4nXRYTP5_L1jjhWHhLrCyiJeMpLZdEGi_uX7xKPfyqsQXVrqIbAPJRr1mxs_k3FBhmGwqkd4-qNkq_ZaMb-IW1lX2Eq6z2jwEDTCEfGEAUU_D1WRM1sDnY2OMhu-5ub26h93AYglUu1L6osRivA7Ic6Cy5qWkjyXcUY2iO44s"/>
+</div>
+<!-- Small Feature -->
+<div class="md:col-span-4 aspect-square md:aspect-auto rounded-xl overflow-hidden bg-surface-container grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Abstract colorful digital waves and spheres representing high-speed data transfer and connectivity in a minimalist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8J9Htf5h6xkQGg6Ywv3Ep4UKJwkaweXplmGeqe6HYMjnT7d9kx0ZZMHWUOXjhX6YfhzN6Q4rQ5mI-LVMGx9WwXlaZ7z5SYz5dyPlxRV9tFAPdJwF1iyepQ0a_Xu-wieAtwoFGd2WA6grvXCN_0T5eM4STJiaSC-ojX1r9ivJFdLQnm3ivBYKuc-reH1bMwBR1nwg4nvwWoG-7I4kXE4Hj4QmpAGuUQUWs4px40w6m12BNtnY1R55UYvsRTvgeVl5aJVvh61FbHqQ"/>
+</div>
+<!-- Mobile Screens -->
+<div class="md:col-span-4 aspect-square rounded-xl overflow-hidden bg-surface-container grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Hand holding a smartphone displaying a sleek banking application with a custom minimalist interface and dark mode aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6RLancqAh2UbHJ0cPz2Xr_Z5KjC_xfek9lQvlt-sR9-p8fOKwSDMVUGzIHzsoaVSlt-KvLsUFd1Mw3NuZ2QXQ42n2yu2U8Q-AL4_NlVE_S8q6FuBEBuk8cXMiDe_7-JNTKxJEV_M5Zd6QiLwlxb3Mm7CV-qbMPnUqILViJJH1O5N7k60sNRTCWQq8JXN0PmWTXyr6LhtprK56xR-q5dwU6guhNq-mgi13eVZxiOe1sucajUdmIafmVDjpd6ZKqrxc_s5u7eOVh9Y"/>
+</div>
+<div class="md:col-span-8 aspect-video md:aspect-auto rounded-xl overflow-hidden bg-surface-container grain-overlay">
+<img class="w-full h-full object-cover" data-alt="Overhead view of several high-end mobile devices and tablets showing a synchronized design system across different screen sizes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARmx8Chnwx-OnfdnZCB9fdbK5vsAfsiC3eK1qVX_4Ca8oeruoWP8CwiNEYFwR3UKGIVnlXzxrLFDr1V2Q2Y772bGzHLlG2CER-rdqdB1soXxZlBTc9uupnUqeBhQJ0EWC9d7ZKYlhel7WtsmBoXpYw2vyGihgFj9Efgq_qxQ8SFEUBcJRGYp8oW_jh0XpscdY9YPHHlGLT0cBj1AGfLm4jHzLV-2ZKyFHXQQdv38az9BpgblibAjdgM9lsbCRQ9GyuxECiYg5LhCM"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Timeline -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto overflow-hidden">
+<div class="mb-20">
+<span class="text-[0.6875rem] font-black uppercase tracking-[0.2em] text-outline mb-4 block">03 / The Process</span>
+<h2 class="text-5xl font-extrabold tracking-tighter">Architecture of Success.</h2>
+</div>
+<div class="relative">
+<!-- Timeline Line -->
+<div class="absolute top-0 left-0 w-full h-px bg-outline-variant/30 hidden md:block"></div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="pt-8">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold mb-6">01</div>
+<h4 class="font-bold text-lg mb-2">Discovery</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Two weeks of deep-dive workshops with stakeholders to map every technical constraint.</p>
+</div>
+<div class="pt-8">
+<div class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center font-bold mb-6">02</div>
+<h4 class="font-bold text-lg mb-2">Core Dev</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Building the reactive engine and establishing the atomic design system foundations.</p>
+</div>
+<div class="pt-8">
+<div class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center font-bold mb-6">03</div>
+<h4 class="font-bold text-lg mb-2">Beta Test</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Stress-testing the platform with 5,000 active users in a controlled environment.</p>
+</div>
+<div class="pt-8">
+<div class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center font-bold mb-6">04</div>
+<h4 class="font-bold text-lg mb-2">Deployment</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Staged rollout across global regions with zero-downtime database migration.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack -->
+<section class="py-32 px-8 bg-surface-container">
+<div class="max-w-screen-2xl mx-auto text-center">
+<h2 class="text-[0.6875rem] font-black uppercase tracking-[0.4em] text-outline mb-16">ENGINEERED WITH PRECISION</h2>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60">
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-5xl">code</span>
+<span class="text-sm font-bold uppercase tracking-widest">Flutter</span>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-5xl">database</span>
+<span class="text-sm font-bold uppercase tracking-widest">PostgreSQL</span>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-5xl">terminal</span>
+<span class="text-sm font-bold uppercase tracking-widest">Node.js</span>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-5xl">cloud</span>
+<span class="text-sm font-bold uppercase tracking-widest">AWS</span>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-5xl">animation</span>
+<span class="text-sm font-bold uppercase tracking-widest">WebGL</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Measurable Results -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+<div class="text-center md:text-left">
+<span class="text-8xl font-black tracking-tighter text-primary block mb-2">300k+</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest text-secondary block">ACTIVE DAILY USERS</span>
+<p class="mt-4 text-on-surface-variant max-w-xs mx-auto md:mx-0">Scaling seamlessly from initial launch to global adoption within six months.</p>
+</div>
+<div class="text-center md:text-left">
+<span class="text-8xl font-black tracking-tighter text-primary block mb-2">45%</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest text-secondary block">LATENCY REDUCTION</span>
+<p class="mt-4 text-on-surface-variant max-w-xs mx-auto md:mx-0">Our custom rendering engine optimized critical paths for sub-second responses.</p>
+</div>
+<div class="text-center md:text-left">
+<span class="text-8xl font-black tracking-tighter text-primary block mb-2">99.9</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest text-secondary block">UPTIME SLA %</span>
+<p class="mt-4 text-on-surface-variant max-w-xs mx-auto md:mx-0">Achieving enterprise-grade stability under massive transaction volumes.</p>
+</div>
+</div>
+</section>
+<!-- Testimonial -->
+<section class="py-32 px-8 bg-primary text-on-primary">
+<div class="max-w-4xl mx-auto text-center">
+<span class="material-symbols-outlined text-6xl mb-8 opacity-20">format_quote</span>
+<blockquote class="text-3xl md:text-5xl font-light leading-tight mb-12">
+                "Working with Blitz felt like having an elite special forces unit for our product. They didn't just meet our requirements; they defined our future."
+            </blockquote>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-on-primary">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional man in his 40s with a confident expression, modern attire, clean corporate lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC91HvrkimPtkxtxwMq3yYzuVssN66U_m_ZwbU7DcJowCnaF8zG-vDoapg3XjiRZ9uofS8eKR5C0wXBRdHT1fzouI112RM-IriE11lrIWZHYqyC9e7EKvRr4VGuPesMFJRkK0SHBgdKTGjLGxHHO39c2TZ6fhzCMhX0MCyzVESSHu83g8VxtwM2phv8pPKm_pwL7qHxtPLKhBH7N9Xe7hopuvSNjeAtSnqdfUbD6X7rJ1z8vQ-J58SYrGCh4wJ8zgjYzGUyhTxcgiY"/>
+</div>
+<cite class="not-italic">
+<span class="block font-bold text-lg">Marcus Chen</span>
+<span class="block text-sm opacity-60 uppercase tracking-widest">Chief Product Officer, Neo-Chase</span>
+</cite>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-40 px-8 text-center bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+<span class="text-[30rem] font-black">BLITZ</span>
+</div>
+<div class="relative z-10 max-w-3xl mx-auto">
+<h2 class="text-6xl md:text-7xl font-black tracking-tighter mb-8">Ready to build your masterpiece?</h2>
+<p class="text-xl text-on-surface-variant mb-12">We partner with ambitious teams to create the digital benchmarks of tomorrow.</p>
+<button class="px-12 py-5 bg-primary text-on-primary rounded-full font-black tracking-tighter uppercase text-lg hover:scale-105 transition-transform active:scale-95 duration-200 shadow-2xl">
+                START YOUR PROJECT
+            </button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-zinc-50 border-t border-black/5 rounded-t-3xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-20 max-w-screen-2xl mx-auto">
+<div class="md:col-span-2">
+<div class="text-4xl font-black tracking-tighter text-black mb-8">BLITZ STUDIO.</div>
+<p class="max-w-xs text-zinc-600 font-inter text-sm md:text-base tracking-tight mb-8">
+                    An architectural approach to software. We build tools that empower the creators of the next internet.
+                </p>
+</div>
+<div>
+<h5 class="font-bold mb-6 uppercase text-xs tracking-[0.2em]">Sitemap</h5>
+<ul class="space-y-4 font-inter text-sm md:text-base tracking-tight text-zinc-600">
+<li><a class="hover:underline decoration-1 underline-offset-4" href="services.html">Services</a></li>
+<li><a class="font-bold text-black" href="work.html">Projects</a></li>
+<li><a class="hover:underline decoration-1 underline-offset-4" href="about.html">About</a></li>
+<li><a class="hover:underline decoration-1 underline-offset-4" href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-6 uppercase text-xs tracking-[0.2em]">Legal</h5>
+<ul class="space-y-4 font-inter text-sm md:text-base tracking-tight text-zinc-600">
+<li><a class="hover:underline decoration-1 underline-offset-4" href="#">Privacy Policy</a></li>
+<li><a class="hover:underline decoration-1 underline-offset-4" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="px-8 py-8 border-t border-black/5 max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-[0.6875rem] font-bold uppercase tracking-widest text-zinc-400">© 2024 BLITZ STUDIO. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-zinc-400 hover:text-black cursor-pointer">language</span>
+<span class="material-symbols-outlined text-zinc-400 hover:text-black cursor-pointer">public</span>
+<span class="material-symbols-outlined text-zinc-400 hover:text-black cursor-pointer">share</span>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#f9f9f9",
+              "on-error": "#ffffff",
+              "secondary": "#8a4e40",
+              "on-tertiary-container": "#ffffff",
+              "secondary-fixed-dim": "#e39988",
+              "on-primary": "#e2e2e2",
+              "outline-variant": "#c6c6c6",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#e2e2e2",
+              "on-tertiary": "#d4e3ff",
+              "on-secondary-container": "#370e05",
+              "on-primary-fixed": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#777777",
+              "on-background": "#1a1c1c",
+              "inverse-primary": "#c6c6c6",
+              "on-error-container": "#410002",
+              "inverse-surface": "#2f3131",
+              "tertiary-fixed": "#0060ac",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container": "#eeeeee",
+              "on-tertiary-fixed": "#ffffff",
+              "secondary-fixed": "#ffb4a3",
+              "on-primary-container": "#ffffff",
+              "surface-container-highest": "#e2e2e2",
+              "primary-container": "#3b3b3b",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#474747",
+              "on-surface-variant": "#474747",
+              "primary": "#000000",
+              "surface-container-low": "#f3f3f3",
+              "surface-dim": "#dadada",
+              "on-surface": "#1a1c1c",
+              "surface-variant": "#e2e2e2",
+              "on-secondary-fixed": "#370e05",
+              "secondary-container": "#ffc8bb",
+              "surface-tint": "#5e5e5e",
+              "surface-bright": "#f9f9f9",
+              "tertiary-container": "#2976c7",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#004883",
+              "on-secondary-fixed-variant": "#602d20",
+              "primary-fixed": "#5e5e5e",
+              "tertiary": "#003c70",
+              "on-tertiary-fixed-variant": "#d4e3ff",
+              "surface-container-high": "#e8e8e8",
+              "surface": "#f9f9f9"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.grain-texture {
+    position: relative
+    }
+.grain-texture::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuC0u9f_8jPDA4TdwwEEWNIdvfoxzEXfn8xs2JrvFVwnlQItJ8Vrfpd92kVJ7-h1ujjzDa4JAJShemfB665NRGjmigJKn1fDhhCBCs--B8vpXPXAFPtIoQcG8N6ub1Y53_ukkWotMZGg_ObY4MdOEoH1IIiOTzLZ8yQEKLjU6h9ynwb5tTr-Y5SKBb07TRarZ4TF5-txLwt2uhJdJLcwWA6DaYJczdVTpLv0rXsG_Zr6FHw0eUr2jk1CI1YfYPme_Mumkt3_l5HqxNg)
+    }
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem
+    }</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary selection:text-white">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-b border-black/10 dark:border-white/10">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a href="index.html" class="text-2xl font-black tracking-tighter text-black dark:text-white">BLITZ</a>
+<div class="hidden md:flex gap-12 items-center">
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors" href="index.html">Home</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors" href="services.html">Services</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-black dark:text-white border-b-2 border-black dark:border-white pb-1" href="work.html">Projects</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors" href="about.html">About</a>
+</div>
+<button class="hidden md:block font-inter tracking-tighter font-bold uppercase text-black dark:text-white hover:opacity-80 transition-opacity active:scale-95 duration-200">CONTACT US</button>
+<button id="mobile-menu-btn" class="md:hidden text-black dark:text-white"><span class="material-symbols-outlined text-3xl">menu</span></button>
+</div>
+</div>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-zinc-50/95 dark:bg-zinc-950/95 backdrop-blur-2xl flex flex-col justify-center px-12 transition-all duration-500 opacity-0 pointer-events-none translate-y-8 md:hidden">
+<div class="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
+<a href="index.html" class="text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors">Home</a>
+<a href="services.html" class="text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors">Services</a>
+<a href="work.html" class="text-black dark:text-white hover:text-primary transition-colors">Projects</a>
+<a href="about.html" class="text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors">About</a>
+<a href="contact.html" class="text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors">Contact</a>
+</div>
+<div class="text-xs font-bold tracking-widest uppercase text-zinc-500 dark:text-zinc-400">
+        Inquiries <br>
+        <a href="mailto:hello@blitz.studio" class="text-black dark:text-white text-sm mt-2 block">hello@blitz.studio</a>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const nav = document.querySelector('nav') || document.querySelector('header');
+        if(btn && menu) {
+            btn.addEventListener('click', () => {
+                const isOpen = !menu.classList.contains('opacity-0');
+                if (isOpen) {
+                    menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+                    document.body.style.overflow = '';
+                    if(nav) {
+                        nav.classList.remove('bg-white', 'dark:bg-black');
+                        nav.classList.add('bg-white/70', 'dark:bg-black/70');
+                    }
+                } else {
+                    menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+                    document.body.style.overflow = 'hidden';
+                    if(nav) {
+                        nav.classList.remove('bg-white/70', 'dark:bg-black/70');
+                        nav.classList.add('bg-white', 'dark:bg-black');
+                    }
+                }
+            });
+        }
+    });
+</script>
+<main class="pt-32 pb-20">
+<!-- Intro Hero Section -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-32">
+<div class="flex flex-col md:flex-row items-end justify-between gap-12">
+<div class="max-w-4xl">
+<span class="text-[0.6875rem] font-bold tracking-widest uppercase text-outline mb-4 block">Portfolio Vol. 04</span>
+<h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] text-primary mb-12">
+                        Selected<br/>Work
+                    </h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<p class="text-xl leading-relaxed text-on-surface-variant font-medium">
+                            We believe code is craft and pixels are poetry. Our philosophy is rooted in structural precision and emotional resonance.
+                        </p>
+<p class="text-lg leading-relaxed text-outline">
+                            Every project is a collaboration in architectural thinking—building digital foundations that stand the test of evolving technology.
+                        </p>
+</div>
+</div>
+<div class="hidden lg:block text-right">
+<span class="material-symbols-outlined text-8xl text-surface-container-highest">architecture</span>
+</div>
+</div>
+</section>
+<!-- Filterable Grid -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-16">
+<div class="flex flex-wrap gap-4 items-center border-b border-outline-variant pb-8">
+<button class="px-6 py-2 rounded-full bg-primary text-white text-[0.6875rem] font-bold uppercase tracking-widest">All Work</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Mobile</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Web</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">SaaS</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Desktop</button>
+</div>
+</section>
+<!-- Featured Project Cards -->
+<section class="px-8 max-w-screen-2xl mx-auto space-y-24 mb-40">
+<!-- Project 1: Large Asymmetric -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low grain-texture">
+<div class="aspect-[16/9] overflow-hidden">
+<img alt="SaaS Dashboard Design" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" data-alt="Modern dark themed SaaS dashboard with complex data visualizations and neon blue accent highlights in a clean grid layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCynhPzIb-5s7EcjDdu1XKTTxVl37Yi-DQ4I1ShORTIgvB_x6q0-GC0GrYHmpVsB8CQEO2qVf_Ln6TxJKgTVoGzZVgXIwDsfwaO13-QkUK5JuhoNIAtGIQoF610M1nOR22JfSXdfFYCXqu6KZijl0PwzXjeCLkrIPKDKyx50kWzEQE4HFcg7S2Im4bt7cKnv68jcyPyeJ3pokLEwmxRIcvPZGfyb7jnpKrSr64W5B7FZ42W7IqQZn2rWHsgs88VjzOWMu2QNx872gA"/>
+</div>
+<div class="p-12 flex justify-between items-end">
+<div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-tighter text-secondary mb-2 block">FinTech • SaaS</span>
+<h3 class="text-4xl font-extrabold tracking-tighter">VANTAGE PLATFORM</h3>
+</div>
+<div class="text-right">
+<span class="text-5xl font-black tracking-tighter text-primary">150%</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Growth in UX Retention</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 space-y-6">
+<p class="text-2xl font-bold tracking-tight leading-snug">Architecting the future of institutional trading through minimalist clarity.</p>
+<div class="pt-6 border-t border-outline-variant/30">
+<button class="flex items-center gap-4 group">
+<span class="w-12 h-12 rounded-full border border-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">arrow_outward</span>
+</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">View Case Study</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project 2: Side by Side -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-secondary-container to-secondary-fixed grain-texture mb-8 relative">
+<img alt="Mobile App Interface" class="absolute inset-12 object-contain drop-shadow-2xl" data-alt="Premium smartphone mockup showing a minimalist lifestyle mobile app with high-end typography and elegant white space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1o6B9nRgTU4LhZGgRGfF-b0qQ3IlwNufZNCVqw2J9oD8fySIK9ENuk7PVb_HnbsZU9TNreTsT48sVSA31jhFTBheQlzlIkruwlmdBwCISBJQjHqIIZV5hPkFXvv-D-vGh-UKCJvVyNVzrmOK_e47tBNXhsuusR4Fsb4lXP0W-gg5SBvyLHqJvTPkDFz3-YcwHeE93U0m9H-NsHyi7MY-tjarVSSu81TD6g-8UvkQwgjwt9555OW4Ywy6B9xnY_d3Tl6BzLWKRTLo"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-extrabold tracking-tighter">LUMINA MOBILE</h3>
+<p class="text-outline">Health &amp; Wellness</p>
+</div>
+<div class="text-right">
+<span class="text-3xl font-bold tracking-tighter">1.2M</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Active Installs</p>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-tertiary-container to-tertiary-fixed grain-texture mb-8 relative">
+<img alt="Web Application" class="absolute inset-12 object-contain drop-shadow-2xl" data-alt="Laptop mockup displaying a sophisticated web architecture interface with clean lines and a professional monochrome palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtL6NvVXnAMo2StRhY4V587sxAjiJDjxJRVlRF-OhwxQc6kzqtLXjr2_pUuFLblZKyj14KuusTL2yVsDaCjzx9AO1x6kQZZaWQWy0VXA7DlgAI1bPKrynkjnLmjpxyIFpua_oFBgxZubFZS6hyZ4qsQ__G18Yu0qpDtbxj6Hsvu2zn6cQi-QamrfI1BFf7cnGpSRrwdW1JyG46wjp_n7Z3PDCcMGeP_bYA-grcp151maz_FuICVG9sJ6gpunoXdclP9BHB76x54ys"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-extrabold tracking-tighter">KINETIC WEB</h3>
+<p class="text-outline">Creative Portfolio</p>
+</div>
+<div class="text-right">
+<span class="text-3xl font-bold tracking-tighter">0.4s</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Load Speed Average</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Section -->
+<section class="bg-primary text-white py-32 grain-texture relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
+<span class="material-symbols-outlined text-[30rem]" style="font-variation-settings: 'wght' 100;">language</span>
+</div>
+<div class="px-8 max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Velocity</span>
+<h2 class="text-7xl font-black tracking-tighter">50+</h2>
+<p class="text-xl text-outline-variant">Digital products engineered from zero to launch.</p>
+</div>
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Impact</span>
+<h2 class="text-7xl font-black tracking-tighter">10M+</h2>
+<p class="text-xl text-outline-variant">Active daily users across our client ecosystem.</p>
+</div>
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Reach</span>
+<h2 class="text-7xl font-black tracking-tighter">24</h2>
+<p class="text-xl text-outline-variant">Countries served by our international studio network.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial Strip -->
+<section class="py-32 border-b border-outline-variant/20 overflow-hidden">
+<div class="px-8 max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+<div class="w-full md:w-1/3">
+<span class="material-symbols-outlined text-5xl text-primary mb-6">format_quote</span>
+<h2 class="text-4xl font-extrabold tracking-tighter">Words from the front line.</h2>
+</div>
+<div class="w-full md:w-2/3 border-l border-primary/20 pl-12 py-4">
+<blockquote class="text-3xl font-medium tracking-tight italic mb-8">
+                        "Blitz didn't just design an app; they architected a new category for our brand. Their Swiss-level precision is unmatched in the industry."
+                    </blockquote>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container overflow-hidden">
+<img alt="Client" data-alt="Close-up portrait of a professional male executive in a neutral grey studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoA8B0UgistB-XmD8hkjmZIxEluzaaCDOGSmGY-qhn8w10FZC7_hH7x1ncwxVYZRbENfG6NVInC-6zY63Z8N3dxg3f3oGNce6KQrUHFilh4Fx_q0CEC5_zqK3upLlwM0NUV3ofp_MM-noYUxU7qjURuT9sp943BUkmT7avU_CIn_TAy405s2H8ZceaTsEZFVprmATWIx-GxzLrv69A7cww96PWtPI21Qilm2DXG0BJfqqZ8LO7X22-wnPEUA_gFZmJp3YI1bk90io"/>
+</div>
+<div>
+<p class="font-bold text-sm tracking-tighter">MARCUS CHEN</p>
+<p class="text-[0.6875rem] uppercase text-outline">CTO, AETHER SYSTEMS</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="px-8 max-w-screen-2xl mx-auto py-40 text-center relative">
+<div class="absolute inset-0 flex items-center justify-center opacity-5 -z-10 select-none">
+<span class="text-[20rem] font-black tracking-tighter uppercase">BLITZ</span>
+</div>
+<h2 class="text-6xl md:text-9xl font-black tracking-tighter mb-12">
+                Build something<br/>great with us.
+            </h2>
+<button class="px-12 py-6 rounded-full bg-gradient-to-r from-secondary to-secondary-fixed text-white font-bold text-lg hover:scale-105 transition-transform group overflow-hidden relative">
+<span class="relative z-10 flex items-center gap-3">
+                    START A PROJECT
+                    <span class="material-symbols-outlined">north_east</span>
+</span>
+</button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-3xl bg-zinc-50 dark:bg-zinc-950 border-t border-black/5 dark:border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-20 max-w-screen-2xl mx-auto font-inter text-sm md:text-base tracking-tight text-zinc-600 dark:text-zinc-400">
+<div class="md:col-span-2">
+<div class="text-4xl font-black tracking-tighter text-black dark:text-white mb-8">BLITZ STUDIO.</div>
+<p class="max-w-xs mb-8">Engineering premium digital experiences for the world's most ambitious companies.</p>
+<div class="flex gap-4">
+<a class="hover:underline decoration-1 underline-offset-4" href="#">Instagram</a>
+<a class="hover:underline decoration-1 underline-offset-4" href="#">LinkedIn</a>
+<a class="hover:underline decoration-1 underline-offset-4" href="#">Twitter</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-black dark:text-white uppercase text-[0.6875rem] tracking-[0.2em] mb-6">Menu</h4>
+<div class="flex flex-col gap-4">
+<a class="hover:underline decoration-1 underline-offset-4" href="services.html">Services</a>
+<a class="font-bold text-black dark:text-white hover:underline decoration-1 underline-offset-4" href="work.html">Projects</a>
+<a class="hover:underline decoration-1 underline-offset-4" href="about.html">About</a>
+<a class="hover:underline decoration-1 underline-offset-4" href="contact.html">Contact</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-black dark:text-white uppercase text-[0.6875rem] tracking-[0.2em] mb-6">Legal</h4>
+<div class="flex flex-col gap-4">
+<a class="hover:underline decoration-1 underline-offset-4" href="#">Privacy</a>
+<a class="hover:underline decoration-1 underline-offset-4" href="#">Terms</a>
+<p class="mt-8 text-xs uppercase opacity-50">© 2024 BLITZ STUDIO. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

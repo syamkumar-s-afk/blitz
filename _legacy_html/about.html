@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About BLITZ | The Alchemy of Code &amp; Design</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grainy-gradient {
+            background: linear-gradient(135deg, #ffb4a3 0%, #ffc8bb 100%);
+            position: relative;
+        }
+        .grainy-gradient::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Ref%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#f9f9f9",
+              "on-error": "#ffffff",
+              "secondary": "#8a4e40",
+              "on-tertiary-container": "#ffffff",
+              "secondary-fixed-dim": "#e39988",
+              "on-primary": "#e2e2e2",
+              "outline-variant": "#c6c6c6",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#e2e2e2",
+              "on-tertiary": "#d4e3ff",
+              "on-secondary-container": "#370e05",
+              "on-primary-fixed": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#777777",
+              "on-background": "#1a1c1c",
+              "inverse-primary": "#c6c6c6",
+              "on-error-container": "#410002",
+              "inverse-surface": "#2f3131",
+              "tertiary-fixed": "#0060ac",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container": "#eeeeee",
+              "on-tertiary-fixed": "#ffffff",
+              "secondary-fixed": "#ffb4a3",
+              "on-primary-container": "#ffffff",
+              "surface-container-highest": "#e2e2e2",
+              "primary-container": "#3b3b3b",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#474747",
+              "on-surface-variant": "#474747",
+              "primary": "#000000",
+              "surface-container-low": "#f3f3f3",
+              "surface-dim": "#dadada",
+              "on-surface": "#1a1c1c",
+              "surface-variant": "#e2e2e2",
+              "on-secondary-fixed": "#370e05",
+              "secondary-container": "#ffc8bb",
+              "surface-tint": "#5e5e5e",
+              "surface-bright": "#f9f9f9",
+              "tertiary-container": "#2976c7",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#004883",
+              "on-secondary-fixed-variant": "#602d20",
+              "primary-fixed": "#5e5e5e",
+              "tertiary": "#003c70",
+              "on-tertiary-fixed-variant": "#d4e3ff",
+              "surface-container-high": "#e8e8e8",
+              "surface": "#f9f9f9"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-black/10">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a href="index.html" class="text-2xl font-black tracking-tighter text-black uppercase">BLITZ</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 hover:text-black transition-colors" href="index.html">Home</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 hover:text-black transition-colors" href="services.html">Services</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-zinc-500 hover:text-black transition-colors" href="work.html">Projects</a>
+<a class="font-inter tracking-tighter font-bold uppercase text-black border-b-2 border-black pb-1" href="about.html">About</a>
+</div>
+<button class="hidden md:block font-inter tracking-tighter font-bold uppercase px-6 py-2 bg-primary text-on-primary rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                CONTACT US
+            </button>
+<button id="mobile-menu-btn" class="md:hidden text-black"><span class="material-symbols-outlined text-3xl">menu</span></button>
+</div>
+</div>
+</nav>
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-zinc-50/95 backdrop-blur-2xl flex flex-col justify-center px-12 transition-all duration-500 opacity-0 pointer-events-none translate-y-8 md:hidden">
+<div class="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
+<a href="index.html" class="text-zinc-400 hover:text-black transition-colors">Home</a>
+<a href="services.html" class="text-zinc-400 hover:text-black transition-colors">Services</a>
+<a href="work.html" class="text-zinc-400 hover:text-black transition-colors">Projects</a>
+<a href="about.html" class="text-black hover:text-primary transition-colors">About</a>
+<a href="contact.html" class="text-zinc-400 hover:text-black transition-colors">Contact</a>
+</div>
+<div class="text-xs font-bold tracking-widest uppercase text-zinc-500">
+        Inquiries <br>
+        <a href="mailto:hello@blitz.studio" class="text-black text-sm mt-2 block">hello@blitz.studio</a>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const nav = document.querySelector('nav') || document.querySelector('header');
+        if(btn && menu) {
+            btn.addEventListener('click', () => {
+                const isOpen = !menu.classList.contains('opacity-0');
+                if (isOpen) {
+                    menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+                    document.body.style.overflow = '';
+                    if(nav) {
+                        nav.classList.remove('bg-white', 'dark:bg-black');
+                        nav.classList.add('bg-white/70');
+                    }
+                } else {
+                    menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8');
+                    menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    btn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+                    document.body.style.overflow = 'hidden';
+                    if(nav) {
+                        nav.classList.remove('bg-white/70');
+                        nav.classList.add('bg-white', 'dark:bg-black');
+                    }
+                }
+            });
+        }
+    });
+</script>
+<main class="pt-32 pb-20">
+<!-- Brand Story Hero -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-32">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-8">
+<span class="label-sm text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-outline mb-6 block">Our Genesis</span>
+<h1 class="text-[3.5rem] font-extrabold tracking-[-0.04em] leading-[1] mb-8 lg:mb-0">
+                        The Alchemy of <br/>
+<span class="text-secondary">Code &amp; Design.</span>
+</h1>
+</div>
+<div class="lg:col-span-4">
+<p class="body-lg text-lg leading-relaxed text-on-surface-variant mb-4">
+                        We don't just build software; we engineer digital legacies. Founded on the principle that technical precision and creative soul are not mutually exclusive, Blitz bridges the gap between the mechanical and the aesthetic.
+                    </p>
+<div class="flex items-center gap-2 text-primary font-bold tracking-tight">
+<span>EST. 2018</span>
+<span class="material-symbols-outlined text-sm">asterisk</span>
+<span>LONDON / NEW YORK</span>
+</div>
+</div>
+</div>
+<div class="mt-20 w-full h-[614px] rounded-xl overflow-hidden relative border border-outline/20">
+<img class="w-full h-full object-cover grayscale brightness-95" data-alt="minimalist architectural office interior with large windows, soft natural light hitting a clean concrete wall, and high-end design furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAETXgvRcIMLewTFzjnKlCDGUBP8Yh4YdkafTVT49uV5fkzf1D3uUmK86PVOW4RcjAGV6GPusjVXiLgG3QKD-spU9NR3HUkAfEiVO4TI6eLnS59IlVm4zKixxmxlmRIyLhNJF5GYXLRsHpT6lHlKFafCyIO9Vx3SQRiJOz13qYScbBIjHwSAlK_Dq54-UcifZpi115495AGgr6IhADGzqtJORIBHt2kXVhGDurAMnyDIEBXzqtgwfEONtPPdj2GbJ9B-op74S4u1Wk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+</section>
+<!-- Mission and Values -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="mb-16">
+<h2 class="text-[1.75rem] font-bold tracking-tight mb-2">Core Philosophy</h2>
+<div class="w-12 h-1 bg-primary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">precision_manufacturing</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Crafted with Precision</h3>
+<p class="text-sm opacity-70">Pixel-perfect execution where every line of code serves a strategic purpose.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">speed</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Built for Scale</h3>
+<p class="text-sm opacity-70">Architectures designed to grow from MVP to global infrastructure without friction.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">palette</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Creative Integrity</h3>
+<p class="text-sm opacity-70">We believe functional tools should be objects of beauty and joy.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">all_inclusive</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Continuous Evolution</h3>
+<p class="text-sm opacity-70">The landscape shifts daily; our engineering mindset is perpetually adaptive.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="bg-surface-container py-32 mb-40">
+<div class="px-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+<h2 class="text-[3.5rem] font-extrabold tracking-[-0.04em] leading-tight">The Minds Behind <br/>the Machine.</h2>
+<p class="max-w-md body-lg text-on-surface-variant">A curated collective of engineers, designers, and strategists obsessed with the details most people ignore.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Team Member 1 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a confident creative director, modern haircut, wearing black turtleneck against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcut7qF_l1x9q1nu8RO4iu6E0Y_xEPV8clnQ4a8jjqyD67yBbKgO3M0WQmrva0f6eVfXY-46Edu4bFnYNFKulAd9pEDuwy1q9bVi7OaRIX2i3RnlIwuIqqpv23AyrmzzJ7zWSsxxS5tDYTwmJywhPIbN4sqv734jQ4IGLCmRjtGXeFIPBZFVLLBlsRP8Siod6GR8yfvM3k1ZLk6uYv97px6pt3jfQiQawxALXVdWn6NWB7ezWqP460L7cJiTi2u1wbZrTSWg1yDTg"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Marcus Thorne</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Founding Partner</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a female software architect, professional look, modern glasses, smiling slightly in a bright minimalist office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYMGHacifWLl5PxxZJ-Ia_7SboFJvoDrrXX8a1ln6Ljbl552EvJA8yRctNXUgQ92nQVowOBXjlzHH9WuhC4F__PDkCiVflpLuaWcR4dQ4w7h1c-IwUyumbkIyYYWbXMWE8c-7-2bwd95CRQO1Oj4W5YHxfq199emUnpJvJpT2n3i5QbSjWED7rVTW2X93FsQb0gkbHHvskJWkTOiZMMzEc45QTK15ap9BDEEMLbpKJ9k8V5P4zVZ1_XWkAlzHix4yco6fzK225mEg"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Elena Vance</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Head of Engineering</p>
+</div>
+<!-- Team Member 3 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a young designer, artistic style, wearing a denim jacket, neutral urban background, soft side lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEW4zYR_hc49N93jZ8BsTzLZuB5ZuS1dOKvOQI7gnZyIz7SWJWNX1p_JFeDowaptRJ9Syqr8uZpi5RRT1iKbT7oE7c_QOcyEzDsRSp89QeHEelrrYFjux5lavmavIImFahj7JJ_PUgT5v897uqR92_enoDQ8jf2R9DO7yqWyatTS1gbi-sorFs9QpZMEBpMsp4tCbVME6amKV135Q5UD-0eBlGqS05XYb1tWsZrW57-xTO1y6PS7C-Y4bp87mMKXsLQ-rpszCpCBQ"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Julian Baek</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Design Director</p>
+</div>
+<!-- Team Member 4 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a woman in business attire, confident expression, soft natural window light, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH52QejGmo5uxPoy643yvVJAGPRe_Fb0_YyNvNsRi3zyP1UWWpUb0RrITysfvRfvC3qzitKjikSIhZAw34V5He60mokq2luXL2Ewffmn7WgmNJ9JpiiqiFmKrakVQnK_TzCY40sQlKH4gqn6Ui5NfZT9sDeW3VLrfsaQEABM7cQAhTL077vhlBLxOep_1kVe4GxiNen12XifzaJ7lIYgRWZ6PrkScv3u2WJDC1fvj6pk-xN9DQzr2KMUFLUZXRT4VZT6U73m_6ayo"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Sonia Park</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Strategy Lead</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Philosophy (Bento) -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="mb-16 flex justify-between items-baseline border-b border-black/5 pb-8">
+<h2 class="text-[1.75rem] font-bold tracking-tight">Process Philosophy</h2>
+<span class="label-sm text-outline">METHODOLOGY 1.0</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+<!-- Step 1 -->
+<div class="md:col-span-3 lg:col-span-2 p-10 bg-white border border-outline-variant/30 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-4xl font-black text-secondary/20 mb-6 block">01</span>
+<h3 class="text-xl font-bold mb-4">Discovery &amp; Audit</h3>
+<p class="text-on-surface-variant text-sm">We peel back the layers of your business to find the hidden friction points and untapped opportunities.</p>
+</div>
+<div class="absolute -bottom-8 -right-8 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[8rem]">search</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="md:col-span-3 lg:col-span-4 p-10 grainy-gradient rounded-xl border border-black/5 flex items-center justify-between group">
+<div class="max-w-md">
+<span class="text-4xl font-black text-secondary/40 mb-6 block">02</span>
+<h3 class="text-2xl font-bold mb-4">Architectural Design</h3>
+<p class="text-secondary/80 text-base font-medium">Drafting the blueprints of a scalable ecosystem. This isn't just UX; it's structural integrity for the digital age.</p>
+</div>
+<div class="hidden lg:block">
+<span class="material-symbols-outlined text-[10rem] text-secondary/20 font-thin">architecture</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="md:col-span-4 p-10 bg-black text-white rounded-xl flex items-center gap-12 group">
+<div class="hidden md:block">
+<div class="w-32 h-32 border border-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-5xl">terminal</span>
+</div>
+</div>
+<div>
+<span class="text-4xl font-black text-white/20 mb-6 block">03</span>
+<h3 class="text-2xl font-bold mb-4">Rapid Engineering</h3>
+<p class="text-white/60 text-base">Moving from prototype to production with zero compromise. We ship clean, documented, and resilient codebases.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="md:col-span-2 p-10 bg-white border border-outline-variant/30 rounded-xl group relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-4xl font-black text-secondary/20 mb-6 block">04</span>
+<h3 class="text-xl font-bold mb-4">Continuous Evolution</h3>
+<p class="text-on-surface-variant text-sm">Launch is just the beginning. We optimize, iterate, and protect your digital assets as they grow.</p>
+</div>
+<div class="absolute -top-10 -right-10 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[10rem]">auto_awesome</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Milestones / Timeline -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+<div class="lg:col-span-4">
+<h2 class="text-4xl font-black tracking-tighter uppercase mb-6">Our Journey <br/>So Far.</h2>
+<p class="text-on-surface-variant">Defining moments that shaped our trajectory from a small London studio to an international tech partner.</p>
+</div>
+<div class="lg:col-span-8 space-y-12">
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2018</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">Inception</h4>
+<p class="text-on-surface-variant leading-relaxed">Blitz Studio is established in a small warehouse in East London with a team of three and a vision for 'Technical Craft'.</p>
+</div>
+</div>
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2020</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">The Pivot to Scale</h4>
+<p class="text-on-surface-variant leading-relaxed">Launched our first enterprise-grade fintech platform, proving that editorial design could thrive in complex regulated environments.</p>
+</div>
+</div>
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2022</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">Global Expansion</h4>
+<p class="text-on-surface-variant leading-relaxed">Opened our New York hub and expanded the team to 25 specialists across design, dev-ops, and AI strategy.</p>
+</div>
+</div>
+<div class="flex gap-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2024</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">The AI Paradigm</h4>
+<p class="text-on-surface-variant leading-relaxed">Integrating generative intelligence into our core architectural design workflow, redefining speed-to-market for our partners.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-20">
+<div class="bg-black text-white p-20 rounded-[2.5rem] flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<img class="w-full h-full object-cover" data-alt="abstract tech data visualization with blue and white lights, swirling patterns, ethereal digital feel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrrY10ti9GTnjN4Z693mcHV9gGo1cltx4vAV-hQSSKBfptRHQpJKo5gkIpoNHT3W9zmqD9H3-HYX8KsTJB1HG8veFJevRxYfE5SomtM886hnKgBI-43HWk1-0sxqgGjyt5jOt4kSXH5-amt78J6hUqkws1K8DVWZv9rxBCmJfdEm9Qmx54pfOHuH7bPauC6hbJubAaF5Ftdkm9D3c7IEC9hxWT4wFEraaJkobXEhhSw-1uEz506TJ2xgteQsCirbvZ7opL31nj5pA"/>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="text-5xl font-extrabold tracking-tighter mb-8">Ready to build the future?</h2>
+<p class="text-xl text-white/60 mb-12">Whether you have a fully-formed brief or just a spark of an idea, our experts are ready to listen.</p>
+<button class="bg-white text-black font-bold uppercase tracking-tight px-12 py-5 rounded-full hover:bg-secondary-fixed transition-colors active:scale-95 duration-200">
+                        Connect with our experts
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-zinc-50 border-t border-black/5 w-full rounded-t-3xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-20 max-w-screen-2xl mx-auto">
+<div class="md:col-span-1">
+<div class="text-4xl font-black tracking-tighter text-black mb-8">BLITZ.</div>
+<p class="font-inter text-sm md:text-base tracking-tight text-zinc-600 max-w-xs">
+                    Engineering the digital vanguard with precision and creative soul.
+                </p>
+</div>
+<div>
+<h5 class="font-bold uppercase tracking-widest text-[0.6875rem] mb-6">Menu</h5>
+<ul class="space-y-4">
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="services.html">Services</a></li>
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="work.html">Projects</a></li>
+<li><a class="font-inter text-sm font-bold text-black hover:underline decoration-1 underline-offset-4" href="about.html">About</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold uppercase tracking-widest text-[0.6875rem] mb-6">Connect</h5>
+<ul class="space-y-4">
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="contact.html">Contact</a></li>
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">LinkedIn</a></li>
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">Twitter / X</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold uppercase tracking-widest text-[0.6875rem] mb-6">Legal</h5>
+<ul class="space-y-4">
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">Privacy</a></li>
+<li><a class="font-inter text-sm text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+<div class="px-8 py-8 max-w-screen-2xl mx-auto border-t border-black/5 text-center md:text-left">
+<p class="font-inter text-[0.6875rem] tracking-tight text-zinc-400 uppercase">© 2024 BLITZ STUDIO. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary": "#8a4e40",
+                        "on-tertiary-container": "#ffffff",
+                        "secondary-fixed-dim": "#e39988",
+                        "on-primary": "#e2e2e2",
+                        "outline-variant": "#c6c6c6",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "on-tertiary": "#d4e3ff",
+                        "on-secondary-container": "#370e05",
+                        "on-primary-fixed": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#777777",
+                        "on-background": "#1a1c1c",
+                        "inverse-primary": "#c6c6c6",
+                        "on-error-container": "#410002",
+                        "inverse-surface": "#2f3131",
+                        "tertiary-fixed": "#0060ac",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container": "#eeeeee",
+                        "on-tertiary-fixed": "#ffffff",
+                        "secondary-fixed": "#ffb4a3",
+                        "on-primary-container": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary-container": "#3b3b3b",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#474747",
+                        "on-surface-variant": "#474747",
+                        "primary": "#000000",
+                        "surface-container-low": "#f3f3f3",
+                        "surface-dim": "#dadada",
+                        "on-surface": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#370e05",
+                        "secondary-container": "#ffc8bb",
+                        "surface-tint": "#5e5e5e",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-container": "#2976c7",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#004883",
+                        "on-secondary-fixed-variant": "#602d20",
+                        "primary-fixed": "#5e5e5e",
+                        "tertiary": "#003c70",
+                        "on-tertiary-fixed-variant": "#d4e3ff",
+                        "surface-container-high": "#e8e8e8",
+                        "surface": "#f9f9f9"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .grainy-gradient {
+            background: linear-gradient(135deg, #ffc8bb 0%, #d4e3ff 100%);
+            position: relative
+        }
+
+        .grainy-gradient::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuD51gI4THdvUuLUDaOoqX0ZuZ5Ap16p6id9w4MlYj5cKlb8CcoDL-NZ3NUaBpOyMIo4_HxyUD_CUHh4BwvVz8HntRlY9lvd9omNPmzzHzfr9AYrMnZFXgB5bAhukE3MzhljQy9BvGgOVpq79bTMRVvy41bRLYdeDPvQfRUOtXh_tOVyW5Lvet1V1C8VnpcFRqF0kMRzfDpcwzZtegUj5OTdxQaUuC9gUS2OZEk-h4L9u654G0ZBad8Ss6fhwQ38jjyG97faQLCkRZE)
+        }
+
+        .asym-grid-cols {
+            grid-template-columns: 1.2fr 0.8fr
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+
+        .animate-marquee span {
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+            cursor: default;
+        }
+
+        .animate-marquee span:hover {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+            color: #7ef9ff;
+        }
+
+        /* Button Animations */
+        .btn-magnetic {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .btn-magnetic:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-sweep {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .btn-sweep::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #000;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .btn-sweep:hover::before {
+            transform: scaleX(1);
+        }
+
+        .btn-sweep:hover {
+            color: #ffffff !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: #000;
+        }
+
+        .btn-glow {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4), 0 0 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .btn-glow .arrow {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-glow:hover .arrow {
+            transform: translateX(8px) scale(1.2);
+        }
+    .grainy-gradient-services {
+    background: linear-gradient(135deg, #ffc8bb 0%, #ffb4a3 100%);
+    position: relative
+    }
+.grainy-gradient-services::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDmHaEvjcJ_3YQQLKQf8RWgeOUJ9NEs845g8jo5llWSiC-pLKd-7y2qwvPULMJqyTvOrgVAlnlHGHdoLxYT_ypq6VLM7ru5Xawb6WaGwzcVlb9C2AXmIdvJTyo-BbgtmfHFm98DE4XS2XmLbNtgbfzz25m49XDv4Op0Wbhe_u6TlLW__KGR-kte5qah7Oh6UCJv0498g_SituWsWqHu-LCuxKwGyzZjQThV0rfyTAma6Rb2V2vi-WsQiWUu0WUn_mc01EE5PX69gbA)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+    }
+.grain-texture {
+    position: relative
+    }
+.grain-texture::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuC0u9f_8jPDA4TdwwEEWNIdvfoxzEXfn8xs2JrvFVwnlQItJ8Vrfpd92kVJ7-h1ujjzDa4JAJShemfB665NRGjmigJKn1fDhhCBCs--B8vpXPXAFPtIoQcG8N6ub1Y53_ukkWotMZGg_ObY4MdOEoH1IIiOTzLZ8yQEKLjU6h9ynwb5tTr-Y5SKBb07TRarZ4TF5-txLwt2uhJdJLcwWA6DaYJczdVTpLv0rXsG_Zr6FHw0eUr2jk1CI1YfYPme_Mumkt3_l5HqxNg)
+    }
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem
+    }
+
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grainy-gradient-about {
+            background: linear-gradient(135deg, #ffb4a3 0%, #ffc8bb 100%);
+            position: relative;
+        }
+        .grainy-gradient-about::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Ref%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    
+</style>
+</head>
+
+<body class="bg-background text-on-background font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-black/10">
+        <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-black">BLITZ</a>
+            <div class="hidden md:flex gap-12">
+                <a class="text-black border-b-2 border-black pb-1 font-inter tracking-tighter font-bold uppercase"
+                    href="#home">Home</a>
+                <a class="text-zinc-500 hover:text-black transition-colors font-inter tracking-tighter font-bold uppercase"
+                    href="#services">Services</a>
+                <a class="text-zinc-500 hover:text-black transition-colors font-inter tracking-tighter font-bold uppercase"
+                    href="#projects">Projects</a>
+                <a class="text-zinc-500 hover:text-black transition-colors font-inter tracking-tighter font-bold uppercase"
+                    href="#about">About</a>
+            </div>
+            <a href="#contact"
+                class="hidden md:block bg-primary text-white px-6 py-2 rounded-full font-inter tracking-tighter font-bold uppercase btn-magnetic">
+                CONTACT US
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden text-black"><span
+                    class="material-symbols-outlined text-3xl">menu</span></button>
+        </div>
+        </div>
+    </nav>
+    <div id="mobile-menu"
+        class="fixed inset-0 z-40 bg-zinc-50/95 backdrop-blur-2xl flex flex-col justify-center px-12 transition-all duration-500 opacity-0 pointer-events-none translate-y-8 md:hidden">
+        <div class="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
+            <a href="#home" class="text-black hover:text-primary transition-colors">Home</a>
+            <a href="#services" class="text-zinc-400 hover:text-black transition-colors">Services</a>
+            <a href="#projects" class="text-zinc-400 hover:text-black transition-colors">Projects</a>
+            <a href="#about" class="text-zinc-400 hover:text-black transition-colors">About</a>
+            <a href="#contact" class="text-zinc-400 hover:text-black transition-colors">Contact</a>
+        </div>
+        <div class="text-xs font-bold tracking-widest uppercase text-zinc-500">
+            Inquiries <br>
+            <a href="mailto:hello@blitz.studio" class="text-black text-sm mt-2 block">hello@blitz.studio</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const nav = document.querySelector('nav') || document.querySelector('header');
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    const isOpen = !menu.classList.contains('opacity-0');
+                    if (isOpen) {
+                        menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-8');
+                        menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                        btn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+                        document.body.style.overflow = '';
+                        if (nav) {
+                            nav.classList.remove('bg-white', 'dark:bg-black');
+                            nav.classList.add('bg-white/70');
+                        }
+                    } else {
+                        menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8');
+                        menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                        btn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+                        document.body.style.overflow = 'hidden';
+                        if (nav) {
+                            nav.classList.remove('bg-white/70');
+                            nav.classList.add('bg-white', 'dark:bg-black');
+                        }
+                    }
+                });
+                
+                const links = menu.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (!menu.classList.contains('opacity-0')) {
+                            btn.click();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    <main>
+        <!-- Split Hero Section -->
+        <section id="home" class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto">
+            <div class="grid grid-cols-1 lg:asym-grid-cols gap-12 items-center">
+                <div class="space-y-12">
+                    <h1 class="text-[5rem] md:text-[7rem] leading-[0.9] font-black tracking-[-0.05em] text-primary">
+                        Build software<br />beyond limits
+                    </h1>
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-[1px] bg-primary"></div>
+                        <p class="text-xl max-w-md font-medium text-on-surface-variant">
+                            An architectural approach to digital engineering. We craft high-performance systems for the
+                            next generation of industry leaders.
+                        </p>
+                    </div>
+                </div>
+                <div class="relative h-[600px] rounded-3xl overflow-hidden grainy-gradient border border-outline/20">
+                    <img class="w-full h-full object-cover mix-blend-overlay"
+                        data-alt="abstract 3d geometric shapes floating in a minimalist space with soft peach and blue cinematic lighting and grain texture"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR-XONMeZHvWDhvtS_UgIMpfHKF-cDRV6HWygPFTm4aLoc4rH7WIkZCX7OViskUFtfR2ZR1LHOhkK33wi1aXk7sVN2umQRNcj4SUSQ-yq4LSsxj4tqYnlEdTmMhHWBKD7iDj04ODZp9F0lrdrbg8g8SLSkI3j1tq7LJVveulJve2Iq1O2hatX5OFp1HeyyRTy9kZG0WagedyFiHpmsLwjhFQCO0e8L-OgPNvqzUlk-qCaHNZuwI0oPa0H4hHl1NkjsidHq4PmqJVc" />
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[120px] text-primary/10">deployed_code</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Client Trust Strip -->
+        <section class="py-12 border-y border-black overflow-hidden bg-black text-white">
+            <div class="flex w-max animate-marquee items-center gap-24 opacity-70 px-12">
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+                <span class="text-2xl font-black tracking-widest uppercase">QUANTUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">NEXUS.SYS</span>
+                <span class="text-2xl font-black tracking-widest uppercase">VORTEX</span>
+                <span class="text-2xl font-black tracking-widest uppercase">STRATUM</span>
+                <span class="text-2xl font-black tracking-widest uppercase">ORBITAL</span>
+            </div>
+        </section>
+        <!-- 3-Card Value Grid (Asymmetrical) -->
+        <section class="py-32 px-8 max-w-screen-2xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div
+                    class="md:col-span-7 bg-surface-container-low p-12 rounded-3xl border border-outline-variant/20 flex flex-col justify-between min-h-[400px]">
+                    <span class="material-symbols-outlined text-4xl text-primary">architecture</span>
+                    <div class="space-y-4">
+                        <h3 class="text-3xl font-bold tracking-tight">Technical Rigor</h3>
+                        <p class="text-lg text-on-surface-variant max-w-md">Our engineering process is rooted in
+                            architectural precision, ensuring every line of code serves a strategic purpose in your
+                            growth.</p>
+                    </div>
+                </div>
+                <div
+                    class="md:col-span-5 bg-primary text-white p-12 rounded-3xl flex flex-col justify-between min-h-[400px]">
+                    <span class="material-symbols-outlined text-4xl"
+                        style="font-variation-settings: 'FILL' 1;">bolt</span>
+                    <div class="space-y-4">
+                        <h3 class="text-3xl font-bold tracking-tight">Velocity Focused</h3>
+                        <p class="text-lg opacity-80">We eliminate the friction between concept and deployment. Fast
+                            iterations without compromising structural integrity.</p>
+                    </div>
+                </div>
+                <div
+                    class="md:col-span-12 bg-surface-container-highest p-12 rounded-3xl border border-outline-variant/20 flex items-center justify-between gap-12 group">
+                    <div class="space-y-4">
+                        <h3 class="text-3xl font-bold tracking-tight">The Modular Mindset</h3>
+                        <p class="text-lg text-on-surface-variant max-w-xl">Scalability isn't a feature; it's a
+                            foundation. We build modular systems that evolve as your user base expands into the
+                            millions.</p>
+                    </div>
+                    <div
+                        class="hidden md:block w-40 h-40 grainy-gradient rounded-full border border-primary/10 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="services">
+
+<!-- Hero Section -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-20 md:mb-32">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+<div class="md:col-span-8">
+<span class="inline-block px-3 py-1 bg-surface-container-highest text-black font-bold text-[0.6875rem] uppercase tracking-widest mb-6 rounded-sm">Our Expertise</span>
+<h1 class="text-[3.5rem] md:text-[5rem] font-black leading-[0.9] tracking-[-0.04em] uppercase text-black mb-8">
+                        Capabilities
+                    </h1>
+</div>
+<div class="md:col-span-4 md:pb-4">
+<p class="text-lg leading-relaxed text-zinc-600 max-w-sm">
+                        Architecting digital solutions that bridge the gap between technical rigor and creative expression. We build for the future of the web.
+                    </p>
+</div>
+</div>
+<div class="mt-16 w-full h-[400px] rounded-xl overflow-hidden grayscale contrast-125">
+<img alt="Modern architecture" class="w-full h-full object-cover" data-alt="Interior of a minimalist brutalist concrete building with sharp shadows and bright natural light through high windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRluZFJ4487qBEWJaR_Agsn_PnbVCHHMqHDzTWV1tVq1fic9cDLvK0SZSfbMtIvYO2QxNwp3G-Oz5wYpfx2pSuxFDno-Q7Lm5BVAnDFpf9lRe2YXuF2ZdAarBMxRBu_LB73KJRMhOvXlPE-wwvftn8zDspzdNbP5uytCv7ySeRnWcrMHntcC4iwrTCAZAw8c8coCX0NaU6SCOioB28R20SMqesaLoePIRIcsOAuz9t04hLzIxLi9H3TDeisns6pxJWyfEX95Xvfvw"/>
+</div>
+</section>
+<!-- Service Detail Cards (Bento Grid) -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-32">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Mobile App Development -->
+<div class="md:col-span-2 p-10 bg-surface-container-lowest border border-outline/20 rounded-xl flex flex-col justify-between hover:bg-surface-container transition-colors group">
+<div>
+<span class="material-symbols-outlined text-4xl mb-8 group-hover:scale-110 transition-transform">smartphone</span>
+<h3 class="text-2xl font-bold tracking-tight mb-4 uppercase">Mobile app development</h3>
+<p class="text-zinc-500 mb-8 max-w-md">Native and cross-platform mobile solutions designed for performance and intuitive user journeys.</p>
+</div>
+<ul class="space-y-3 font-bold text-xs uppercase tracking-tighter text-black">
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> iOS &amp; Android Native</li>
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> Flutter &amp; React Native</li>
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> Performance Optimization</li>
+</ul>
+</div>
+<!-- Web App Development -->
+<div class="md:col-span-2 p-10 bg-surface-container-lowest border border-outline/20 rounded-xl flex flex-col justify-between hover:bg-surface-container transition-colors group">
+<div>
+<span class="material-symbols-outlined text-4xl mb-8 group-hover:scale-110 transition-transform">language</span>
+<h3 class="text-2xl font-bold tracking-tight mb-4 uppercase">Web app development</h3>
+<p class="text-zinc-500 mb-8 max-w-md">Scalable, secure, and highly-performant web applications that power modern business operations.</p>
+</div>
+<ul class="space-y-3 font-bold text-xs uppercase tracking-tighter text-black">
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> Progressive Web Apps</li>
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> Interactive Dashboards</li>
+<li class="flex items-center gap-2"><span class="text-[0.5rem] mt-1">●</span> Enterprise Systems</li>
+</ul>
+</div>
+<!-- Small Grid Items -->
+<div class="p-8 bg-surface-container-lowest border border-outline/20 rounded-xl hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-3xl mb-6">desktop_windows</span>
+<h3 class="text-xl font-bold tracking-tight mb-3 uppercase">Desktop apps</h3>
+<p class="text-sm text-zinc-500">Robust desktop solutions for Windows and macOS with native feel.</p>
+</div>
+<div class="p-8 bg-surface-container-lowest border border-outline/20 rounded-xl hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-3xl mb-6">cloud_done</span>
+<h3 class="text-xl font-bold tracking-tight mb-3 uppercase">SaaS Products</h3>
+<p class="text-sm text-zinc-500">Multi-tenant architecture and subscription management platforms.</p>
+</div>
+<div class="p-8 bg-surface-container-lowest border border-outline/20 rounded-xl hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-3xl mb-6">integration_instructions</span>
+<h3 class="text-xl font-bold tracking-tight mb-3 uppercase">Business tools</h3>
+<p class="text-sm text-zinc-500">Custom internal workflows and automation systems.</p>
+</div>
+<div class="p-8 bg-surface-container-lowest border border-outline/20 rounded-xl hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-3xl mb-6">draw</span>
+<h3 class="text-xl font-bold tracking-tight mb-3 uppercase">UI/UX Design</h3>
+<p class="text-sm text-zinc-500">Editorial-grade aesthetics meeting rigorous user experience.</p>
+</div>
+<div class="md:col-span-2 p-10 bg-black text-white rounded-xl flex items-center justify-between overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-2xl font-black uppercase mb-2">Backend/API</h3>
+<p class="text-zinc-400 max-w-xs">The engine room: secure, lightning-fast data architecture.</p>
+</div>
+<span class="material-symbols-outlined text-[10rem] opacity-10 absolute -right-8 -bottom-8">database</span>
+</div>
+<div class="md:col-span-2 p-10 grainy-gradient-services rounded-xl flex items-center justify-between overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-2xl font-black uppercase mb-2 text-on-secondary-container">Support/Maintenance</h3>
+<p class="text-on-secondary-fixed-variant max-w-xs">Ensuring longevity and constant evolution of your product.</p>
+</div>
+<span class="material-symbols-outlined text-[10rem] opacity-20 absolute -right-8 -bottom-8">rebase_edit</span>
+</div>
+</div>
+</section>
+<!-- Engagement Models -->
+<section class="bg-surface-container py-32 px-8">
+<div class="max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+<div class="max-w-xl">
+<h2 class="text-4xl font-black uppercase tracking-tight mb-6">Engagement Models</h2>
+<p class="text-lg text-zinc-600">Flexible partnership structures tailored to the scope and velocity of your vision.</p>
+</div>
+<div class="text-[0.6875rem] font-black uppercase tracking-[0.2em] border-l-2 border-black pl-4">How we work</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="bg-surface-container-lowest p-12 rounded-xl border border-outline/10 flex flex-col justify-between">
+<div>
+<h4 class="text-xl font-bold uppercase mb-4 tracking-tight">Fixed-Price Project</h4>
+<p class="text-zinc-500 mb-10 leading-relaxed">Best for clearly defined requirements. We provide a guaranteed budget and timeline, taking full accountability for the delivery within the agreed scope.</p>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Fixed Budget</li>
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Defined Timeline</li>
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Managed Delivery</li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest p-12 rounded-xl border border-outline/10 flex flex-col justify-between">
+<div>
+<h4 class="text-xl font-bold uppercase mb-4 tracking-tight">Time &amp; Materials</h4>
+<p class="text-zinc-500 mb-10 leading-relaxed">Ideal for agile projects with evolving requirements. Pay for the hours logged by a dedicated team of experts moving at high velocity.</p>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Flexible Scope</li>
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Full Transparency</li>
+<li class="flex items-center gap-4 text-sm font-bold uppercase"><span class="material-symbols-outlined text-xl">check_circle</span> Agile Velocity</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack -->
+<section class="px-8 max-w-screen-2xl mx-auto py-32">
+<h2 class="text-[0.6875rem] font-black uppercase tracking-[0.3em] mb-16 text-center">Engineered with Precision</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-12 gap-y-16">
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">RE</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">React</span>
+</div>
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">FL</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">Flutter</span>
+</div>
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">PY</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">Python</span>
+</div>
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">AW</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">AWS</span>
+</div>
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">GO</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">Golang</span>
+</div>
+<div class="flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center font-black">TS</div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">TypeScript</span>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section class="px-8 max-w-4xl mx-auto py-32 border-t border-outline/10">
+<h2 class="text-4xl font-black uppercase mb-16 tracking-tighter">Frequently Asked</h2>
+<div class="space-y-8">
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center py-4 border-b border-black/10 group-hover:border-black transition-colors">
+<h4 class="text-xl font-bold uppercase tracking-tight">How long does a typical project take?</h4>
+<span class="material-symbols-outlined group-hover:rotate-45 transition-transform">add</span>
+</div>
+<div class="hidden pt-6 text-zinc-600 leading-relaxed">
+                        Project timelines vary based on complexity. A typical MVP ranges from 8 to 14 weeks. Enterprise solutions can span 6 to 12 months with phased releases.
+                    </div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center py-4 border-b border-black/10 group-hover:border-black transition-colors">
+<h4 class="text-xl font-bold uppercase tracking-tight">Do you provide ongoing support?</h4>
+<span class="material-symbols-outlined group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center py-4 border-b border-black/10 group-hover:border-black transition-colors">
+<h4 class="text-xl font-bold uppercase tracking-tight">Can we start with a discovery phase?</h4>
+<span class="material-symbols-outlined group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+<div id="projects">
+
+<!-- Intro Hero Section -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-32">
+<div class="flex flex-col md:flex-row items-end justify-between gap-12">
+<div class="max-w-4xl">
+<span class="text-[0.6875rem] font-bold tracking-widest uppercase text-outline mb-4 block">Portfolio Vol. 04</span>
+<h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] text-primary mb-12">
+                        Selected<br/>Work
+                    </h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<p class="text-xl leading-relaxed text-on-surface-variant font-medium">
+                            We believe code is craft and pixels are poetry. Our philosophy is rooted in structural precision and emotional resonance.
+                        </p>
+<p class="text-lg leading-relaxed text-outline">
+                            Every project is a collaboration in architectural thinking—building digital foundations that stand the test of evolving technology.
+                        </p>
+</div>
+</div>
+<div class="hidden lg:block text-right">
+<span class="material-symbols-outlined text-8xl text-surface-container-highest">architecture</span>
+</div>
+</div>
+</section>
+<!-- Filterable Grid -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-16">
+<div class="flex flex-wrap gap-4 items-center border-b border-outline-variant pb-8">
+<button class="px-6 py-2 rounded-full bg-primary text-white text-[0.6875rem] font-bold uppercase tracking-widest">All Work</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Mobile</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Web</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">SaaS</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant hover:border-primary transition-colors text-[0.6875rem] font-bold uppercase tracking-widest">Desktop</button>
+</div>
+</section>
+<!-- Featured Project Cards -->
+<section class="px-8 max-w-screen-2xl mx-auto space-y-24 mb-40">
+<!-- Project 1: Large Asymmetric -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low grain-texture">
+<div class="aspect-[16/9] overflow-hidden">
+<img alt="SaaS Dashboard Design" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" data-alt="Modern dark themed SaaS dashboard with complex data visualizations and neon blue accent highlights in a clean grid layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCynhPzIb-5s7EcjDdu1XKTTxVl37Yi-DQ4I1ShORTIgvB_x6q0-GC0GrYHmpVsB8CQEO2qVf_Ln6TxJKgTVoGzZVgXIwDsfwaO13-QkUK5JuhoNIAtGIQoF610M1nOR22JfSXdfFYCXqu6KZijl0PwzXjeCLkrIPKDKyx50kWzEQE4HFcg7S2Im4bt7cKnv68jcyPyeJ3pokLEwmxRIcvPZGfyb7jnpKrSr64W5B7FZ42W7IqQZn2rWHsgs88VjzOWMu2QNx872gA"/>
+</div>
+<div class="p-12 flex justify-between items-end">
+<div>
+<span class="text-[0.6875rem] font-bold uppercase tracking-tighter text-secondary mb-2 block">FinTech • SaaS</span>
+<h3 class="text-4xl font-extrabold tracking-tighter">VANTAGE PLATFORM</h3>
+</div>
+<div class="text-right">
+<span class="text-5xl font-black tracking-tighter text-primary">150%</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Growth in UX Retention</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 space-y-6">
+<p class="text-2xl font-bold tracking-tight leading-snug">Architecting the future of institutional trading through minimalist clarity.</p>
+<div class="pt-6 border-t border-outline-variant/30">
+<button class="flex items-center gap-4 group">
+<span class="w-12 h-12 rounded-full border border-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">arrow_outward</span>
+</span>
+<span class="text-[0.6875rem] font-bold uppercase tracking-widest">View Case Study</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project 2: Side by Side -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-secondary-container to-secondary-fixed grain-texture mb-8 relative">
+<img alt="Mobile App Interface" class="absolute inset-12 object-contain drop-shadow-2xl" data-alt="Premium smartphone mockup showing a minimalist lifestyle mobile app with high-end typography and elegant white space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1o6B9nRgTU4LhZGgRGfF-b0qQ3IlwNufZNCVqw2J9oD8fySIK9ENuk7PVb_HnbsZU9TNreTsT48sVSA31jhFTBheQlzlIkruwlmdBwCISBJQjHqIIZV5hPkFXvv-D-vGh-UKCJvVyNVzrmOK_e47tBNXhsuusR4Fsb4lXP0W-gg5SBvyLHqJvTPkDFz3-YcwHeE93U0m9H-NsHyi7MY-tjarVSSu81TD6g-8UvkQwgjwt9555OW4Ywy6B9xnY_d3Tl6BzLWKRTLo"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-extrabold tracking-tighter">LUMINA MOBILE</h3>
+<p class="text-outline">Health &amp; Wellness</p>
+</div>
+<div class="text-right">
+<span class="text-3xl font-bold tracking-tighter">1.2M</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Active Installs</p>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-tertiary-container to-tertiary-fixed grain-texture mb-8 relative">
+<img alt="Web Application" class="absolute inset-12 object-contain drop-shadow-2xl" data-alt="Laptop mockup displaying a sophisticated web architecture interface with clean lines and a professional monochrome palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtL6NvVXnAMo2StRhY4V587sxAjiJDjxJRVlRF-OhwxQc6kzqtLXjr2_pUuFLblZKyj14KuusTL2yVsDaCjzx9AO1x6kQZZaWQWy0VXA7DlgAI1bPKrynkjnLmjpxyIFpua_oFBgxZubFZS6hyZ4qsQ__G18Yu0qpDtbxj6Hsvu2zn6cQi-QamrfI1BFf7cnGpSRrwdW1JyG46wjp_n7Z3PDCcMGeP_bYA-grcp151maz_FuICVG9sJ6gpunoXdclP9BHB76x54ys"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-extrabold tracking-tighter">KINETIC WEB</h3>
+<p class="text-outline">Creative Portfolio</p>
+</div>
+<div class="text-right">
+<span class="text-3xl font-bold tracking-tighter">0.4s</span>
+<p class="text-[0.6875rem] font-bold uppercase text-outline">Load Speed Average</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Section -->
+<section class="bg-primary text-white py-32 grain-texture relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
+<span class="material-symbols-outlined text-[30rem]" style="font-variation-settings: 'wght' 100;">language</span>
+</div>
+<div class="px-8 max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Velocity</span>
+<h2 class="text-7xl font-black tracking-tighter">50+</h2>
+<p class="text-xl text-outline-variant">Digital products engineered from zero to launch.</p>
+</div>
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Impact</span>
+<h2 class="text-7xl font-black tracking-tighter">10M+</h2>
+<p class="text-xl text-outline-variant">Active daily users across our client ecosystem.</p>
+</div>
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-bold uppercase tracking-[0.3em] text-outline-variant">The Reach</span>
+<h2 class="text-7xl font-black tracking-tighter">24</h2>
+<p class="text-xl text-outline-variant">Countries served by our international studio network.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial Strip -->
+<section class="py-32 border-b border-outline-variant/20 overflow-hidden">
+<div class="px-8 max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+<div class="w-full md:w-1/3">
+<span class="material-symbols-outlined text-5xl text-primary mb-6">format_quote</span>
+<h2 class="text-4xl font-extrabold tracking-tighter">Words from the front line.</h2>
+</div>
+<div class="w-full md:w-2/3 border-l border-primary/20 pl-12 py-4">
+<blockquote class="text-3xl font-medium tracking-tight italic mb-8">
+                        "Blitz didn't just design an app; they architected a new category for our brand. Their Swiss-level precision is unmatched in the industry."
+                    </blockquote>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container overflow-hidden">
+<img alt="Client" data-alt="Close-up portrait of a professional male executive in a neutral grey studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoA8B0UgistB-XmD8hkjmZIxEluzaaCDOGSmGY-qhn8w10FZC7_hH7x1ncwxVYZRbENfG6NVInC-6zY63Z8N3dxg3f3oGNce6KQrUHFilh4Fx_q0CEC5_zqK3upLlwM0NUV3ofp_MM-noYUxU7qjURuT9sp943BUkmT7avU_CIn_TAy405s2H8ZceaTsEZFVprmATWIx-GxzLrv69A7cww96PWtPI21Qilm2DXG0BJfqqZ8LO7X22-wnPEUA_gFZmJp3YI1bk90io"/>
+</div>
+<div>
+<p class="font-bold text-sm tracking-tighter">MARCUS CHEN</p>
+<p class="text-[0.6875rem] uppercase text-outline">CTO, AETHER SYSTEMS</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+<div id="about">
+
+<!-- Brand Story Hero -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-32">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-8">
+<span class="label-sm text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-outline mb-6 block">Our Genesis</span>
+<h1 class="text-[3.5rem] font-extrabold tracking-[-0.04em] leading-[1] mb-8 lg:mb-0">
+                        The Alchemy of <br/>
+<span class="text-secondary">Code &amp; Design.</span>
+</h1>
+</div>
+<div class="lg:col-span-4">
+<p class="body-lg text-lg leading-relaxed text-on-surface-variant mb-4">
+                        We don't just build software; we engineer digital legacies. Founded on the principle that technical precision and creative soul are not mutually exclusive, Blitz bridges the gap between the mechanical and the aesthetic.
+                    </p>
+<div class="flex items-center gap-2 text-primary font-bold tracking-tight">
+<span>EST. 2018</span>
+<span class="material-symbols-outlined text-sm">asterisk</span>
+<span>LONDON / NEW YORK</span>
+</div>
+</div>
+</div>
+<div class="mt-20 w-full h-[614px] rounded-xl overflow-hidden relative border border-outline/20">
+<img class="w-full h-full object-cover grayscale brightness-95" data-alt="minimalist architectural office interior with large windows, soft natural light hitting a clean concrete wall, and high-end design furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAETXgvRcIMLewTFzjnKlCDGUBP8Yh4YdkafTVT49uV5fkzf1D3uUmK86PVOW4RcjAGV6GPusjVXiLgG3QKD-spU9NR3HUkAfEiVO4TI6eLnS59IlVm4zKixxmxlmRIyLhNJF5GYXLRsHpT6lHlKFafCyIO9Vx3SQRiJOz13qYScbBIjHwSAlK_Dq54-UcifZpi115495AGgr6IhADGzqtJORIBHt2kXVhGDurAMnyDIEBXzqtgwfEONtPPdj2GbJ9B-op74S4u1Wk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+</section>
+<!-- Mission and Values -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="mb-16">
+<h2 class="text-[1.75rem] font-bold tracking-tight mb-2">Core Philosophy</h2>
+<div class="w-12 h-1 bg-primary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">precision_manufacturing</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Crafted with Precision</h3>
+<p class="text-sm opacity-70">Pixel-perfect execution where every line of code serves a strategic purpose.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">speed</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Built for Scale</h3>
+<p class="text-sm opacity-70">Architectures designed to grow from MVP to global infrastructure without friction.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">palette</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Creative Integrity</h3>
+<p class="text-sm opacity-70">We believe functional tools should be objects of beauty and joy.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container-low border border-outline-variant/30 rounded-xl flex flex-col justify-between aspect-square group hover:bg-black hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl group-hover:text-secondary-fixed transition-colors">all_inclusive</span>
+<div>
+<h3 class="title-sm text-base font-semibold mb-2">Continuous Evolution</h3>
+<p class="text-sm opacity-70">The landscape shifts daily; our engineering mindset is perpetually adaptive.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="bg-surface-container py-32 mb-40">
+<div class="px-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+<h2 class="text-[3.5rem] font-extrabold tracking-[-0.04em] leading-tight">The Minds Behind <br/>the Machine.</h2>
+<p class="max-w-md body-lg text-on-surface-variant">A curated collective of engineers, designers, and strategists obsessed with the details most people ignore.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Team Member 1 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a confident creative director, modern haircut, wearing black turtleneck against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcut7qF_l1x9q1nu8RO4iu6E0Y_xEPV8clnQ4a8jjqyD67yBbKgO3M0WQmrva0f6eVfXY-46Edu4bFnYNFKulAd9pEDuwy1q9bVi7OaRIX2i3RnlIwuIqqpv23AyrmzzJ7zWSsxxS5tDYTwmJywhPIbN4sqv734jQ4IGLCmRjtGXeFIPBZFVLLBlsRP8Siod6GR8yfvM3k1ZLk6uYv97px6pt3jfQiQawxALXVdWn6NWB7ezWqP460L7cJiTi2u1wbZrTSWg1yDTg"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Marcus Thorne</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Founding Partner</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a female software architect, professional look, modern glasses, smiling slightly in a bright minimalist office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYMGHacifWLl5PxxZJ-Ia_7SboFJvoDrrXX8a1ln6Ljbl552EvJA8yRctNXUgQ92nQVowOBXjlzHH9WuhC4F__PDkCiVflpLuaWcR4dQ4w7h1c-IwUyumbkIyYYWbXMWE8c-7-2bwd95CRQO1Oj4W5YHxfq199emUnpJvJpT2n3i5QbSjWED7rVTW2X93FsQb0gkbHHvskJWkTOiZMMzEc45QTK15ap9BDEEMLbpKJ9k8V5P4zVZ1_XWkAlzHix4yco6fzK225mEg"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Elena Vance</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Head of Engineering</p>
+</div>
+<!-- Team Member 3 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a young designer, artistic style, wearing a denim jacket, neutral urban background, soft side lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEW4zYR_hc49N93jZ8BsTzLZuB5ZuS1dOKvOQI7gnZyIz7SWJWNX1p_JFeDowaptRJ9Syqr8uZpi5RRT1iKbT7oE7c_QOcyEzDsRSp89QeHEelrrYFjux5lavmavIImFahj7JJ_PUgT5v897uqR92_enoDQ8jf2R9DO7yqWyatTS1gbi-sorFs9QpZMEBpMsp4tCbVME6amKV135Q5UD-0eBlGqS05XYb1tWsZrW57-xTO1y6PS7C-Y4bp87mMKXsLQ-rpszCpCBQ"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Julian Baek</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Design Director</p>
+</div>
+<!-- Team Member 4 -->
+<div class="group">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4 border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="portrait of a woman in business attire, confident expression, soft natural window light, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH52QejGmo5uxPoy643yvVJAGPRe_Fb0_YyNvNsRi3zyP1UWWpUb0RrITysfvRfvC3qzitKjikSIhZAw34V5He60mokq2luXL2Ewffmn7WgmNJ9JpiiqiFmKrakVQnK_TzCY40sQlKH4gqn6Ui5NfZT9sDeW3VLrfsaQEABM7cQAhTL077vhlBLxOep_1kVe4GxiNen12XifzaJ7lIYgRWZ6PrkScv3u2WJDC1fvj6pk-xN9DQzr2KMUFLUZXRT4VZT6U73m_6ayo"/>
+<div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="title-sm font-bold uppercase tracking-tight">Sonia Park</h4>
+<p class="text-[0.6875rem] font-bold text-outline uppercase tracking-widest">Strategy Lead</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Philosophy (Bento) -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="mb-16 flex justify-between items-baseline border-b border-black/5 pb-8">
+<h2 class="text-[1.75rem] font-bold tracking-tight">Process Philosophy</h2>
+<span class="label-sm text-outline">METHODOLOGY 1.0</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+<!-- Step 1 -->
+<div class="md:col-span-3 lg:col-span-2 p-10 bg-white border border-outline-variant/30 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-4xl font-black text-secondary/20 mb-6 block">01</span>
+<h3 class="text-xl font-bold mb-4">Discovery &amp; Audit</h3>
+<p class="text-on-surface-variant text-sm">We peel back the layers of your business to find the hidden friction points and untapped opportunities.</p>
+</div>
+<div class="absolute -bottom-8 -right-8 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[8rem]">search</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="md:col-span-3 lg:col-span-4 p-10 grainy-gradient-about rounded-xl border border-black/5 flex items-center justify-between group">
+<div class="max-w-md">
+<span class="text-4xl font-black text-secondary/40 mb-6 block">02</span>
+<h3 class="text-2xl font-bold mb-4">Architectural Design</h3>
+<p class="text-secondary/80 text-base font-medium">Drafting the blueprints of a scalable ecosystem. This isn't just UX; it's structural integrity for the digital age.</p>
+</div>
+<div class="hidden lg:block">
+<span class="material-symbols-outlined text-[10rem] text-secondary/20 font-thin">architecture</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="md:col-span-4 p-10 bg-black text-white rounded-xl flex items-center gap-12 group">
+<div class="hidden md:block">
+<div class="w-32 h-32 border border-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-5xl">terminal</span>
+</div>
+</div>
+<div>
+<span class="text-4xl font-black text-white/20 mb-6 block">03</span>
+<h3 class="text-2xl font-bold mb-4">Rapid Engineering</h3>
+<p class="text-white/60 text-base">Moving from prototype to production with zero compromise. We ship clean, documented, and resilient codebases.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="md:col-span-2 p-10 bg-white border border-outline-variant/30 rounded-xl group relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-4xl font-black text-secondary/20 mb-6 block">04</span>
+<h3 class="text-xl font-bold mb-4">Continuous Evolution</h3>
+<p class="text-on-surface-variant text-sm">Launch is just the beginning. We optimize, iterate, and protect your digital assets as they grow.</p>
+</div>
+<div class="absolute -top-10 -right-10 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[10rem]">auto_awesome</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Milestones / Timeline -->
+<section class="px-8 max-w-screen-2xl mx-auto mb-40">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+<div class="lg:col-span-4">
+<h2 class="text-4xl font-black tracking-tighter uppercase mb-6">Our Journey <br/>So Far.</h2>
+<p class="text-on-surface-variant">Defining moments that shaped our trajectory from a small London studio to an international tech partner.</p>
+</div>
+<div class="lg:col-span-8 space-y-12">
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2018</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">Inception</h4>
+<p class="text-on-surface-variant leading-relaxed">Blitz Studio is established in a small warehouse in East London with a team of three and a vision for 'Technical Craft'.</p>
+</div>
+</div>
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2020</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">The Pivot to Scale</h4>
+<p class="text-on-surface-variant leading-relaxed">Launched our first enterprise-grade fintech platform, proving that editorial design could thrive in complex regulated environments.</p>
+</div>
+</div>
+<div class="flex gap-10 border-b border-black/5 pb-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2022</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">Global Expansion</h4>
+<p class="text-on-surface-variant leading-relaxed">Opened our New York hub and expanded the team to 25 specialists across design, dev-ops, and AI strategy.</p>
+</div>
+</div>
+<div class="flex gap-10 group">
+<div class="text-3xl font-black tracking-tighter text-outline group-hover:text-black transition-colors">2024</div>
+<div class="flex-1">
+<h4 class="text-xl font-bold mb-2">The AI Paradigm</h4>
+<p class="text-on-surface-variant leading-relaxed">Integrating generative intelligence into our core architectural design workflow, redefining speed-to-market for our partners.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+<!-- Final CTA Section -->
+        <section id="contact" class="py-40 px-8 max-w-screen-2xl mx-auto">
+            <div
+                class="grainy-gradient rounded-[3rem] p-16 md:p-32 flex flex-col md:flex-row items-center justify-between gap-12 border border-outline-variant/30 overflow-hidden relative">
+                <div class="relative z-10 max-w-2xl">
+                    <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-primary">Start a<br />project.
+                    </h2>
+                    <p class="text-xl font-medium mb-12 opacity-80 max-w-md">Ready to build something that lasts? Let's
+                        discuss your architectural needs today.</p>
+                    <button
+                        class="bg-primary text-white text-xl px-12 py-6 rounded-full font-black tracking-tighter btn-glow flex items-center gap-4">
+                        GET IN TOUCH <span class="material-symbols-outlined arrow">arrow_forward</span>
+                    </button>
+                </div>
+                <div class="absolute -right-20 -bottom-20 opacity-10">
+                    <span class="material-symbols-outlined text-[400px]">language</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-zinc-50 border-t border-black/5 rounded-t-3xl mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-20 max-w-screen-2xl mx-auto">
+            <div class="md:col-span-2">
+                <a href="index.html" class="text-4xl font-black tracking-tighter text-black mb-8">BLITZ</a>
+                <p class="text-zinc-600 max-w-sm font-inter text-base tracking-tight mb-8">
+                    An editorial software studio. Crafting digital futures through structural precision and
+                    high-fidelity engineering.
+                </p>
+                <div class="flex gap-4">
+                    <span
+                        class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">𝕏</span>
+                    <span
+                        class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">in</span>
+                    <span
+                        class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">ig</span>
+                </div>
+            </div>
+            <div>
+                <h6 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-zinc-400">Navigation</h6>
+                <ul class="space-y-4 font-inter text-base tracking-tight">
+                    <li><a class="text-black font-bold hover:underline decoration-1 underline-offset-4"
+                            href="#services">Services</a></li>
+                    <li><a class="text-zinc-600 hover:underline decoration-1 underline-offset-4"
+                            href="#projects">Projects</a></li>
+                    <li><a class="text-zinc-600 hover:underline decoration-1 underline-offset-4"
+                            href="#about">About</a></li>
+                    <li><a class="text-zinc-600 hover:underline decoration-1 underline-offset-4"
+                            href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-zinc-400">Legal</h6>
+                <ul class="space-y-4 font-inter text-base tracking-tight">
+                    <li><a class="text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">Privacy</a>
+                    </li>
+                    <li><a class="text-zinc-600 hover:underline decoration-1 underline-offset-4" href="#">Terms</a></li>
+                </ul>
+                <div class="mt-12 text-zinc-500 text-xs">
+                    © 2024 BLITZ STUDIO. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
