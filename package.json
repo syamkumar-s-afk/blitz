@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@remotion/player": "^4.0.448",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "lucide-react": "^1.8.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.448",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -28,6 +33,8 @@
     "globals": "^17.4.0",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19",
-    "vite": "^8.0.1"
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "vite-tsconfig-paths": "^6.1.1"
   }
 }
