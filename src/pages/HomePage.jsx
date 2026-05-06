@@ -12,10 +12,12 @@ import {
   Testimonials,
   ValueProps,
 } from '../components';
+import MobileAdPopup from '../components/ui/MobileAdPopup';
 
 export default function HomePage() {
   return (
     <main>
+      <MobileAdPopup />
       <Hero />
       <ClientStrip />
       <ValueProps />

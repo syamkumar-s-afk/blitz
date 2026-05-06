@@ -116,7 +116,7 @@ export default function Navbar() {
         </div>
         <div className="text-xs font-bold tracking-widest uppercase text-zinc-500">
           Inquiries <br/>
-          <a href="mailto:hello@blitz.studio" className="text-black text-sm mt-2 block">hello@blitz.studio</a>
+          <a href="mailto:blitzsolutions.dev@gmail.com" className="text-black text-sm mt-2 block">blitzsolutions.dev@gmail.com</a>
         </div>
       </div>
     </>
