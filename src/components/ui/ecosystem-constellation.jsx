@@ -1,21 +1,6 @@
-"use client";
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
-import type { ComponentType } from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-
-export interface EcosystemConstellationProps {
-  satelliteCount?: number;
-  centerLabel?: string;
-  accentColor?: string;
-  speed?: number;
-  className?: string;
-}
-
-const FONT_FAMILY =
-  "var(--font-geist-sans), -apple-system, BlinkMacSystemFont, sans-serif";
-
-// Inline brand mark components — stylized for demo identification, drawn from
-// primitive SVG shapes only so the component stays self-contained.
+const FONT_FAMILY = 'Inter, -apple-system, BlinkMacSystemFont, sans-serif';
 
 function GitHubMark() {
   return (
@@ -118,91 +103,75 @@ function DiscordMark() {
   );
 }
 
-interface SatelliteBrand {
-  Logo: ComponentType;
-  bg: string;
-}
-
-const SATELLITE_BRANDS: SatelliteBrand[] = [
-  { Logo: GitHubMark, bg: "#1f1f23" },
-  { Logo: VercelMark, bg: "#0a0a0a" },
-  { Logo: StripeMark, bg: "#635bff" },
-  { Logo: SlackMark, bg: "#1a1d21" },
-  { Logo: LinearMark, bg: "#5e6ad2" },
-  { Logo: FigmaMark, bg: "#1e1e1e" },
-  { Logo: NotionMark, bg: "#1a1a1a" },
-  { Logo: DiscordMark, bg: "#5865f2" },
+const SATELLITE_BRANDS = [
+  { Logo: GitHubMark, bg: '#1f1f23' },
+  { Logo: VercelMark, bg: '#0a0a0a' },
+  { Logo: StripeMark, bg: '#635bff' },
+  { Logo: SlackMark, bg: '#1a1d21' },
+  { Logo: LinearMark, bg: '#5e6ad2' },
+  { Logo: FigmaMark, bg: '#1e1e1e' },
+  { Logo: NotionMark, bg: '#1a1a1a' },
+  { Logo: DiscordMark, bg: '#5865f2' },
 ];
 
 export function EcosystemConstellation({
   satelliteCount = 6,
-  centerLabel = "V",
-  accentColor = "#a855f7",
+  centerLabel = 'V',
+  accentColor = '#a855f7',
   speed = 1,
   className,
-}: EcosystemConstellationProps) {
+}) {
   const frame = useCurrentFrame() * speed;
   const { fps } = useVideoConfig();
 
-  const count = Math.max(
-    3,
-    Math.min(SATELLITE_BRANDS.length, Math.floor(satelliteCount)),
-  );
-
-  // Center pulse (0..1)
+  const count = Math.max(3, Math.min(SATELLITE_BRANDS.length, Math.floor(satelliteCount)));
   const pulse = (Math.sin(frame / 12) + 1) / 2;
   const centerScale = 1 + pulse * 0.06;
 
-  // Geometry
   const cx = 640;
   const cy = 360;
   const baseRadiusX = 230;
   const baseRadiusY = 180;
-  const offscreenRadius = 1200; // 150% of width
+  const offscreenRadius = 1200;
 
-  // Per-satellite assembly spring (staggered)
-  const satellites = Array.from({ length: count }).map((_, i) => {
-    const stagger = i * 4;
-    const sp = spring({
+  const satellites = Array.from({ length: count }).map((_, index) => {
+    const stagger = index * 4;
+    const assemblySpring = spring({
       frame: frame - stagger,
       fps,
       config: { mass: 1.1, damping: 16, stiffness: 70 },
       durationInFrames: 50,
     });
-    const radiusFactor = interpolate(sp, [0, 1], [offscreenRadius, 1]);
+    const radiusFactor = interpolate(assemblySpring, [0, 1], [offscreenRadius, 1]);
 
-    // Slight elliptical variation per satellite
-    const orbitOffset = i * 22;
-    const rX = baseRadiusX + orbitOffset;
-    const rY = baseRadiusY + orbitOffset * 0.7;
-    // Different angular speed per orbit (slower for outer)
-    const angularSpeed = 0.012 - i * 0.0008;
-    const baseAngle = (i / count) * Math.PI * 2;
+    const orbitOffset = index * 22;
+    const radiusX = baseRadiusX + orbitOffset;
+    const radiusY = baseRadiusY + orbitOffset * 0.7;
+    const angularSpeed = 0.012 - index * 0.0008;
+    const baseAngle = (index / count) * Math.PI * 2;
     const angle = baseAngle + frame * angularSpeed;
 
-    // Use radiusFactor as a multiplier on the orbit radius
-    const x = cx + Math.cos(angle) * rX * radiusFactor;
-    const y = cy + Math.sin(angle) * rY * radiusFactor;
+    const x = cx + Math.cos(angle) * radiusX * radiusFactor;
+    const y = cy + Math.sin(angle) * radiusY * radiusFactor;
 
-    // Data pulse: which satellite is currently "firing"
     const activeIdx = Math.floor(frame / 30) % count;
-    const isActive = activeIdx === i;
-    // Within the active 30-frame window, fade the line in/out
+    const isActive = activeIdx === index;
     const localFrame = frame - Math.floor(frame / 30) * 30;
     const lineOpacity = isActive
       ? interpolate(localFrame, [0, 8, 22, 30], [0.15, 0.9, 0.9, 0.15], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
         })
       : 0.15;
     const satScale = isActive
       ? interpolate(localFrame, [0, 8, 22, 30], [1, 1.1, 1.1, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
         })
       : 1;
 
-    const brand = SATELLITE_BRANDS[i % SATELLITE_BRANDS.length];
+    const brand = SATELLITE_BRANDS[index % SATELLITE_BRANDS.length];
+
     return {
       x,
       y,
@@ -210,7 +179,7 @@ export function EcosystemConstellation({
       color: brand.bg,
       lineOpacity,
       satScale,
-      visible: sp > 0.02,
+      visible: assemblySpring > 0.02,
     };
   });
 
@@ -218,11 +187,10 @@ export function EcosystemConstellation({
     <div
       className={className}
       style={{
-        position: "absolute",
+        position: 'absolute',
         inset: 0,
-        overflow: "hidden",
-        background:
-          "radial-gradient(ellipse at center, #14101e 0%, #05030a 75%)",
+        overflow: 'hidden',
+        background: 'radial-gradient(ellipse at center, #14101e 0%, #05030a 75%)',
         fontFamily: FONT_FAMILY,
       }}
     >
@@ -230,44 +198,29 @@ export function EcosystemConstellation({
         width="100%"
         height="100%"
         viewBox="0 0 1280 720"
-        style={{ position: "absolute", inset: 0 }}
+        style={{ position: 'absolute', inset: 0 }}
       >
-        {/* Connection lines */}
-        {satellites.map((s, i) => (
+        {satellites.map((satellite, index) => (
           <line
-            key={`line-${i}`}
+            key={`line-${index}`}
             x1={cx}
             y1={cy}
-            x2={s.x}
-            y2={s.y}
+            x2={satellite.x}
+            y2={satellite.y}
             stroke={accentColor}
             strokeWidth={2}
             strokeLinecap="round"
-            opacity={s.visible ? s.lineOpacity : 0}
+            opacity={satellite.visible ? satellite.lineOpacity : 0}
           />
         ))}
 
-        {/* Center glow */}
-        <circle
-          cx={cx}
-          cy={cy}
-          r={70 + pulse * 8}
-          fill={accentColor}
-          opacity={0.12}
-        />
-        <circle
-          cx={cx}
-          cy={cy}
-          r={50 + pulse * 4}
-          fill={accentColor}
-          opacity={0.2}
-        />
+        <circle cx={cx} cy={cy} r={70 + pulse * 8} fill={accentColor} opacity={0.12} />
+        <circle cx={cx} cy={cy} r={50 + pulse * 4} fill={accentColor} opacity={0.2} />
       </svg>
 
-      {/* Center logo */}
       <div
         style={{
-          position: "absolute",
+          position: 'absolute',
           left: cx,
           top: cy,
           width: 96,
@@ -276,45 +229,45 @@ export function EcosystemConstellation({
           marginTop: -48,
           borderRadius: 24,
           background: `linear-gradient(180deg, ${accentColor} 0%, ${accentColor}cc 100%)`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
           fontWeight: 800,
           fontSize: 52,
-          letterSpacing: "-0.05em",
+          letterSpacing: '-0.05em',
           transform: `scale(${centerScale})`,
           boxShadow: `0 0 60px ${accentColor}66, inset 0 1px 0 rgba(255,255,255,0.3)`,
-          border: "1px solid rgba(255,255,255,0.15)",
+          border: '1px solid rgba(255,255,255,0.15)',
         }}
       >
         {centerLabel}
       </div>
 
-      {/* Satellites */}
-      {satellites.map((s, i) => {
-        const Logo = s.Logo;
+      {satellites.map((satellite, index) => {
+        const Logo = satellite.Logo;
+
         return (
           <div
-            key={`sat-${i}`}
+            key={`sat-${index}`}
             style={{
-              position: "absolute",
-              left: s.x,
-              top: s.y,
+              position: 'absolute',
+              left: satellite.x,
+              top: satellite.y,
               width: 56,
               height: 56,
               marginLeft: -28,
               marginTop: -28,
               borderRadius: 14,
-              background: `linear-gradient(180deg, ${s.color} 0%, ${s.color}dd 100%)`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transform: `scale(${s.satScale})`,
-              boxShadow: `0 8px 30px ${s.color}66, inset 0 1px 0 rgba(255,255,255,0.18)`,
-              border: "1px solid rgba(255,255,255,0.12)",
-              opacity: s.visible ? 1 : 0,
-              willChange: "transform",
+              background: `linear-gradient(180deg, ${satellite.color} 0%, ${satellite.color}dd 100%)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transform: `scale(${satellite.satScale})`,
+              boxShadow: `0 8px 30px ${satellite.color}66, inset 0 1px 0 rgba(255,255,255,0.18)`,
+              border: '1px solid rgba(255,255,255,0.12)',
+              opacity: satellite.visible ? 1 : 0,
+              willChange: 'transform',
             }}
           >
             <Logo />

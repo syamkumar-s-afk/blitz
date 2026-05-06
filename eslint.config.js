@@ -10,7 +10,7 @@ export default defineConfig([
     '_legacy_html/**',
     'tailwind.config.js',
     'postcss.config.js',
-    'vite.config.js',
+    'vite.config.ts',
   ]),
   {
     files: ['**/*.{js,jsx}'],

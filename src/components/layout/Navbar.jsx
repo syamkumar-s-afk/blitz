@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const navLinks = [
   { href: '#home', label: 'Home' },
@@ -10,6 +11,9 @@ const navLinks = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const currentSection = isHomePage ? activeSection : '';
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -23,6 +27,10 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (!isHomePage) {
+      return undefined;
+    }
+
     const sections = navLinks.map(link => document.querySelector(link.href));
     
     const observer = new IntersectionObserver(
@@ -45,17 +53,17 @@ export default function Navbar() {
         if (section) observer.unobserve(section);
       });
     };
-  }, []);
+  }, [isHomePage]);
 
   return (
     <>
       <nav className={`fixed top-0 w-full z-50 transition-colors ${isMenuOpen ? 'bg-zinc-50 dark:bg-zinc-950' : 'bg-white/70 backdrop-blur-xl border-b border-black/10'}`}>
         <div className="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
-          <a href="#home" className="text-2xl font-black tracking-tighter text-black uppercase">BLITZ</a>
+          <a href="/#home" className="text-2xl font-black tracking-tighter text-black uppercase">BLITZ</a>
           <div className="hidden md:flex gap-8 items-center">
             {navLinks.map(({ href, label }) => {
               const sectionId = href.replace('#', '');
-              const isActive = activeSection === sectionId;
+              const isActive = currentSection === sectionId;
               return (
                 <a
                   key={href}
@@ -64,17 +72,22 @@ export default function Navbar() {
                       ? 'text-black border-b-2 border-black pb-1'
                       : 'text-zinc-500 hover:text-black'
                   }`}
-                  href={href}
+                  href={`/${href}`}
                 >
                   {label}
                 </a>
               );
             })}
           </div>
-          <a href="#contact" className="hidden md:block font-inter tracking-tighter font-bold uppercase px-6 py-2 bg-primary text-white rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200">
+          <a href="/#contact" className="hidden md:block font-inter tracking-tighter font-bold uppercase px-6 py-2 bg-primary text-white rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200">
             CONTACT US
           </a>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-black z-50 relative">
+          <button
+            type="button"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden text-black z-50 relative"
+          >
             <span className="material-symbols-outlined text-3xl">{isMenuOpen ? 'close' : 'menu'}</span>
           </button>
         </div>
@@ -85,11 +98,11 @@ export default function Navbar() {
         <div className="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
           {navLinks.map(({ href, label }) => {
             const sectionId = href.replace('#', '');
-            const isActive = activeSection === sectionId;
+            const isActive = currentSection === sectionId;
             return (
               <a
                 key={href}
-                href={href}
+                href={`/${href}`}
                 onClick={closeMenu}
                 className={`transition-colors ${
                   isActive ? 'text-black hover:text-primary' : 'text-zinc-400 hover:text-black'
@@ -99,7 +112,7 @@ export default function Navbar() {
               </a>
             );
           })}
-          <a href="#contact" onClick={closeMenu} className="text-zinc-400 hover:text-black transition-colors">Contact</a>
+          <a href="/#contact" onClick={closeMenu} className="text-zinc-400 hover:text-black transition-colors">Contact</a>
         </div>
         <div className="text-xs font-bold tracking-widest uppercase text-zinc-500">
           Inquiries <br/>

@@ -13,7 +13,7 @@ const stats = [
 
 export default function KPISection() {
   return (
-    <section className="bg-primary text-white py-32 grain-texture relative overflow-hidden">
+    <section className="bg-primary text-white py-20 md:py-32 grain-texture relative overflow-hidden">
       <div className="absolute top-0 right-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
         <span
           className="material-symbols-outlined text-[30rem]"

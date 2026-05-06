@@ -13,9 +13,9 @@ const engagementModels = [
 
 export default function EngagementModels() {
   return (
-    <section className="bg-surface-container py-32 px-8">
+    <section className="bg-surface-container py-20 md:py-32 px-8">
       <div className="max-w-screen-2xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-8">
           <div className="max-w-xl">
             <h2 className="text-4xl font-black uppercase tracking-tight mb-6">Engagement Models</h2>
             <p className="text-lg text-zinc-600">Flexible partnership structures tailored to the scope and velocity of your vision.</p>

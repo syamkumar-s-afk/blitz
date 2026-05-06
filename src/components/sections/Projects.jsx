@@ -1,87 +1,74 @@
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-import AnimatedSection, { AnimatedItem } from "../ui/AnimatedSection";
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FiArrowUpRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import AnimatedSection, { AnimatedItem } from '../ui/AnimatedSection';
+import { projectCategories, projects } from '../../data/projects';
 
-const projects = [
-  {
-    type: "featured",
-    image: "https://dental-henna-one.vercel.app/assets/hero_background.png",
-    category: "Healthcare • Dental",
-    title: "AURA DENTAL",
-    description:
-      "Premium dental care experience combining advanced technology with gentle patient-centered approach.",
-    metric: "500",
-    metricLabel: "Happy Patients",
-    website: "https://dental-henna-one.vercel.app/",
-    tags: ["Healthcare", "Web"],
-  },
-  {
-    type: "regular",
-    image: "/images/lumina-mobile.png",
-    title: "LUMINA MOBILE",
-    category: "Health & Wellness",
-    metric: "1.2M",
-    metricLabel: "Active Installs",
-    gradient: "from-secondary-container to-secondary-fixed",
-    tags: ["Mobile"],
-  },
-  {
-    type: "regular",
-    image: "/images/creativepluz.png",
-    title: "CREATIVEPLUZ",
-    category: "Personal / Professional Portfolios",
-    metric: "2013",
-    metricLabel: "Year Established",
-    website: "https://creativepluz-gamma.vercel.app/",
-    gradient: "from-tertiary-container to-tertiary-fixed",
-    tags: ["Web"],
-  },
-];
+const MotionDiv = motion.div;
+const MotionImage = motion.img;
 
-const filters = ["All Work", "Mobile", "Web", "SaaS", "Desktop"];
+function ProjectAction({ project }) {
+  if (project.action.type === 'demo') {
+    return (
+      <a
+        href={project.action.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-zinc-800"
+      >
+        <FiArrowUpRight aria-hidden="true" />
+        {project.action.label}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      to={`/projects/${project.slug}`}
+      className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] font-bold uppercase tracking-[0.18em] text-black transition-colors hover:bg-zinc-50"
+    >
+      {project.action.label}
+    </Link>
+  );
+}
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("All Work");
+  const [activeFilter, setActiveFilter] = useState('All Work');
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "All Work") {
+    if (activeFilter === 'All Work') {
       return projects;
     }
+
     return projects.filter((project) => project.tags?.includes(activeFilter));
   }, [activeFilter]);
+
+  const featuredProjects = filteredProjects.filter((project) => project.type === 'featured');
+  const regularProjects = filteredProjects.filter((project) => project.type === 'regular');
+
   return (
     <div id="projects" className="scroll-mt-24">
-      {/* Intro Hero Section */}
-      <section className="px-8 max-w-screen-2xl mx-auto mb-32">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-12">
-          <div className="max-w-4xl">
+      <section className="px-5 md:px-8 max-w-screen-2xl mx-auto mb-8 md:mb-16">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-8">
+          <div className="max-w-2xl">
             <AnimatedSection variant="fadeInUp">
-              <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-outline mb-4 block">
-                Our Projects
+              <span className="text-[0.625rem] md:text-[0.6875rem] font-bold tracking-widest uppercase text-outline mb-3 md:mb-4 block">
+                Selected Work
               </span>
-              <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] text-primary mb-12">
-                Our
-                <br />
-                Work
+              <h1 className="text-[34px] leading-[34px] md:text-[72px] md:leading-[72px] font-extrabold tracking-[-0.05em] text-primary mb-4 md:mb-6">
+                Projects
               </h1>
             </AnimatedSection>
             <AnimatedSection variant="fadeInUp" delay={0.2}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <p className="text-xl leading-relaxed text-on-surface-variant font-medium">
-                  We believe code is craft and pixels are poetry. Our philosophy
-                  is rooted in structural precision and emotional resonance.
-                </p>
-                <p className="text-lg leading-relaxed text-outline">
-                  Every project is a collaboration in architectural
-                  thinking—building digital foundations that stand the test of
-                  evolving technology.
-                </p>
-              </div>
+              <p className="max-w-xl text-[14px] leading-6 md:text-[18px] md:leading-[30px] font-medium text-zinc-600">
+                A tighter project system built to support demos now and detailed case-study pages as the portfolio grows.
+              </p>
             </AnimatedSection>
           </div>
           <AnimatedSection variant="scaleIn" delay={0.3}>
             <div className="hidden lg:block text-right">
-              <span className="material-symbols-outlined text-8xl text-surface-container-highest">
+              <span className="material-symbols-outlined text-7xl text-surface-container-highest">
                 architecture
               </span>
             </div>
@@ -89,151 +76,191 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* Featured Project Cards */}
-      <section className="px-8 max-w-screen-2xl mx-auto space-y-24 mb-40">
-        {/* Featured Project */}
-        {filteredProjects
-          .filter((p) => p.type === "featured")
-          .map((project, index) => (
-            <AnimatedSection key={index} variant="fadeInUp">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <a
-                  href={project.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="md:col-span-8"
+      <section className="px-5 md:px-8 max-w-screen-2xl mx-auto mb-6 md:mb-12">
+        <div className="flex flex-wrap gap-2 md:gap-3">
+          {projectCategories.map((filter) => {
+            const isActive = filter === activeFilter;
+
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                className={`rounded-full px-4 py-2.5 md:px-5 md:py-3 text-[11px] md:text-sm font-bold uppercase tracking-[0.18em] md:tracking-widest transition-colors ${
+                  isActive ? 'bg-black text-white' : 'bg-surface-container text-zinc-600 hover:text-black'
+                }`}
+              >
+                {filter}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="px-5 max-w-screen-2xl mx-auto mb-12 md:hidden">
+        <div className="grid grid-cols-2 gap-3">
+          {filteredProjects.map((project) => (
+            <AnimatedSection key={`${project.slug}-mobile`} variant="fadeInUp">
+              <div className="h-full overflow-hidden rounded-[1.15rem] border border-black/8 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+                <div
+                  className={`aspect-[4/4.6] overflow-hidden bg-gradient-to-br ${
+                    project.gradient || 'from-zinc-100 to-zinc-200'
+                  } grain-texture`}
                 >
-                  <motion.div
-                    className="group cursor-pointer overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low grain-texture"
-                    whileHover={{ y: -8 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="aspect-[16/9] overflow-hidden">
-                      <motion.img
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-all duration-700"
-                        src={project.image}
-                      />
-                    </div>
-                    <div className="p-12 flex justify-between items-end">
-                      <div>
-                        <span className="text-[0.6875rem] font-bold uppercase tracking-tighter text-secondary mb-2 block">
-                          {project.category}
-                        </span>
-                        <h3 className="text-4xl font-extrabold tracking-tighter">
-                          {project.title}
-                        </h3>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-5xl font-black tracking-tighter text-primary">
-                          {project.metric}
-                        </span>
-                        <p className="text-[0.6875rem] font-bold uppercase text-outline">
-                          {project.metricLabel}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </a>
-                <div className="md:col-span-4 space-y-6">
-                  <p className="text-2xl font-bold tracking-tight leading-snug">
-                    {project.description}
+                  <MotionImage
+                    alt={project.title}
+                    className="h-full w-full object-cover"
+                    src={project.image}
+                  />
+                </div>
+
+                <div className="p-3.5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[0.55rem] font-bold uppercase tracking-[0.16em] text-zinc-400">
+                      {project.category}
+                    </span>
+                    <span className="rounded-full bg-surface-container-low px-2 py-1 text-[0.5rem] font-bold uppercase tracking-[0.14em] text-zinc-500">
+                      {project.tags[0]}
+                    </span>
+                  </div>
+
+                  <h3 className="text-[1rem] leading-[1.1] font-black tracking-[-0.04em] text-black">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 min-h-[3.75rem] text-[0.74rem] leading-5 text-zinc-600">
+                    {project.summary}
                   </p>
-                  <div className="pt-6 border-t border-outline-variant/30">
-                    <a
-                      href={project.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-4 group no-underline"
-                    >
-                      <motion.span
-                        className="w-12 h-12 rounded-full border border-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all"
-                        whileHover={{ scale: 1.1, rotate: 45 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <span className="material-symbols-outlined">
-                          arrow_outward
-                        </span>
-                      </motion.span>
-                      <span className="text-[0.6875rem] font-bold uppercase tracking-widest">
-                        Open Website
-                      </span>
-                    </a>
+
+                  <div className="mt-3 pt-3 border-t border-black/6">
+                    <span className="text-[0.52rem] font-bold uppercase tracking-[0.16em] text-outline">
+                      Outcome
+                    </span>
+                    <p className="mt-1 min-h-[2.5rem] text-[0.78rem] leading-5 font-semibold tracking-tight text-black">
+                      {project.outcome}
+                    </p>
+                  </div>
+
+                  <div className="mt-3">
+                    <ProjectAction project={project} />
                   </div>
                 </div>
               </div>
             </AnimatedSection>
           ))}
+        </div>
+      </section>
 
-        {/* Regular Projects Grid */}
+      <section className="hidden md:block px-5 md:px-8 max-w-screen-2xl mx-auto space-y-8 md:space-y-20 mb-12 md:mb-40">
+        {featuredProjects.map((project) => (
+          <AnimatedSection key={project.slug} variant="fadeInUp">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-stretch">
+              <div className="md:col-span-7">
+                <MotionDiv
+                  className="group h-full overflow-hidden rounded-[1.75rem] border border-outline-variant/20 bg-surface-container-low grain-texture"
+                  whileHover={{ y: -6 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="aspect-[16/10] max-h-[220px] md:max-h-none overflow-hidden">
+                    <MotionImage
+                      alt={project.title}
+                      className="h-full w-full object-cover transition-all duration-700"
+                      src={project.image}
+                    />
+                  </div>
+                </MotionDiv>
+              </div>
+
+              <div className="md:col-span-5 rounded-[1.5rem] md:rounded-[1.75rem] border border-black/8 bg-white p-5 md:p-10 flex flex-col justify-between">
+                <div className="space-y-4 md:space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4">
+                    <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-secondary">
+                      {project.category}
+                    </span>
+                    <span className="w-fit rounded-full border border-black/8 bg-surface-container-low px-3 py-1.5 md:py-2 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.16em] md:tracking-[0.18em] text-zinc-500">
+                      {project.tags.join(' / ')}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-[26px] leading-[28px] font-black tracking-[-0.04em] text-black md:text-[42px] md:leading-[42px]">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 md:mt-4 text-[14px] leading-6 md:text-base md:leading-8 text-zinc-600">{project.summary}</p>
+                  </div>
+                </div>
+
+                <div className="mt-5 md:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-5 pt-4 md:pt-6 border-t border-black/8">
+                  <div>
+                    <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-outline">
+                      Outcome
+                    </span>
+                    <p className="mt-1.5 md:mt-2 text-[15px] md:text-lg font-semibold tracking-tight text-black">{project.outcome}</p>
+                  </div>
+                  <ProjectAction project={project} />
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        ))}
+
         <AnimatedSection variant="staggerContainer">
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-12"
-            variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+          <MotionDiv
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
+            variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
           >
-            {filteredProjects
-              .filter((p) => p.type === "regular")
-              .map((project, index) => {
-                const isLumina = project.title === "LUMINA MOBILE";
-                const isCreativePluz = project.title === "CREATIVEPLUZ";
-                const isKinetic = project.tags?.includes("Web");
-                const usePlainImageCard = isLumina || (isKinetic && !isCreativePluz);
-
-                return (
-                  <AnimatedItem key={index}>
-                    <motion.div
-                      className="group cursor-pointer"
-                      whileHover={usePlainImageCard ? undefined : { y: -12 }}
-                      transition={{ duration: 0.3 }}
+            {regularProjects.map((project) => (
+              <AnimatedItem key={project.slug}>
+                <div className="rounded-[1.5rem] md:rounded-[1.75rem] border border-black/8 bg-white p-4 md:p-8 h-full">
+                  <MotionDiv
+                    className="group cursor-pointer"
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div
+                      className={`aspect-[4/3] max-h-[200px] md:max-h-none rounded-[1rem] md:rounded-[1.25rem] overflow-hidden mb-4 md:mb-6 relative bg-gradient-to-br ${project.gradient} grain-texture`}
                     >
-                      <div
-                        className={`aspect-square rounded-xl overflow-hidden mb-8 relative ${
-                          usePlainImageCard
-                            ? "bg-transparent"
-                            : `bg-gradient-to-br ${project.gradient} grain-texture`
-                        }`}
-                      >
-                        {isLumina ? (
-                          <img
-                            alt={project.title}
-                            className="w-full h-full object-cover saturate-125 contrast-110"
-                            src={project.image}
-                          />
-                        ) : (
-                          <motion.img
-                            alt={project.title}
-                            className={`w-full h-full ${
-                              isKinetic ? "object-cover" : "object-contain"
-                            }`}
-                            src={project.image}
-                            whileHover={
-                              isCreativePluz ? { scale: 1.15 } : isKinetic ? undefined : { scale: 1.05, rotate: 2 }
-                            }
-                            transition={{ duration: 0.3 }}
-                          />
-                        )}
+                      <MotionImage
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        src={project.image}
+                        whileHover={{ scale: 1.03 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+
+                    <div className="space-y-4 md:space-y-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4">
+                        <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-zinc-400">
+                          {project.category}
+                        </span>
+                        <span className="w-fit rounded-full border border-black/8 bg-surface-container-low px-3 py-1.5 md:py-2 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.16em] md:tracking-[0.18em] text-zinc-500">
+                          {project.tags.join(' / ')}
+                        </span>
                       </div>
-                      <div className="flex justify-between items-start">
+
+                      <div>
+                        <h3 className="text-[22px] leading-[24px] md:text-[28px] md:leading-[30px] font-black tracking-[-0.04em] text-black">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2.5 md:mt-3 text-[14px] leading-6 md:text-base md:leading-7 text-zinc-600">{project.summary}</p>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 md:gap-5 pt-4 md:pt-5 border-t border-black/8">
                         <div>
-                          <h3 className="text-2xl font-extrabold tracking-tighter">
-                            {project.title}
-                          </h3>
-                          <p className="text-outline">{project.category}</p>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-3xl font-bold tracking-tighter">
-                            {project.metric}
+                          <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-outline">
+                            Outcome
                           </span>
-                          <p className="text-[0.6875rem] font-bold uppercase text-outline">
-                            {project.metricLabel}
+                          <p className="mt-1.5 md:mt-2 text-[15px] md:text-base font-semibold tracking-tight text-black">
+                            {project.outcome}
                           </p>
                         </div>
+                        <ProjectAction project={project} />
                       </div>
-                    </motion.div>
-                  </AnimatedItem>
-                );
-              })}
-          </motion.div>
+                    </div>
+                  </MotionDiv>
+                </div>
+              </AnimatedItem>
+            ))}
+          </MotionDiv>
         </AnimatedSection>
       </section>
     </div>

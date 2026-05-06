@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
+const MotionDiv = motion.div;
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
   visible: { 
@@ -79,7 +81,7 @@ export default function AnimatedSection({
   const selectedVariant = variants[variant];
   
   return (
-    <motion.div
+    <MotionDiv
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -88,14 +90,14 @@ export default function AnimatedSection({
       className={className}
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   );
 }
 
 export function AnimatedItem({ children, className = '' }) {
   return (
-    <motion.div variants={fadeInUp} className={className}>
+    <MotionDiv variants={fadeInUp} className={className}>
       {children}
-    </motion.div>
+    </MotionDiv>
   );
 }

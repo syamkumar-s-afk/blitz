@@ -1,4 +1,13 @@
-const clients = ['QUANTUM', 'NEXUS.SYS', 'VORTEX', 'STRATUM', 'ORBITAL'];
+const clients = [
+  "WEBSITES",
+  "MOBILE APPS",
+  "E-COMMERCE",
+  "BILLING SOFTWARE",
+  "CRM SYSTEMS",
+  "DASHBOARDS",
+  "SAAS PRODUCTS",
+  "CUSTOM SOFTWARE"
+];
 
 export default function ClientStrip() {
   // Repeat clients multiple times for seamless marquee
