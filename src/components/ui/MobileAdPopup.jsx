@@ -71,7 +71,7 @@ export default function MobileAdPopup() {
           />
 
           <MotionDiv
-            className="fixed inset-x-3 bottom-4 z-[80] mx-auto w-[calc(100%-1.5rem)] max-w-[24rem]"
+            className="fixed inset-x-3.5 bottom-3.5 z-[80] mx-auto w-[calc(100%-1.75rem)] max-w-[21.5rem]"
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
@@ -91,11 +91,13 @@ export default function MobileAdPopup() {
                 <X size={16} />
               </button>
 
-              <img
-                src={adPopupImage}
-                alt="Blitz promotional advertisement"
-                className="block h-auto w-full object-cover"
-              />
+              <div className="aspect-[9/16] max-h-[76svh] overflow-hidden bg-white">
+                <img
+                  src={adPopupImage}
+                  alt="Blitz promotional advertisement"
+                  className="block h-full w-full object-cover object-center"
+                />
+              </div>
             </div>
           </MotionDiv>
         </>
