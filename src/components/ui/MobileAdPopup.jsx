@@ -6,7 +6,7 @@ import adPopupImage from '../../assets/ad_popup.jpeg';
 const MotionDiv = motion.div;
 
 const MIN_WIDTH = 370;
-const MAX_WIDTH = 430;
+const MAX_WIDTH = 530;
 const SHOW_DELAY_MS = 3000;
 const STORAGE_KEY = 'blitz-mobile-ad-dismissed';
 
