@@ -77,9 +77,9 @@ export default function MobileAdPopup() {
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative overflow-hidden rounded-[1.4rem] border border-white/70 bg-white shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
-              <div className="relative aspect-[9/16] max-h-[76svh] overflow-hidden bg-white">
-                <span className="absolute left-3 top-3 z-10 rounded-full bg-black/88 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+            <div className="relative overflow-hidden rounded-[1.4rem] border border-white/70 bg-transparent shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
+              <div className="relative aspect-[9/16] max-h-[76svh] overflow-hidden rounded-[1.4rem]">
+                <span className="absolute left-3 top-3 z-10 rounded-full bg-white/92 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black shadow-sm ring-1 ring-black/5">
                   Ad
                 </span>
 
@@ -95,7 +95,7 @@ export default function MobileAdPopup() {
                 <img
                   src={adPopupImage}
                   alt="Blitz promotional advertisement"
-                  className="block h-full w-full object-cover object-center"
+                  className="absolute inset-0 block h-full w-full object-cover object-center"
                 />
               </div>
             </div>
