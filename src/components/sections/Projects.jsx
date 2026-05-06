@@ -8,17 +8,21 @@ import { projectCategories, projects } from '../../data/projects';
 const MotionDiv = motion.div;
 const MotionImage = motion.img;
 
-function ProjectAction({ project }) {
+function ProjectAction({ project, compact = false }) {
+  const baseClasses = compact
+    ? 'inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[0.58rem] tracking-[0.16em]'
+    : 'inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] tracking-[0.18em]';
+
   if (project.action.type === 'demo') {
     return (
       <a
         href={project.action.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-zinc-800"
+        className={`${baseClasses} bg-black font-bold uppercase text-white transition-colors hover:bg-zinc-800`}
       >
         <FiArrowUpRight aria-hidden="true" />
-        {project.action.label}
+        {compact ? 'View Demo' : project.action.label}
       </a>
     );
   }
@@ -26,9 +30,9 @@ function ProjectAction({ project }) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] font-bold uppercase tracking-[0.18em] text-black transition-colors hover:bg-zinc-50"
+      className={`${baseClasses} border border-black/10 bg-white font-bold uppercase text-black transition-colors hover:bg-zinc-50`}
     >
-      {project.action.label}
+      {compact ? 'View Details' : project.action.label}
     </Link>
   );
 }
@@ -49,19 +53,19 @@ export default function Projects() {
 
   return (
     <div id="projects" className="scroll-mt-24">
-      <section className="px-5 md:px-8 max-w-screen-2xl mx-auto mb-8 md:mb-16">
+      <section className="px-3.5 sm:px-5 md:px-8 max-w-screen-2xl mx-auto mb-7 md:mb-16">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-8">
           <div className="max-w-2xl">
             <AnimatedSection variant="fadeInUp">
               <span className="text-[0.625rem] md:text-[0.6875rem] font-bold tracking-widest uppercase text-outline mb-3 md:mb-4 block">
                 Selected Work
               </span>
-              <h1 className="text-[34px] leading-[34px] md:text-[72px] md:leading-[72px] font-extrabold tracking-[-0.05em] text-primary mb-4 md:mb-6">
+              <h1 className="text-[30px] leading-[30px] sm:text-[34px] sm:leading-[34px] md:text-[72px] md:leading-[72px] font-extrabold tracking-[-0.05em] text-primary mb-3 md:mb-6">
                 Projects
               </h1>
             </AnimatedSection>
             <AnimatedSection variant="fadeInUp" delay={0.2}>
-              <p className="max-w-xl text-[14px] leading-6 md:text-[18px] md:leading-[30px] font-medium text-zinc-600">
+              <p className="max-w-xl text-[13px] leading-[1.45] sm:text-[14px] sm:leading-6 md:text-[18px] md:leading-[30px] font-medium text-zinc-600">
                 A tighter project system built to support demos now and detailed case-study pages as the portfolio grows.
               </p>
             </AnimatedSection>
@@ -76,8 +80,8 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="px-5 md:px-8 max-w-screen-2xl mx-auto mb-6 md:mb-12">
-        <div className="flex flex-wrap gap-2 md:gap-3">
+      <section className="px-3.5 sm:px-5 md:px-8 max-w-screen-2xl mx-auto mb-5 md:mb-12">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
           {projectCategories.map((filter) => {
             const isActive = filter === activeFilter;
 
@@ -86,7 +90,7 @@ export default function Projects() {
                 key={filter}
                 type="button"
                 onClick={() => setActiveFilter(filter)}
-                className={`rounded-full px-4 py-2.5 md:px-5 md:py-3 text-[11px] md:text-sm font-bold uppercase tracking-[0.18em] md:tracking-widest transition-colors ${
+                className={`rounded-full px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 text-[10px] sm:text-[11px] md:text-sm font-bold uppercase tracking-[0.14em] sm:tracking-[0.18em] md:tracking-widest transition-colors ${
                   isActive ? 'bg-black text-white' : 'bg-surface-container text-zinc-600 hover:text-black'
                 }`}
               >
@@ -97,13 +101,13 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="px-5 max-w-screen-2xl mx-auto mb-12 md:hidden">
-        <div className="grid grid-cols-2 gap-3">
+      <section className="px-3.5 sm:px-5 max-w-screen-2xl mx-auto mb-10 md:hidden">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {filteredProjects.map((project) => (
             <AnimatedSection key={`${project.slug}-mobile`} variant="fadeInUp">
-              <div className="h-full overflow-hidden rounded-[1.15rem] border border-black/8 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+              <div className="h-full overflow-hidden rounded-[0.95rem] sm:rounded-[1.15rem] border border-black/8 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.035)]">
                 <div
-                  className={`aspect-[4/4.6] overflow-hidden bg-gradient-to-br ${
+                  className={`aspect-[4/4.3] sm:aspect-[4/4.6] overflow-hidden bg-gradient-to-br ${
                     project.gradient || 'from-zinc-100 to-zinc-200'
                   } grain-texture`}
                 >
@@ -114,34 +118,25 @@ export default function Projects() {
                   />
                 </div>
 
-                <div className="p-3.5">
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[0.55rem] font-bold uppercase tracking-[0.16em] text-zinc-400">
+                <div className="p-2.5 sm:p-3.5">
+                  <div className="flex items-center justify-between gap-1.5 mb-1.5 sm:mb-2">
+                    <span className="text-[0.48rem] sm:text-[0.55rem] font-bold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-zinc-400">
                       {project.category}
                     </span>
-                    <span className="rounded-full bg-surface-container-low px-2 py-1 text-[0.5rem] font-bold uppercase tracking-[0.14em] text-zinc-500">
+                    <span className="rounded-full bg-surface-container-low px-1.5 py-[0.3rem] sm:px-2 sm:py-1 text-[0.46rem] sm:text-[0.5rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-zinc-500">
                       {project.tags[0]}
                     </span>
                   </div>
 
-                  <h3 className="text-[1rem] leading-[1.1] font-black tracking-[-0.04em] text-black">
+                  <h3 className="text-[0.88rem] leading-[1.05] sm:text-[1rem] sm:leading-[1.1] font-black tracking-[-0.04em] text-black">
                     {project.title}
                   </h3>
-                  <p className="mt-2 min-h-[3.75rem] text-[0.74rem] leading-5 text-zinc-600">
+                  <p className="mt-1.5 sm:mt-2 min-h-[3.1rem] sm:min-h-[3.75rem] text-[0.66rem] leading-[1.05rem] sm:text-[0.74rem] sm:leading-5 text-zinc-600">
                     {project.summary}
                   </p>
 
-                  <div className="mt-3 pt-3 border-t border-black/6">
-                    <span className="text-[0.52rem] font-bold uppercase tracking-[0.16em] text-outline">
-                      Outcome
-                    </span>
-                    <p className="mt-1 min-h-[2.5rem] text-[0.78rem] leading-5 font-semibold tracking-tight text-black">
-                      {project.outcome}
-                    </p>
-                  </div>
-
-                  <div className="mt-3">
-                    <ProjectAction project={project} />
+                  <div className="mt-2.5 pt-2.5 sm:mt-3 sm:pt-3 border-t border-black/6">
+                    <ProjectAction project={project} compact />
                   </div>
                 </div>
               </div>
@@ -188,13 +183,7 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div className="mt-5 md:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-5 pt-4 md:pt-6 border-t border-black/8">
-                  <div>
-                    <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-outline">
-                      Outcome
-                    </span>
-                    <p className="mt-1.5 md:mt-2 text-[15px] md:text-lg font-semibold tracking-tight text-black">{project.outcome}</p>
-                  </div>
+                <div className="mt-5 md:mt-8 flex justify-start pt-4 md:pt-6 border-t border-black/8">
                   <ProjectAction project={project} />
                 </div>
               </div>
@@ -244,15 +233,7 @@ export default function Projects() {
                         <p className="mt-2.5 md:mt-3 text-[14px] leading-6 md:text-base md:leading-7 text-zinc-600">{project.summary}</p>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 md:gap-5 pt-4 md:pt-5 border-t border-black/8">
-                        <div>
-                          <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-outline">
-                            Outcome
-                          </span>
-                          <p className="mt-1.5 md:mt-2 text-[15px] md:text-base font-semibold tracking-tight text-black">
-                            {project.outcome}
-                          </p>
-                        </div>
+                      <div className="pt-4 md:pt-5 border-t border-black/8">
                         <ProjectAction project={project} />
                       </div>
                     </div>

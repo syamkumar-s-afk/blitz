@@ -22,29 +22,33 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="px-8 max-w-4xl mx-auto py-20 md:py-32 border-t border-outline/10">
-      <h2 className="text-4xl font-black uppercase mb-10 md:mb-16 tracking-tighter">Frequently Asked</h2>
-      <div className="space-y-4">
+    <section className="px-4 sm:px-5 md:px-8 max-w-4xl mx-auto py-10 sm:py-12 md:py-32 border-t border-outline/10">
+      <h2 className="text-[1.65rem] leading-[1.05] sm:text-3xl md:text-4xl font-black uppercase mb-6 sm:mb-8 md:mb-16 tracking-tighter">
+        Frequently Asked
+      </h2>
+      <div className="space-y-3 sm:space-y-4">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
 
           return (
-            <div key={faq.question} className="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm">
+            <div key={faq.question} className="rounded-[1.15rem] sm:rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm">
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
+                className="flex w-full items-start sm:items-center justify-between gap-3 sm:gap-6 px-4 sm:px-5 md:px-6 py-3.5 sm:py-4 md:py-5 text-left"
                 aria-expanded={isOpen}
               >
-                <h4 className="text-xl font-bold uppercase tracking-tight">{faq.question}</h4>
+                <h4 className="text-[0.92rem] leading-5 sm:text-base md:text-xl font-bold uppercase tracking-tight pr-2">
+                  {faq.question}
+                </h4>
                 <span
-                  className={`material-symbols-outlined transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                  className={`material-symbols-outlined text-[1.15rem] sm:text-xl shrink-0 transition-transform ${isOpen ? 'rotate-45' : ''}`}
                 >
                   add
                 </span>
               </button>
               {isOpen && (
-                <div className="px-6 pb-6 text-zinc-600 leading-relaxed">
+                <div className="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 text-[0.84rem] leading-6 sm:text-[0.95rem] md:text-base text-zinc-600">
                   {faq.answer}
                 </div>
               )}

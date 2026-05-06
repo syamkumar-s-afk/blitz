@@ -247,13 +247,13 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 py-20 md:py-40 px-8 max-w-screen-2xl mx-auto">
+    <section id="contact" className="scroll-mt-24 py-10 sm:py-12 md:py-40 px-4 sm:px-5 md:px-8 max-w-screen-2xl mx-auto">
       <AnimatedSection variant="scaleIn">
-        <div className="grainy-gradient rounded-[2rem] md:rounded-[3rem] p-8 md:p-24 border border-outline-variant/30 overflow-hidden relative">
-          <div className="flex flex-col md:flex-row items-start justify-between gap-8 md:gap-12">
+        <div className="grainy-gradient rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] p-5 sm:p-6 md:p-24 border border-outline-variant/30 overflow-hidden relative">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-5 sm:gap-6 md:gap-12">
             <div className="relative z-10 max-w-2xl">
               <MotionHeading
-                className="text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-8 text-primary"
+                className="text-[2.4rem] leading-[0.92] sm:text-[3rem] md:text-8xl font-black tracking-tighter mb-4 sm:mb-5 md:mb-8 text-primary"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -264,7 +264,7 @@ export default function Contact() {
                 project.
               </MotionHeading>
               <MotionParagraph
-                className="text-base md:text-xl leading-7 md:leading-normal font-medium mb-8 md:mb-12 opacity-80 max-w-lg"
+                className="text-[0.92rem] leading-6 sm:text-base md:text-xl md:leading-normal font-medium mb-5 sm:mb-6 md:mb-12 opacity-80 max-w-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -285,7 +285,7 @@ export default function Contact() {
                     }, 100);
                   }
                 }}
-                className="bg-primary text-white text-base md:text-xl px-8 md:px-12 py-4 md:py-6 rounded-full font-black tracking-tighter flex items-center gap-3 md:gap-4 group overflow-hidden relative"
+                className="bg-primary text-white text-[0.9rem] sm:text-base md:text-xl px-5 sm:px-6 md:px-12 py-3 sm:py-3.5 md:py-6 rounded-full font-black tracking-tighter flex items-center gap-2.5 sm:gap-3 md:gap-4 group overflow-hidden relative"
                 whileHover={{ scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -328,23 +328,23 @@ export default function Contact() {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden relative z-10"
               >
-                <form onSubmit={handleSubmit} className="mt-8 md:mt-12 pt-8 md:pt-12 border-t border-black/10">
+                <form onSubmit={handleSubmit} className="mt-5 sm:mt-6 md:mt-12 pt-5 sm:pt-6 md:pt-12 border-t border-black/10">
                   <MotionDiv
                     initial={{ y: 30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 30, opacity: 0 }}
                     transition={{ duration: 0.4, delay: 0.15 }}
                   >
-                    <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase mb-3 text-primary">
+                    <h3 className="text-[1rem] sm:text-[1.1rem] md:text-2xl font-black tracking-tight uppercase mb-2.5 sm:mb-3 text-primary">
                       Tell us about your project
                     </h3>
                   
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-3 sm:mb-4 md:mb-6">
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="contact-name"
-                          className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60"
+                          className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60"
                         >
                           Full Name *
                         </label>
@@ -356,13 +356,13 @@ export default function Contact() {
                           onChange={handleChange}
                           required
                           placeholder="Your full name"
-                          className="w-full px-4 md:px-6 py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                          className="w-full px-3.5 sm:px-4 md:px-6 py-3 sm:py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-[0.84rem] sm:text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
                         />
                       </div>
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="contact-email"
-                          className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60"
+                          className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60"
                         >
                           Email Address *
                         </label>
@@ -374,15 +374,15 @@ export default function Contact() {
                           onChange={handleChange}
                           required
                           placeholder="your.email@company.com"
-                          className="w-full px-4 md:px-6 py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                          className="w-full px-3.5 sm:px-4 md:px-6 py-3 sm:py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-[0.84rem] sm:text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
                         />
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 mb-4 md:mb-6">
+                    <div className="flex flex-col gap-2 mb-3 sm:mb-4 md:mb-6">
                       <label
                         htmlFor="contact-phone"
-                        className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60"
+                        className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60"
                       >
                         Phone Number
                       </label>
@@ -393,26 +393,26 @@ export default function Contact() {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Your phone number"
-                        className="w-full px-4 md:px-6 py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                        className="w-full px-3.5 sm:px-4 md:px-6 py-3 sm:py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-[0.84rem] sm:text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
                       />
                     </div>
 
-                    <div className="mb-6 md:mb-8">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4 mb-4">
+                    <div className="mb-5 sm:mb-6 md:mb-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-3 md:gap-4 mb-3 sm:mb-4">
                         <div>
-                          <p className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60">
+                          <p className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60">
                             Services Needed *
                           </p>
-                          <p className="text-sm text-black/55 mt-1.5 md:mt-2">
+                          <p className="text-[0.82rem] sm:text-sm text-black/55 mt-1 sm:mt-1.5 md:mt-2">
                             Choose one or more service groups, then select the closest sub-options.
                           </p>
                         </div>
-                        <span className="w-fit rounded-full bg-black text-white px-3 py-1.5 md:px-4 md:py-2 text-[11px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                        <span className="w-fit rounded-full bg-black text-white px-3 py-1.5 md:px-4 md:py-2 text-[10px] sm:text-[11px] md:text-xs font-bold uppercase tracking-[0.16em] md:tracking-[0.2em]">
                           {selectedServiceCount} selected
                         </span>
                       </div>
 
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         {serviceOptions.map((service) => {
                           const current = serviceState[service.id];
                           const anotherServiceActive = serviceOptions.some(
@@ -422,9 +422,9 @@ export default function Contact() {
                           return (
                             <div
                               key={service.id}
-                              className="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm overflow-hidden"
+                              className="rounded-[1rem] sm:rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm overflow-hidden"
                             >
-                              <div className="flex items-start gap-3 md:gap-4 px-4 md:px-5 py-3.5 md:py-4">
+                              <div className="flex items-start gap-2.5 sm:gap-3 md:gap-4 px-3.5 sm:px-4 md:px-5 py-3 sm:py-3.5 md:py-4">
                                 <input
                                   id={`service-${service.id}`}
                                   type="checkbox"
@@ -440,16 +440,16 @@ export default function Contact() {
                                   className="flex-1 text-left"
                                   aria-expanded={current.expanded}
                                 >
-                                  <div className="flex items-center justify-between gap-4">
+                                  <div className="flex items-start sm:items-center justify-between gap-3 sm:gap-4">
                                     <div>
-                                      <p className={`text-sm md:text-base font-bold tracking-tight ${anotherServiceActive ? 'text-black/35' : 'text-black'}`}>
+                                      <p className={`text-[0.84rem] sm:text-sm md:text-base font-bold tracking-tight ${anotherServiceActive ? 'text-black/35' : 'text-black'}`}>
                                         {service.label}
                                       </p>
-                                      <p className={`text-xs md:text-sm mt-1 leading-5 ${anotherServiceActive ? 'text-black/30' : 'text-black/55'}`}>
+                                      <p className={`text-[0.74rem] sm:text-xs md:text-sm mt-1 leading-5 ${anotherServiceActive ? 'text-black/30' : 'text-black/55'}`}>
                                         {service.description}
                                       </p>
                                     </div>
-                                    <span className={`material-symbols-outlined ${anotherServiceActive ? 'text-black/30' : 'text-black/60'}`}>
+                                    <span className={`material-symbols-outlined text-[1.1rem] sm:text-base ${anotherServiceActive ? 'text-black/30' : 'text-black/60'}`}>
                                       {current.expanded ? 'expand_less' : 'expand_more'}
                                     </span>
                                   </div>
@@ -457,17 +457,17 @@ export default function Contact() {
                               </div>
 
                               {current.expanded && (
-                                <div className="border-t border-black/8 px-4 md:px-5 py-4 md:py-5 space-y-4 md:space-y-5 bg-white/55">
+                                <div className="border-t border-black/8 px-3.5 sm:px-4 md:px-5 py-3.5 sm:py-4 md:py-5 space-y-3.5 sm:space-y-4 md:space-y-5 bg-white/55">
                                   {service.options.length > 0 ? (
                                     <>
-                                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3">
+                                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 md:gap-3">
                                         {service.options.map((option) => {
                                           const checked = current.selections.includes(option);
 
                                           return (
                                             <label
                                               key={option}
-                                              className={`flex items-center gap-3 rounded-xl border px-3.5 md:px-4 py-3 transition-colors ${
+                                              className={`flex items-center gap-2.5 sm:gap-3 rounded-xl border px-3 sm:px-3.5 md:px-4 py-2.5 sm:py-3 transition-colors ${
                                                 checked
                                                   ? 'border-black/20 bg-white text-black'
                                                   : 'border-black/8 bg-transparent text-black/70'
@@ -479,7 +479,7 @@ export default function Contact() {
                                                 onChange={() => toggleSubSelection(service.id, option)}
                                                 className="h-4 w-4 rounded border-black/15 text-black focus:ring-black/20"
                                               />
-                                              <span className="text-sm font-medium leading-5">{option}</span>
+                                              <span className="text-[0.8rem] sm:text-sm font-medium leading-5">{option}</span>
                                             </label>
                                           );
                                         })}
@@ -488,7 +488,7 @@ export default function Contact() {
                                       <div className="flex flex-col gap-2">
                                         <label
                                           htmlFor={`custom-${service.id}`}
-                                          className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60"
+                                          className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60"
                                         >
                                           Custom {service.label} Need
                                         </label>
@@ -498,12 +498,12 @@ export default function Contact() {
                                           value={current.custom}
                                           onChange={(event) => handleCustomServiceInput(service.id, event.target.value)}
                                           placeholder={`Tell us what kind of ${service.label.toLowerCase()} you need`}
-                                          className="w-full px-4 md:px-5 py-3.5 md:py-4 bg-white/80 border border-black/10 rounded-xl text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                                          className="w-full px-3.5 sm:px-4 md:px-5 py-3 sm:py-3.5 md:py-4 bg-white/80 border border-black/10 rounded-xl text-[0.84rem] sm:text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
                                         />
                                       </div>
                                     </>
                                   ) : (
-                                    <div className="rounded-xl border border-black/8 bg-white/80 px-4 py-3.5 text-sm font-medium leading-6 text-black/65">
+                                    <div className="rounded-xl border border-black/8 bg-white/80 px-3.5 sm:px-4 py-3 text-[0.82rem] sm:text-sm font-medium leading-6 text-black/65">
                                       Select this if you want us to review your idea first and help guide the next step.
                                     </div>
                                   )}
@@ -515,10 +515,10 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 mb-6 md:mb-8">
+                    <div className="flex flex-col gap-2 mb-5 sm:mb-6 md:mb-8">
                       <label
                         htmlFor="contact-message"
-                        className="text-[0.6875rem] font-bold uppercase tracking-widest text-black/60"
+                        className="text-[0.62rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.16em] sm:tracking-widest text-black/60"
                       >
                         Project Details
                       </label>
@@ -529,19 +529,19 @@ export default function Contact() {
                         onChange={handleChange}
                         rows={4}
                         placeholder="Tell us about the product, timeline, goals, and any constraints."
-                        className="w-full px-4 md:px-6 py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all resize-none"
+                        className="w-full px-3.5 sm:px-4 md:px-6 py-3 sm:py-3.5 md:py-4 bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl text-[0.84rem] sm:text-sm md:text-base text-black font-medium placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all resize-none"
                       />
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-4 md:gap-6">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4 md:gap-6">
                       <MotionButton
                         type="submit"
-                        className="w-full sm:w-auto justify-center text-white text-sm md:text-base px-8 md:px-10 py-4 md:py-5 rounded-full font-black tracking-tighter flex items-center gap-3 overflow-hidden relative group bg-black"
+                        className="w-full sm:w-auto justify-center text-white text-[0.84rem] sm:text-sm md:text-base px-5 sm:px-8 md:px-10 py-3.5 sm:py-4 md:py-5 rounded-full font-black tracking-tighter flex items-center gap-2.5 sm:gap-3 overflow-hidden relative group bg-black"
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         <span className="relative z-10">OPEN WHATSAPP</span>
-                        <span className="material-symbols-outlined relative z-10 text-xl group-hover:translate-x-1 transition-transform">
+                        <span className="material-symbols-outlined relative z-10 text-[1rem] sm:text-xl group-hover:translate-x-1 transition-transform">
                           send
                         </span>
                         <MotionDiv
@@ -559,9 +559,9 @@ export default function Contact() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -10 }}
-                            className="flex items-center gap-2 text-green-700 font-bold text-sm"
+                            className="flex items-center gap-2 text-green-700 font-bold text-[0.82rem] sm:text-sm"
                           >
-                            <span className="material-symbols-outlined text-lg">check_circle</span>
+                            <span className="material-symbols-outlined text-base sm:text-lg">check_circle</span>
                             WhatsApp opened with your message draft.
                           </MotionDiv>
                         )}
@@ -571,9 +571,9 @@ export default function Contact() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -10 }}
-                            className="flex items-center gap-2 text-amber-900 font-bold text-sm"
+                            className="flex items-center gap-2 text-amber-900 font-bold text-[0.82rem] sm:text-sm"
                           >
-                            <span className="material-symbols-outlined text-lg">warning</span>
+                            <span className="material-symbols-outlined text-base sm:text-lg">warning</span>
                             Please choose at least one service before continuing.
                           </MotionDiv>
                         )}
@@ -586,11 +586,11 @@ export default function Contact() {
           </AnimatePresence>
 
           <MotionDiv
-            className="absolute -right-20 -bottom-20 opacity-10"
+            className="absolute -right-10 sm:-right-14 md:-right-20 -bottom-10 sm:-bottom-14 md:-bottom-20 opacity-10"
             animate={{ rotate: 360 }}
             transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
           >
-            <span className="material-symbols-outlined text-[400px]">language</span>
+            <span className="material-symbols-outlined text-[180px] sm:text-[240px] md:text-[400px]">language</span>
           </MotionDiv>
         </div>
       </AnimatedSection>
