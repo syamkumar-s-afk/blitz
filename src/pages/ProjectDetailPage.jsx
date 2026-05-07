@@ -1,19 +1,30 @@
+import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { FiArrowLeft, FiArrowUpRight } from 'react-icons/fi';
+import ImageLightbox from '../components/ui/ImageLightbox';
 import { getProjectBySlug } from '../data/projects';
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
   const project = getProjectBySlug(slug);
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   if (!project) {
     return <Navigate to="/" replace />;
   }
 
   const { detail } = project;
+  const demoHref = project.demoHref || (project.action.type === 'demo' ? project.action.href : null);
 
   return (
     <main className="px-4 sm:px-5 md:px-8 pt-24 sm:pt-28 md:pt-40 pb-10 sm:pb-12 md:pb-28">
+      <ImageLightbox
+        isOpen={isImageOpen}
+        src={project.image}
+        alt={project.title}
+        onClose={() => setIsImageOpen(false)}
+      />
+
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 sm:mb-8 md:mb-14">
           <Link
@@ -39,7 +50,12 @@ export default function ProjectDetailPage() {
           </div>
 
           <div className="mb-6 sm:mb-8 md:mb-10 overflow-hidden rounded-[1rem] sm:rounded-[1.25rem] md:rounded-[1.5rem] border border-black/8 bg-surface-container-low">
-            <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
+            <img
+              src={project.image}
+              alt={project.title}
+              className="h-full w-full cursor-zoom-in object-cover"
+              onClick={() => setIsImageOpen(true)}
+            />
           </div>
 
           <div className="grid gap-5 sm:gap-6 md:grid-cols-[1.3fr_0.7fr] md:gap-10">
@@ -104,9 +120,9 @@ export default function ProjectDetailPage() {
           </div>
 
           <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
-            {project.action.type === 'demo' && (
+            {demoHref && (
               <a
-                href={project.action.href}
+                href={demoHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-black px-5 sm:px-6 py-2.5 sm:py-3 text-[0.82rem] sm:text-sm font-bold tracking-tight text-white transition-colors hover:bg-zinc-800"

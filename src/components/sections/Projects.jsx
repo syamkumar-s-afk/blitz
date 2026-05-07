@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import AnimatedSection, { AnimatedItem } from '../ui/AnimatedSection';
+import ImageLightbox from '../ui/ImageLightbox';
 import { projectCategories, projects } from '../../data/projects';
 
 const MotionDiv = motion.div;
@@ -10,8 +11,8 @@ const MotionImage = motion.img;
 
 function ProjectAction({ project, compact = false }) {
   const baseClasses = compact
-    ? 'inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[0.58rem] tracking-[0.16em]'
-    : 'inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[0.65rem] md:px-5 md:py-3 md:text-[0.72rem] tracking-[0.18em]';
+    ? 'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1.5 text-[0.52rem] sm:px-3 sm:py-2 sm:text-[0.58rem] tracking-[0.14em] sm:tracking-[0.16em]'
+    : 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border px-3.5 py-2 text-[0.62rem] md:px-5 md:py-3 md:text-[0.72rem] tracking-[0.16em] md:tracking-[0.18em]';
 
   if (project.action.type === 'demo') {
     return (
@@ -19,7 +20,7 @@ function ProjectAction({ project, compact = false }) {
         href={project.action.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${baseClasses} bg-black font-bold uppercase text-white transition-colors hover:bg-zinc-800`}
+        className={`${baseClasses} border-black bg-black font-bold uppercase text-white transition-colors hover:bg-zinc-800`}
       >
         <FiArrowUpRight aria-hidden="true" />
         {compact ? 'View Demo' : project.action.label}
@@ -30,7 +31,7 @@ function ProjectAction({ project, compact = false }) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className={`${baseClasses} border border-black/10 bg-white font-bold uppercase text-black transition-colors hover:bg-zinc-50`}
+      className={`${baseClasses} border-black/10 bg-white font-bold uppercase text-black transition-colors hover:bg-zinc-50`}
     >
       {compact ? 'View Details' : project.action.label}
     </Link>
@@ -39,6 +40,7 @@ function ProjectAction({ project, compact = false }) {
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All Work');
+  const [previewImage, setPreviewImage] = useState(null);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'All Work') {
@@ -48,11 +50,15 @@ export default function Projects() {
     return projects.filter((project) => project.tags?.includes(activeFilter));
   }, [activeFilter]);
 
-  const featuredProjects = filteredProjects.filter((project) => project.type === 'featured');
-  const regularProjects = filteredProjects.filter((project) => project.type === 'regular');
-
   return (
     <div id="projects" className="scroll-mt-24">
+      <ImageLightbox
+        isOpen={Boolean(previewImage)}
+        src={previewImage?.src}
+        alt={previewImage?.alt}
+        onClose={() => setPreviewImage(null)}
+      />
+
       <section className="px-3.5 sm:px-5 md:px-8 max-w-screen-2xl mx-auto mb-7 md:mb-16">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-8">
           <div className="max-w-2xl">
@@ -113,7 +119,8 @@ export default function Projects() {
                 >
                   <MotionImage
                     alt={project.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full cursor-zoom-in object-cover"
+                    onClick={() => setPreviewImage({ src: project.image, alt: project.title })}
                     src={project.image}
                   />
                 </div>
@@ -135,7 +142,7 @@ export default function Projects() {
                     {project.summary}
                   </p>
 
-                  <div className="mt-2.5 pt-2.5 sm:mt-3 sm:pt-3 border-t border-black/6">
+                  <div className="mt-2.5 flex justify-start pt-2.5 sm:mt-3 sm:pt-3 border-t border-black/6">
                     <ProjectAction project={project} compact />
                   </div>
                 </div>
@@ -145,95 +152,55 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="hidden md:block px-5 md:px-8 max-w-screen-2xl mx-auto space-y-8 md:space-y-20 mb-12 md:mb-40">
-        {featuredProjects.map((project) => (
-          <AnimatedSection key={project.slug} variant="fadeInUp">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-stretch">
-              <div className="md:col-span-7">
-                <MotionDiv
-                  className="group h-full overflow-hidden rounded-[1.75rem] border border-outline-variant/20 bg-surface-container-low grain-texture"
-                  whileHover={{ y: -6 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="aspect-[16/10] max-h-[220px] md:max-h-none overflow-hidden">
-                    <MotionImage
-                      alt={project.title}
-                      className="h-full w-full object-cover transition-all duration-700"
-                      src={project.image}
-                    />
-                  </div>
-                </MotionDiv>
-              </div>
-
-              <div className="md:col-span-5 rounded-[1.5rem] md:rounded-[1.75rem] border border-black/8 bg-white p-5 md:p-10 flex flex-col justify-between">
-                <div className="space-y-4 md:space-y-5">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4">
-                    <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-secondary">
-                      {project.category}
-                    </span>
-                    <span className="w-fit rounded-full border border-black/8 bg-surface-container-low px-3 py-1.5 md:py-2 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.16em] md:tracking-[0.18em] text-zinc-500">
-                      {project.tags.join(' / ')}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[26px] leading-[28px] font-black tracking-[-0.04em] text-black md:text-[42px] md:leading-[42px]">
-                      {project.title}
-                    </h3>
-                    <p className="mt-3 md:mt-4 text-[14px] leading-6 md:text-base md:leading-8 text-zinc-600">{project.summary}</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 md:mt-8 flex justify-start pt-4 md:pt-6 border-t border-black/8">
-                  <ProjectAction project={project} />
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        ))}
-
+      <section className="hidden md:block px-5 md:px-8 max-w-screen-2xl mx-auto mb-12 md:mb-32">
         <AnimatedSection variant="staggerContainer">
           <MotionDiv
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
+            className="grid grid-cols-2 gap-5 xl:gap-6"
             variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
           >
-            {regularProjects.map((project) => (
+            {filteredProjects.map((project) => (
               <AnimatedItem key={project.slug}>
-                <div className="rounded-[1.5rem] md:rounded-[1.75rem] border border-black/8 bg-white p-4 md:p-8 h-full">
+                <div className="rounded-[1.5rem] xl:rounded-[1.75rem] border border-black/8 bg-white p-5 xl:p-6 h-full">
                   <MotionDiv
                     className="group cursor-pointer"
                     whileHover={{ y: -8 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div
-                      className={`aspect-[4/3] max-h-[200px] md:max-h-none rounded-[1rem] md:rounded-[1.25rem] overflow-hidden mb-4 md:mb-6 relative bg-gradient-to-br ${project.gradient} grain-texture`}
+                      className={`aspect-[4/3] rounded-[1rem] xl:rounded-[1.25rem] overflow-hidden mb-4 xl:mb-5 relative bg-gradient-to-br ${
+                        project.gradient || 'from-zinc-100 to-zinc-200'
+                      } grain-texture`}
                     >
                       <MotionImage
                         alt={project.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full cursor-zoom-in object-cover"
+                        onClick={() => setPreviewImage({ src: project.image, alt: project.title })}
                         src={project.image}
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.3 }}
                       />
                     </div>
 
-                    <div className="space-y-4 md:space-y-5">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 md:gap-4">
-                        <span className="text-[0.625rem] md:text-[0.6875rem] font-bold uppercase tracking-[0.18em] md:tracking-[0.2em] text-zinc-400">
+                    <div className="space-y-4 xl:space-y-5">
+                      <div className="flex items-center justify-between gap-3 xl:gap-4">
+                        <span className="text-[0.62rem] xl:text-[0.6875rem] font-bold uppercase tracking-[0.18em] xl:tracking-[0.2em] text-zinc-400">
                           {project.category}
                         </span>
-                        <span className="w-fit rounded-full border border-black/8 bg-surface-container-low px-3 py-1.5 md:py-2 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.16em] md:tracking-[0.18em] text-zinc-500">
-                          {project.tags.join(' / ')}
+                        <span className="w-fit rounded-full border border-black/8 bg-surface-container-low px-3 py-1.5 xl:py-2 text-[0.58rem] xl:text-[0.65rem] font-bold uppercase tracking-[0.16em] xl:tracking-[0.18em] text-zinc-500">
+                          {project.tags[0]}
                         </span>
                       </div>
 
                       <div>
-                        <h3 className="text-[22px] leading-[24px] md:text-[28px] md:leading-[30px] font-black tracking-[-0.04em] text-black">
+                        <h3 className="text-[1.55rem] leading-[1.02] xl:text-[1.8rem] xl:leading-[1.08] font-black tracking-[-0.04em] text-black">
                           {project.title}
                         </h3>
-                        <p className="mt-2.5 md:mt-3 text-[14px] leading-6 md:text-base md:leading-7 text-zinc-600">{project.summary}</p>
+                        <p className="mt-2.5 xl:mt-3 text-[0.92rem] leading-6 xl:text-[1rem] xl:leading-7 text-zinc-600">
+                          {project.summary}
+                        </p>
                       </div>
 
-                      <div className="pt-4 md:pt-5 border-t border-black/8">
+                      <div className="pt-4 xl:pt-5 border-t border-black/8">
                         <ProjectAction project={project} />
                       </div>
                     </div>
