@@ -2,6 +2,7 @@ import './index.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Footer, Navbar } from './components';
+import AiChatbot from './components/ui/AiChatbot';
 import HomePage from './pages/HomePage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 
@@ -44,6 +45,7 @@ export default function App() {
       </Routes>
 
       <Footer />
+      <AiChatbot />
     </div>
   );
 }

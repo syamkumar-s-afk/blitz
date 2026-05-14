@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
-import adPopupImage from '../../assets/ad_popup.jpeg';
+import adPopupImage from '../../assets/ad_popup.png';
 
 const MotionDiv = motion.div;
 
@@ -39,7 +39,6 @@ export default function MobileAdPopup() {
 
   useEffect(() => {
     if (!isEligible) {
-      setIsOpen(false);
       return undefined;
     }
 
@@ -60,7 +59,7 @@ export default function MobileAdPopup() {
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isEligible && isOpen && (
         <>
           <MotionDiv
             className="fixed inset-0 z-[70] bg-black/45 backdrop-blur-[2px]"

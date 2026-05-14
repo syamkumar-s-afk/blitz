@@ -13,6 +13,19 @@ export default defineConfig([
     'vite.config.ts',
   ]),
   {
+    files: ['api/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      globals: {
+        ...globals.node,
+        fetch: 'readonly',
+      },
+      parserOptions: {
+        sourceType: 'module',
+      },
+    },
+  },
+  {
     files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
