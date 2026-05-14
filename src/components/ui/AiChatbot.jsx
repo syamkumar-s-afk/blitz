@@ -14,12 +14,143 @@ const quickPrompts = [
   'Automate my business',
 ];
 
+const servicePatterns = [
+  ['Mobile App', /\b(app|android|ios|mobile)\b/i],
+  ['E-Commerce', /\b(e-?commerce|online store|shopify|store|marketplace)\b/i],
+  ['Custom Software', /\b(custom software|software|crm|erp|portal|system)\b/i],
+  ['Dashboard', /\b(dashboard|analytics|admin panel|reporting)\b/i],
+  ['AI Automation', /\b(ai|automation|chatbot|automate)\b/i],
+  ['Business Website', /\b(website|site|web page)\b/i],
+  ['Landing Page', /\b(landing page|landing)\b/i],
+];
+
+function getLeadSessionId() {
+  const storageKey = 'blitz-chat-lead-session';
+  const existingId = window.sessionStorage.getItem(storageKey);
+
+  if (existingId) {
+    return existingId;
+  }
+
+  const nextId = `lead-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  window.sessionStorage.setItem(storageKey, nextId);
+  return nextId;
+}
+
+function shouldSubmitLead(messages) {
+  const conversationMessages = messages.filter((message, index) => index > 0 && message.content);
+  const visitorMessages = conversationMessages
+    .filter((message) => message.role === 'user')
+    .map((message) => message.content.trim());
+  const combinedVisitorText = visitorMessages.join(' ');
+  const hasContactSignal = /(?:\+?\d[\d\s-]{7,}|@|whats?app|call|phone|mobile)/i.test(combinedVisitorText);
+  const hasProjectSignal = /(app|website|e-?commerce|software|dashboard|automation|landing|business|project|build|need)/i.test(combinedVisitorText);
+
+  return visitorMessages.length >= 2 || (visitorMessages.length >= 1 && hasContactSignal && hasProjectSignal);
+}
+
+function findFirstMatch(text, patterns) {
+  const match = patterns.find(([, pattern]) => pattern.test(text));
+  return match ? match[0] : '';
+}
+
+function extractLeadFields(visitorMessages) {
+  const combinedText = visitorMessages.join(' ');
+  const phoneMatch = combinedText.match(/(?:\+?91[\s-]?)?[6-9]\d(?:[\s-]?\d){8}/);
+  const emailMatch = combinedText.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  const budgetMatch = combinedText.match(/(?:budget|around|approx|approximately)?\s*(?:rs\.?|inr|₹)?\s*\d[\d,\s]*(?:k|lakh|lakhs|cr|crore)?/i);
+  const timelineMatch = combinedText.match(/\b(?:urgent|asap|immediately|this week|next week|this month|next month|within \d+\s*(?:days|weeks|months)|\d+\s*(?:days|weeks|months))\b/i);
+  const locationMatch = combinedText.match(/\b(?:from|in|at|near)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b/);
+  const nameMatch = combinedText.match(/\b(?:my name is|i am|i'm)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b/);
+  const businessMatch = combinedText.match(/\b(?:business name is|company name is|my business is|we are)\s+([^.,\n]{2,60})/i);
+
+  return {
+    visitorName: nameMatch?.[1] || '',
+    businessName: businessMatch?.[1]?.trim() || '',
+    phoneOrWhatsapp: phoneMatch?.[0]?.replace(/\s+/g, ' ').trim() || '',
+    email: emailMatch?.[0] || '',
+    serviceInterest: findFirstMatch(combinedText, servicePatterns),
+    projectRequirement: visitorMessages[0] || '',
+    timeline: timelineMatch?.[0] || '',
+    budgetRange: budgetMatch?.[0]?.trim() || '',
+    location: locationMatch?.[1] || '',
+    preferredContactMethod: /whats?app/i.test(combinedText)
+      ? 'WhatsApp'
+      : /email/i.test(combinedText)
+        ? 'Email'
+        : /call|phone|mobile/i.test(combinedText)
+          ? 'Phone'
+          : '',
+    lastVisitorMessage: visitorMessages[visitorMessages.length - 1] || '',
+  };
+}
+
+function getLeadPriority(fields, visitorMessages) {
+  const combinedText = visitorMessages.join(' ');
+
+  if (fields.phoneOrWhatsapp && /(urgent|asap|immediately|this week|this month)/i.test(combinedText)) {
+    return 'Hot';
+  }
+
+  if (fields.phoneOrWhatsapp || fields.email || fields.timeline || fields.budgetRange) {
+    return 'Warm';
+  }
+
+  return 'New';
+}
+
+function buildLeadPayload(messages) {
+  const conversationMessages = messages.filter((message, index) => index > 0 && message.content);
+  const visitorMessages = conversationMessages
+    .filter((message) => message.role === 'user')
+    .map((message) => message.content.trim());
+
+  const visitorBrief = visitorMessages.length > 0
+    ? visitorMessages.map((content, index) => `${index + 1}. ${content}`).join('\n')
+    : 'No project details shared yet.';
+
+  const conversation = conversationMessages
+    .map((message) => {
+      const label = message.role === 'user' ? 'Visitor' : 'Blitz Assistant';
+      return `${label}: ${message.content}`;
+    })
+    .join('\n\n');
+  const extractedFields = extractLeadFields(visitorMessages);
+
+  return {
+    capturedAt: new Date().toISOString(),
+    leadStatus: 'New',
+    priority: getLeadPriority(extractedFields, visitorMessages),
+    sessionId: getLeadSessionId(),
+    source: 'website-chatbot',
+    pageUrl: window.location.href,
+    pageTitle: document.title,
+    visitorName: extractedFields.visitorName,
+    businessName: extractedFields.businessName,
+    phoneOrWhatsapp: extractedFields.phoneOrWhatsapp,
+    email: extractedFields.email,
+    serviceInterest: extractedFields.serviceInterest,
+    projectRequirement: extractedFields.projectRequirement,
+    timeline: extractedFields.timeline,
+    budgetRange: extractedFields.budgetRange,
+    location: extractedFields.location,
+    preferredContactMethod: extractedFields.preferredContactMethod,
+    visitorBrief,
+    transcript: conversation,
+    lastVisitorMessage: extractedFields.lastVisitorMessage,
+    followUpNotes: '',
+    assignedTo: '',
+    visitorMessages,
+  };
+}
+
 export default function AiChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState(starterMessages);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
+  const [lastLeadSnapshot, setLastLeadSnapshot] = useState('');
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -29,6 +160,35 @@ export default function AiChatbot() {
       setTimeout(() => inputRef.current?.focus(), 150);
     }
   }, [isOpen, messages]);
+
+  useEffect(() => {
+    if (!shouldSubmitLead(messages)) {
+      return undefined;
+    }
+
+    const payload = buildLeadPayload(messages);
+    const snapshot = JSON.stringify(payload.visitorMessages);
+
+    if (snapshot === lastLeadSnapshot) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {
+        // Lead capture should never interrupt the chat experience.
+      });
+      setLastLeadSnapshot(snapshot);
+    }, 1200);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [lastLeadSnapshot, messages]);
 
   const sendMessage = async (content) => {
     const trimmed = content.trim();

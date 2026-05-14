@@ -6,7 +6,20 @@ function localApiPlugin() {
   return {
     name: 'local-api',
     configureServer(server) {
-      server.middlewares.use('/api/chat', async (req, res) => {
+      const apiRoutes = new Map([
+        ['/api/chat', './api/chat.js'],
+        ['/api/leads', './api/leads.js'],
+      ])
+
+      server.middlewares.use(async (req, res, next) => {
+        const routePath = req.url?.split('?')[0]
+        const modulePath = routePath ? apiRoutes.get(routePath) : undefined
+
+        if (!modulePath) {
+          next()
+          return
+        }
+
         if (req.method !== 'POST') {
           res.statusCode = 405
           res.setHeader('Content-Type', 'application/json')
@@ -14,7 +27,7 @@ function localApiPlugin() {
           return
         }
 
-        const { default: handler } = await import('./api/chat.js')
+        const { default: handler } = await import(modulePath)
         handler(req, res)
       })
     },
@@ -27,6 +40,7 @@ export default defineConfig(({ mode }) => {
 
   process.env.GEMINI_API_KEY ||= env.GEMINI_API_KEY
   process.env.GEMINI_MODEL ||= env.GEMINI_MODEL
+  process.env.LEAD_WEBHOOK_URL ||= env.LEAD_WEBHOOK_URL
 
   return {
     plugins: [react(), localApiPlugin()],
