@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import adPopupImage from '../../assets/ad_popup.png';
+import adPopupImage2 from '../../assets/ad_popup2.png';
 
 const MotionDiv = motion.div;
 
 const MIN_WIDTH = 320;
 const MAX_WIDTH = 530;
 const SHOW_DELAY_MS = 3000;
+const SECOND_AD_DELAY_MS = 7000;
 const STORAGE_KEY = 'blitz-mobile-ad-dismissed';
+const adImages = [adPopupImage, adPopupImage2];
 
 function isSupportedMobileWidth() {
   if (typeof window === 'undefined') {
@@ -22,6 +25,7 @@ function isSupportedMobileWidth() {
 export default function MobileAdPopup() {
   const [isEligible, setIsEligible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeAdIndex, setActiveAdIndex] = useState(0);
 
   useEffect(() => {
     const updateEligibility = () => {
@@ -43,6 +47,7 @@ export default function MobileAdPopup() {
     }
 
     const timer = window.setTimeout(() => {
+      setActiveAdIndex(0);
       setIsOpen(true);
     }, SHOW_DELAY_MS);
 
@@ -50,6 +55,20 @@ export default function MobileAdPopup() {
       window.clearTimeout(timer);
     };
   }, [isEligible]);
+
+  useEffect(() => {
+    if (!isEligible || !isOpen || activeAdIndex !== 0) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      setActiveAdIndex(1);
+    }, SECOND_AD_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [activeAdIndex, isEligible, isOpen]);
 
   const handleClose = () => {
     window.sessionStorage.setItem(STORAGE_KEY, 'true');
@@ -92,8 +111,8 @@ export default function MobileAdPopup() {
                 </button>
 
                 <img
-                  src={adPopupImage}
-                  alt="Blitz promotional advertisement"
+                  src={adImages[activeAdIndex]}
+                  alt={`Blitz promotional advertisement ${activeAdIndex + 1}`}
                   className="absolute inset-0 block h-full w-full min-h-full min-w-full object-cover object-center"
                 />
               </div>
