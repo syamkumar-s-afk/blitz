@@ -42,6 +42,42 @@ GEMINI_MODEL=gemini-2.5-flash
 
 For deployment, add the same environment variables in Vercel project settings.
 
+## Lead Capture
+The chatbot can submit qualified lead snapshots in the background to a webhook. Use a
+Google Apps Script web app to write the data to Google Sheets and send email alerts.
+
+Add this variable locally and in Vercel:
+```bash
+LEAD_WEBHOOK_URL=https://script.google.com/macros/s/your_script_id/exec
+```
+
+The webhook receives:
+- `capturedAt`
+- `leadStatus`
+- `priority`
+- `sessionId`
+- `source`
+- `pageUrl`
+- `pageTitle`
+- `visitorName`
+- `businessName`
+- `phoneOrWhatsapp`
+- `email`
+- `serviceInterest`
+- `projectRequirement`
+- `timeline`
+- `budgetRange`
+- `location`
+- `preferredContactMethod`
+- `visitorBrief`
+- `transcript`
+- `lastVisitorMessage`
+- `followUpNotes`
+- `assignedTo`
+- `visitorMessages`
+
+If `LEAD_WEBHOOK_URL` is not set, chat still works and lead capture is skipped safely.
+
 ## Other Scripts
 ```bash
 npm run build
