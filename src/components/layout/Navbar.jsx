@@ -59,7 +59,13 @@ export default function Navbar() {
     <>
       <nav className={`fixed top-0 w-full z-50 transition-colors ${isMenuOpen ? 'bg-zinc-50 dark:bg-zinc-950' : 'bg-white/70 backdrop-blur-xl border-b border-black/10'}`}>
         <div className="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
-          <a href="/#home" className="text-2xl font-black tracking-tighter text-black uppercase">BLITZ</a>
+          <a href="/#home" className="block shrink-0">
+            <img
+              src="/images/blitz-logo.png"
+              alt="Blitz Solutions"
+              className="h-9 sm:h-10 md:h-11 w-auto object-contain"
+            />
+          </a>
           <div className="hidden md:flex gap-8 items-center">
             {navLinks.map(({ href, label }) => {
               const sectionId = href.replace('#', '');

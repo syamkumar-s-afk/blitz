@@ -34,8 +34,12 @@ export default function Footer() {
       <div className="px-4 sm:px-5 md:px-8 py-7 sm:py-8 md:py-12 max-w-screen-2xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 sm:gap-7 md:gap-10">
           <div className="max-w-md">
-            <a href="/#home" className="text-[2.1rem] leading-none sm:text-3xl font-black tracking-tighter text-black mb-2 sm:mb-3 block">
-              BLITZ
+            <a href="/#home" className="mb-3 block w-fit">
+              <img
+                src="/images/blitz-logo.png"
+                alt="Blitz Solutions"
+                className="h-10 sm:h-11 md:h-12 w-auto object-contain"
+              />
             </a>
             <p className="text-[0.93rem] leading-7 sm:text-sm md:text-base text-zinc-600 tracking-tight">
               Compact digital products, clear execution, and fast-moving support from idea to launch.
