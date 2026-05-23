@@ -6,7 +6,8 @@ const clients = [
   "CRM SYSTEMS",
   "DASHBOARDS",
   "SAAS PRODUCTS",
-  "CUSTOM SOFTWARE"
+  "CUSTOM SOFTWARE",
+  "AI CHATBOTS"
 ];
 
 export default function ClientStrip() {

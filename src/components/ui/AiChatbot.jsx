@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Bot, Loader2, MessageCircle, Send, X } from 'lucide-react';
+import { Loader2, Send, Sparkles, X } from 'lucide-react';
 
 const starterMessages = [
   {
@@ -291,7 +291,7 @@ export default function AiChatbot() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[60] sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 z-[70] sm:bottom-6 sm:right-6">
       {isOpen && (
         <section
           aria-label="AI chatbot"
@@ -299,8 +299,13 @@ export default function AiChatbot() {
         >
           <header className="flex items-center justify-between gap-3 border-b border-black/10 bg-black px-4 py-3 text-white">
             <div className="flex items-center gap-3 min-w-0">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-black">
-                <Bot size={19} aria-hidden="true" />
+              <span className="grid h-11 w-11 shrink-0 place-items-center">
+                <img
+                  src="/assets/blitz-ai-chatbot-icon.png"
+                  alt=""
+                  className="ai-chat-inline-icon h-11 w-11 max-w-none object-contain"
+                  aria-hidden="true"
+                />
               </span>
               <div className="min-w-0">
                 <h2 className="truncate text-sm font-black uppercase tracking-tight">Blitz Assistant</h2>
@@ -400,34 +405,41 @@ export default function AiChatbot() {
       )}
 
       {isGuideVisible && !isOpen && (
-        <div className="mb-3 ml-auto w-[min(calc(100vw-2rem),19rem)] rounded-2xl border border-black/10 bg-white p-3.5 shadow-2xl shadow-black/20">
-          <div className="mb-2 flex items-start justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-black text-white">
-                <Bot size={16} aria-hidden="true" />
+        <div className="chat-tour-popover relative mb-3 ml-auto w-[min(88vw,18rem)] rounded-[1.25rem] border border-black/10 bg-white p-4 shadow-[0_18px_46px_rgba(0,0,0,0.16)] sm:w-[18.5rem]">
+
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="grid h-12 w-12 shrink-0 place-items-center">
+                <img
+                  src="/assets/blitz-ai-chatbot-icon.png"
+                  alt=""
+                  className="ai-chat-inline-icon h-12 w-12 max-w-none object-contain"
+                  aria-hidden="true"
+                />
               </span>
-              <div>
-                <p className="text-[0.7rem] font-black uppercase tracking-[0.18em] text-zinc-400">Quick tour</p>
-                <h3 className="text-sm font-black tracking-tight text-black">Meet Blitz Assistant</h3>
+              <div className="min-w-0">
+                <p className="mb-1 text-[0.58rem] font-black uppercase tracking-[0.22em] text-zinc-400">Quick tour</p>
+                <h3 className="text-[1rem] font-black leading-tight tracking-[-0.04em] text-black">Meet Blitz Assistant</h3>
               </div>
             </div>
             <button
               type="button"
               onClick={dismissGuide}
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-black/55 transition hover:bg-black/5 hover:text-black"
+              className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-black/55 transition hover:bg-black/5 hover:text-black"
               aria-label="Dismiss chatbot tour"
             >
-              <X size={16} aria-hidden="true" />
+              <X size={15} aria-hidden="true" />
             </button>
           </div>
-          <p className="text-[0.82rem] leading-5 text-zinc-600">
-            Tap here to ask about pricing, services, timelines, or the best plan for your project.
+          <p className="max-w-[14.5rem] text-[0.78rem] leading-5 text-zinc-600 sm:text-[0.82rem]">
+            Ask about pricing, services, timelines, or the best plan for your project.
           </p>
           <button
             type="button"
             onClick={openChatFromGuide}
-            className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-black px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:bg-primary-fixed"
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-4 py-2.5 text-[0.66rem] font-black uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:bg-zinc-900"
           >
+            <Sparkles size={13} aria-hidden="true" />
             Start chat
           </button>
         </div>
@@ -436,10 +448,21 @@ export default function AiChatbot() {
       <button
         type="button"
         onClick={toggleChat}
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-xl shadow-black/25 transition hover:scale-105 hover:bg-primary-fixed focus:outline-none focus:ring-4 focus:ring-black/20 active:scale-95"
+        className="ai-chat-fab group relative ml-auto flex h-[4.25rem] w-[4.25rem] items-center justify-center rounded-full bg-black text-white shadow-[0_16px_45px_rgba(0,0,0,0.32)] transition hover:scale-105 focus:outline-none focus:ring-4 focus:ring-black/20 active:scale-95 sm:h-[4.7rem] sm:w-[4.7rem]"
         aria-label={isOpen ? 'Close AI chat' : 'Open AI chat'}
       >
-        {isOpen ? <X size={22} aria-hidden="true" /> : <MessageCircle size={23} aria-hidden="true" />}
+        {isOpen ? (
+          <X size={23} aria-hidden="true" className="relative z-10" />
+        ) : (
+          <span className="relative z-10 grid h-full w-full place-items-center rounded-full">
+            <img
+              src="/assets/blitz-ai-chatbot-icon.png"
+              alt=""
+              className="ai-chat-fab-icon h-[4.45rem] w-[4.45rem] max-w-none object-contain sm:h-[4.95rem] sm:w-[4.95rem]"
+              aria-hidden="true"
+            />
+          </span>
+        )}
       </button>
     </div>
   );
