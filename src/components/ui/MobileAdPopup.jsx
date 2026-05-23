@@ -9,9 +9,23 @@ const MotionDiv = motion.div;
 const MIN_WIDTH = 320;
 const MAX_WIDTH = 530;
 const SHOW_DELAY_MS = 3000;
-const SECOND_AD_DELAY_MS = 7000;
-const STORAGE_KEY = 'blitz-mobile-ad-dismissed';
-const adImages = [adPopupImage, adPopupImage2];
+const NEXT_AD_DELAY_MS = 5500;
+const AUTO_ADVANCE_DELAY_MS = 8500;
+const STORAGE_KEY_PREFIX = 'blitz-mobile-ad-dismissed-v2:';
+const CHAT_TOUR_READY_KEY = 'blitz-chat-tour-ready';
+const CHAT_TOUR_EVENT = 'blitz:chat-tour-ready';
+const ads = [
+  {
+    id: 'website-247',
+    image: adPopupImage,
+    alt: 'Blitz 24/7 website support advertisement',
+  },
+  {
+    id: 'ai-chatbot',
+    image: adPopupImage2,
+    alt: 'Blitz AI chatbot advertisement',
+  },
+];
 
 function isSupportedMobileWidth() {
   if (typeof window === 'undefined') {
@@ -22,15 +36,34 @@ function isSupportedMobileWidth() {
   return width >= MIN_WIDTH && width <= MAX_WIDTH;
 }
 
+function getDismissedKey(adId) {
+  return `${STORAGE_KEY_PREFIX}${adId}`;
+}
+
+function isAdDismissed(adId) {
+  return window.sessionStorage.getItem(getDismissedKey(adId)) === 'true';
+}
+
+function findNextAdIndex(startIndex = 0) {
+  return ads.findIndex((ad, index) => index >= startIndex && !isAdDismissed(ad.id));
+}
+
+function notifyChatTourReady() {
+  window.sessionStorage.setItem(CHAT_TOUR_READY_KEY, 'true');
+  window.dispatchEvent(new CustomEvent(CHAT_TOUR_EVENT));
+}
+
 export default function MobileAdPopup() {
   const [isEligible, setIsEligible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeAdIndex, setActiveAdIndex] = useState(0);
+  const [activeAdIndex, setActiveAdIndex] = useState(null);
+  const [dismissalVersion, setDismissalVersion] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     const updateEligibility = () => {
-      const dismissed = window.sessionStorage.getItem(STORAGE_KEY) === 'true';
-      setIsEligible(isSupportedMobileWidth() && !dismissed);
+      const hasAvailableAd = ads.some((ad) => !isAdDismissed(ad.id));
+      setIsEligible(isSupportedMobileWidth() && hasAvailableAd);
     };
 
     updateEligibility();
@@ -39,31 +72,53 @@ export default function MobileAdPopup() {
     return () => {
       window.removeEventListener('resize', updateEligibility);
     };
-  }, []);
+  }, [dismissalVersion]);
 
   useEffect(() => {
-    if (!isEligible) {
+    if (!isEligible || isOpen) {
+      if (!isEligible) {
+        setIsOpen(false);
+        setActiveAdIndex(null);
+      }
+
+      return undefined;
+    }
+
+    const nextAdIndex = findNextAdIndex();
+
+    if (nextAdIndex === -1) {
+      setIsOpen(false);
+      setActiveAdIndex(null);
       return undefined;
     }
 
     const timer = window.setTimeout(() => {
-      setActiveAdIndex(0);
+      setActiveAdIndex(nextAdIndex);
       setIsOpen(true);
-    }, SHOW_DELAY_MS);
+      setHasStarted(true);
+    }, hasStarted ? NEXT_AD_DELAY_MS : SHOW_DELAY_MS);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [isEligible]);
+  }, [dismissalVersion, hasStarted, isEligible, isOpen]);
 
   useEffect(() => {
-    if (!isEligible || !isOpen || activeAdIndex !== 0) {
+    if (!isEligible || !isOpen || activeAdIndex === null) {
+      return undefined;
+    }
+
+    const nextAdIndex = findNextAdIndex(activeAdIndex + 1);
+
+    if (nextAdIndex === -1) {
       return undefined;
     }
 
     const timer = window.setTimeout(() => {
-      setActiveAdIndex(1);
-    }, SECOND_AD_DELAY_MS);
+      window.sessionStorage.setItem(getDismissedKey(ads[activeAdIndex].id), 'true');
+      setActiveAdIndex(nextAdIndex);
+      setDismissalVersion((version) => version + 1);
+    }, AUTO_ADVANCE_DELAY_MS);
 
     return () => {
       window.clearTimeout(timer);
@@ -71,17 +126,28 @@ export default function MobileAdPopup() {
   }, [activeAdIndex, isEligible, isOpen]);
 
   const handleClose = () => {
-    window.sessionStorage.setItem(STORAGE_KEY, 'true');
+    if (activeAdIndex !== null) {
+      const activeAd = ads[activeAdIndex];
+      window.sessionStorage.setItem(getDismissedKey(activeAd.id), 'true');
+
+      if (activeAd.id === 'ai-chatbot') {
+        notifyChatTourReady();
+      }
+    }
+
     setIsOpen(false);
-    setIsEligible(false);
+    setActiveAdIndex(null);
+    setDismissalVersion((version) => version + 1);
   };
+
+  const activeAd = activeAdIndex === null ? null : ads[activeAdIndex];
 
   return (
     <AnimatePresence>
-      {isEligible && isOpen && (
+      {isEligible && isOpen && activeAd && (
         <>
           <MotionDiv
-            className="fixed inset-0 z-[70] bg-black/45 backdrop-blur-[2px]"
+            className="fixed inset-0 z-[70] bg-black/50 backdrop-blur-[3px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -89,15 +155,21 @@ export default function MobileAdPopup() {
           />
 
           <MotionDiv
-            className="fixed inset-x-3.5 bottom-3.5 z-[80] mx-auto w-[calc(100%-1.75rem)] max-w-[21.5rem]"
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            className="fixed inset-0 z-[80] flex items-center justify-center p-4"
+            initial={{ opacity: 0, y: 18, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 18, scale: 0.96 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: 14, scale: 0.96 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-full overflow-hidden rounded-[1.4rem] border border-white/70 bg-transparent shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
-              <div className="relative w-full aspect-[9/16] max-h-[76svh] overflow-hidden rounded-[1.4rem]">
-                <span className="absolute left-3 top-3 z-10 rounded-full bg-white/92 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black shadow-sm ring-1 ring-black/5">
+            <div
+              className="relative overflow-hidden rounded-[1.35rem] border border-white/80 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+              style={{
+                width: 'min(92vw, calc(78svh * 9 / 16), 22rem)',
+                aspectRatio: '9 / 16',
+              }}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-[1.35rem]">
+                <span className="absolute left-3 top-3 z-10 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black shadow-sm ring-1 ring-black/5">
                   Ad
                 </span>
 
@@ -105,16 +177,23 @@ export default function MobileAdPopup() {
                   type="button"
                   aria-label="Close advertisement"
                   onClick={handleClose}
-                  className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/92 text-black shadow-sm ring-1 ring-black/5 transition-colors hover:bg-white"
+                  className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-black shadow-sm ring-1 ring-black/5 transition-colors hover:bg-white"
                 >
                   <X size={16} />
                 </button>
 
-                <img
-                  src={adImages[activeAdIndex]}
-                  alt={`Blitz promotional advertisement ${activeAdIndex + 1}`}
-                  className="absolute inset-0 block h-full w-full min-h-full min-w-full object-cover object-center"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeAd.id}
+                    src={activeAd.image}
+                    alt={activeAd.alt}
+                    className="absolute inset-0 block h-full w-full object-cover object-center"
+                    initial={{ opacity: 0, scale: 1.015 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.995 }}
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                  />
+                </AnimatePresence>
               </div>
             </div>
           </MotionDiv>

@@ -36,9 +36,9 @@ const services = [
     size: 'small',
   },
   {
-    icon: 'integration_instructions',
-    title: 'Internal tools',
-    description: 'Custom workflows that remove repetitive work and give teams better operational visibility.',
+    icon: 'smart_toy',
+    title: 'AI chatbot integration',
+    description: 'Branded chat assistants for support, lead capture, FAQs, and smoother customer conversations.',
     size: 'small',
   },
   {

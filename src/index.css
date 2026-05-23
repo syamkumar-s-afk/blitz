@@ -26,6 +26,47 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+.brand-logo-link {
+  align-items: center;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  isolation: isolate;
+  position: relative;
+  transform: translateZ(0);
+}
+
+.brand-logo-link:focus-visible {
+  outline: 2px solid rgba(26, 28, 28, 0.45);
+  outline-offset: 0.35rem;
+}
+
+.brand-logo-image {
+  display: block;
+  filter: drop-shadow(0 0.32rem 0.62rem rgba(0, 0, 0, 0.08));
+  transform-origin: center;
+  transition: filter 260ms ease, opacity 260ms ease, transform 260ms ease;
+  will-change: filter, transform;
+}
+
+.brand-logo-nav {
+  animation: logo-arrive 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.brand-logo-nav .brand-logo-image {
+  animation: logo-presence 6200ms ease-in-out 1300ms infinite;
+}
+
+.brand-logo-link:hover .brand-logo-image,
+.brand-logo-link:focus-visible .brand-logo-image {
+  filter: drop-shadow(0 0.5rem 0.95rem rgba(0, 0, 0, 0.15));
+  transform: translateY(-1px) scale(1.035);
+}
+
+.brand-logo-nav:hover .brand-logo-image,
+.brand-logo-nav:focus-visible .brand-logo-image {
+  animation-play-state: paused;
+}
+
 button:not(:disabled),
 a:not([disabled]) {
   cursor: pointer;
@@ -84,6 +125,37 @@ a:not([disabled]) {
   }
 }
 
+@keyframes logo-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-0.3rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logo-presence {
+  0%,
+  68%,
+  100% {
+    filter: drop-shadow(0 0.32rem 0.62rem rgba(0, 0, 0, 0.08));
+    opacity: 1;
+  }
+
+  74% {
+    filter: drop-shadow(0 0.45rem 0.85rem rgba(0, 0, 0, 0.13));
+    opacity: 0.96;
+  }
+
+  80% {
+    filter: drop-shadow(0 0.34rem 0.66rem rgba(0, 0, 0, 0.09));
+    opacity: 1;
+  }
+}
+
 .animate-marquee {
   animation: marquee 42s linear infinite;
 }
@@ -138,6 +210,11 @@ a:not([disabled]) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .brand-logo-nav,
+  .brand-logo-nav .brand-logo-image {
+    animation: none;
+  }
+
   .tech-marquee-track-right,
   .tech-marquee-track-left {
     animation-duration: 120s;

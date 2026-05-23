@@ -105,6 +105,55 @@ export const projects = [
     },
   },
   {
+    slug: 'furniture-store-platform',
+    type: 'featured',
+    image: '/images/furniture-store-platform.png',
+    title: 'Furniture Store Platform',
+    category: 'Furniture E-commerce',
+    tags: ['Web', 'Platform'],
+    summary:
+      'A refined furniture shopping platform built for room-based discovery, premium product presentation, and smoother enquiry-led buying.',
+    outcome:
+      'Created a clean digital storefront that makes collections easier to browse and helps customers move from inspiration to purchase faster.',
+    gradient: 'from-secondary-container to-secondary-fixed',
+    action: {
+      type: 'detail',
+      label: 'View Details',
+    },
+    detail: {
+      eyebrow: 'Furniture Commerce Experience',
+      headline:
+        'A warm, premium furniture storefront designed to help customers discover products by room, style, and buying intent.',
+      overview:
+        'Furniture Store Platform is a modern commerce experience for a home furniture brand. The project focuses on making sofas, beds, dining sets, storage units, and decor collections easy to explore through a polished storefront that feels trustworthy, visual, and simple to use on both mobile and desktop.',
+      challenge:
+        'Furniture buyers need confidence before they enquire or purchase. The platform had to present products with strong visual hierarchy, support room-based browsing, highlight quality and delivery information, and keep the journey compact enough for mobile users who are comparing options quickly.',
+      solution:
+        'I structured the experience around curated room categories, product-led cards, featured collections, offer blocks, wishlist-ready browsing, and a clear enquiry path. The visual direction uses warm neutrals, bold product imagery, and clean spacing so the brand feels premium without making the interface heavy.',
+      services: [
+        'Product direction',
+        'UI/UX design',
+        'Frontend development',
+        'Responsive web design',
+        'E-commerce experience planning',
+        'Conversion-focused product layout',
+      ],
+      stack: [
+        'React',
+        'Vite',
+        'Tailwind CSS',
+        'Responsive web design',
+        'Component-based storefront sections',
+        'Product catalogue architecture',
+      ],
+      outcomes: [
+        'Created a premium furniture storefront direction with clearer category and room-based discovery.',
+        'Improved browsing flow with compact product cards, collection highlights, and strong mobile hierarchy.',
+        'Designed a scalable foundation for future cart, wishlist, product detail, and admin catalogue features.',
+      ],
+    },
+  },
+  {
     slug: 'aadiv-dental-clinic',
     type: 'featured',
     image: '/images/aadiv_dental.png',
@@ -142,59 +191,6 @@ export const projects = [
         'Surfaced high-trust local signals including 5.0 rating, 67 Google reviews, and doctor-led credibility.',
         'Created a mobile-friendly appointment flow that opens a prefilled WhatsApp enquiry for faster lead capture.',
         'Structured the site into reusable content sections for easier updates and future clinic rollouts.',
-      ],
-    },
-  },
-  {
-    slug: 'creativepluz',
-    type: 'featured',
-    image: '/images/creativepluznew.png',
-    title: 'Creativepluz',
-    category: 'Business Website',
-    tags: ['Web'],
-    summary:
-      'A polished business website and digital card experience built to present Creativepluz with stronger trust, clearer services, and faster enquiry actions.',
-    outcome:
-      'Improved brand presentation, service discovery, and WhatsApp-led enquiry flow.',
-    gradient: 'from-secondary-container to-secondary-fixed',
-    action: {
-      type: 'detail',
-      label: 'View Details',
-    },
-    demoHref: 'https://creativepluz-gamma.vercel.app/',
-    detail: {
-      eyebrow: 'Business Web Experience',
-      headline:
-        'A clean, mobile-friendly business website designed to help Creativepluz present its services with more confidence and convert visitors into enquiries.',
-      overview:
-        'Creativepluz is a business website and digital profile experience created for a web design and branding service provider. The project brings company details, services, gallery, payment information, location, feedback, and enquiry actions into one simple mobile-first flow. The goal was to make the brand feel professional, easy to understand, and quick to contact from any device.',
-      challenge:
-        'The existing business presentation needed to communicate trust quickly while keeping the experience lightweight and easy for mobile users. Visitors had to understand the services, view previous work, check contact details, and send enquiries without confusion or unnecessary steps.',
-      solution:
-        'I structured the website as a clear digital business card with dedicated sections for profile details, services, payment, gallery, videos, feedback, map location, and enquiry. The service cards were connected to an enquiry modal so users can ask about a specific service directly, while WhatsApp integration keeps the lead capture flow simple and familiar.',
-      services: [
-        'Product direction',
-        'Website design',
-        'Frontend development',
-        'Responsive web design',
-        'Service enquiry flow',
-        'WhatsApp integration',
-        'UI refinement',
-      ],
-      stack: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'Responsive web design',
-        'Dynamic section loading',
-        'WhatsApp deep linking',
-      ],
-      outcomes: [
-        'Created a clearer mobile-first digital profile for Creativepluz.',
-        'Improved service discovery with dedicated cards for website design, graphic design, logo design, and digital marketing.',
-        'Added a smoother service-specific enquiry flow connected to WhatsApp.',
-        'Organized business information, gallery, payment, location, and feedback into one easy browsing experience.',
-        'Strengthened the brand presentation with a cleaner and more professional interface.',
       ],
     },
   },

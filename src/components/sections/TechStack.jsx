@@ -43,7 +43,7 @@ import {
   SiVite,
 } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
-import { TbApi, TbAdjustmentsHorizontal } from 'react-icons/tb';
+import { TbApi, TbAdjustmentsHorizontal, TbMessageChatbot } from 'react-icons/tb';
 
 const techStack = [
   { name: 'React', category: 'Frontend', Icon: SiReact },
@@ -85,6 +85,7 @@ const techStack = [
   { name: 'Nginx', category: 'Cloud and DevOps', Icon: SiNginx },
   { name: 'Linux', category: 'Cloud and DevOps', Icon: SiLinux },
   { name: 'OpenAI', category: 'AI and Tools', Icon: SiOpenai },
+  { name: 'AI Chatbots', category: 'AI and Automation', Icon: TbMessageChatbot },
   { name: 'LangChain', category: 'AI and Tools', Icon: SiLangchain },
   { name: 'TensorFlow', category: 'AI and Tools', Icon: SiTensorflow },
   { name: 'Git', category: 'AI and Tools', Icon: SiGit },

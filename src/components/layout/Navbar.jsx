@@ -57,13 +57,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-50 transition-colors ${isMenuOpen ? 'bg-zinc-50 dark:bg-zinc-950' : 'bg-white/70 backdrop-blur-xl border-b border-black/10'}`}>
-        <div className="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
-          <a href="/#home" className="block shrink-0">
+      <nav className={`fixed top-0 w-full transition-colors ${isMenuOpen ? 'z-[90] bg-zinc-50 dark:bg-zinc-950' : 'z-50 bg-white/70 backdrop-blur-xl border-b border-black/10'}`}>
+        <div className="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 max-w-screen-2xl mx-auto">
+          <a href="/#home" className="brand-logo-link brand-logo-nav shrink-0">
             <img
-              src="/images/blitz-logo.png"
+              src="/images/blitz-logo-clean.png"
               alt="Blitz Solutions"
-              className="h-9 sm:h-10 md:h-11 w-auto object-contain"
+              className="brand-logo-image h-8 sm:h-10 md:h-12 w-auto object-contain"
             />
           </a>
           <div className="hidden md:flex gap-8 items-center">
@@ -100,29 +100,32 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-40 bg-zinc-50/95 backdrop-blur-2xl flex flex-col justify-center px-12 transition-all duration-500 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none translate-y-8'}`}>
-        <div className="flex flex-col gap-8 text-5xl font-black tracking-tighter uppercase mb-16 pt-20">
-          {navLinks.map(({ href, label }) => {
-            const sectionId = href.replace('#', '');
-            const isActive = currentSection === sectionId;
-            return (
-              <a
-                key={href}
-                href={`/${href}`}
-                onClick={closeMenu}
-                className={`transition-colors ${
-                  isActive ? 'text-black hover:text-primary' : 'text-zinc-400 hover:text-black'
-                }`}
-              >
-                {label}
-              </a>
-            );
-          })}
-          <a href="/#contact" onClick={closeMenu} className="text-zinc-400 hover:text-black transition-colors">Contact</a>
-        </div>
-        <div className="text-xs font-bold tracking-widest uppercase text-zinc-500">
-          Inquiries <br/>
-          <a href="mailto:blitzsolutions.dev@gmail.com" className="text-black text-sm mt-2 block">blitzsolutions.dev@gmail.com</a>
+      <div className={`fixed inset-0 z-[80] bg-zinc-50/95 backdrop-blur-2xl transition-all duration-500 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none translate-y-6'}`}>
+        <div className="flex min-h-dvh flex-col px-5 pb-5 pt-24 sm:px-7 sm:pb-7 sm:pt-28">
+          <div className="flex flex-1 flex-col justify-center gap-4 min-[380px]:gap-5">
+            {[...navLinks, { href: '#contact', label: 'Contact' }].map(({ href, label }) => {
+              const sectionId = href.replace('#', '');
+              const isActive = currentSection === sectionId;
+              return (
+                <a
+                  key={href}
+                  href={`/${href}`}
+                  onClick={closeMenu}
+                  className={`w-fit text-[2.25rem] leading-[0.88] min-[380px]:text-[2.85rem] sm:text-[3.35rem] font-black tracking-[-0.075em] uppercase transition-colors ${
+                    isActive ? 'text-black hover:text-primary' : 'text-zinc-400 hover:text-black'
+                  }`}
+                >
+                  {label}
+                </a>
+              );
+            })}
+          </div>
+          <div className="rounded-2xl border border-black/8 bg-white/75 p-4 text-[0.64rem] font-bold uppercase tracking-[0.2em] text-zinc-500 shadow-[0_12px_32px_rgba(15,23,42,0.05)]">
+            Inquiries
+            <a href="mailto:blitzsolutions.dev@gmail.com" className="mt-2 block break-all text-[0.78rem] normal-case tracking-tight text-black">
+              blitzsolutions.dev@gmail.com
+            </a>
+          </div>
         </div>
       </div>
     </>

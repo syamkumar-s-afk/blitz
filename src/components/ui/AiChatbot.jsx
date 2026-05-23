@@ -14,6 +14,10 @@ const quickPrompts = [
   'Automate my business',
 ];
 
+const CHAT_TOUR_READY_KEY = 'blitz-chat-tour-ready';
+const CHAT_TOUR_SEEN_KEY = 'blitz-chat-tour-seen';
+const CHAT_TOUR_EVENT = 'blitz:chat-tour-ready';
+
 const servicePatterns = [
   ['Mobile App', /\b(app|android|ios|mobile)\b/i],
   ['E-Commerce', /\b(e-?commerce|online store|shopify|store|marketplace)\b/i],
@@ -146,6 +150,7 @@ function buildLeadPayload(messages) {
 
 export default function AiChatbot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isGuideVisible, setIsGuideVisible] = useState(false);
   const [messages, setMessages] = useState(starterMessages);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -156,10 +161,36 @@ export default function AiChatbot() {
 
   useEffect(() => {
     if (isOpen) {
+      setIsGuideVisible(false);
       scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
       setTimeout(() => inputRef.current?.focus(), 150);
     }
   }, [isOpen, messages]);
+
+  useEffect(() => {
+    let guideTimer;
+
+    const queueGuide = () => {
+      window.clearTimeout(guideTimer);
+
+      const isTourReady = window.sessionStorage.getItem(CHAT_TOUR_READY_KEY) === 'true';
+      const hasSeenTour = window.sessionStorage.getItem(CHAT_TOUR_SEEN_KEY) === 'true';
+
+      if (!isOpen && isTourReady && !hasSeenTour) {
+        guideTimer = window.setTimeout(() => {
+          setIsGuideVisible(true);
+        }, 650);
+      }
+    };
+
+    queueGuide();
+    window.addEventListener(CHAT_TOUR_EVENT, queueGuide);
+
+    return () => {
+      window.clearTimeout(guideTimer);
+      window.removeEventListener(CHAT_TOUR_EVENT, queueGuide);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (!shouldSubmitLead(messages)) {
@@ -239,6 +270,24 @@ export default function AiChatbot() {
   const handleSubmit = (event) => {
     event.preventDefault();
     sendMessage(input);
+  };
+
+  const dismissGuide = () => {
+    window.sessionStorage.setItem(CHAT_TOUR_SEEN_KEY, 'true');
+    setIsGuideVisible(false);
+  };
+
+  const openChatFromGuide = () => {
+    dismissGuide();
+    setIsOpen(true);
+  };
+
+  const toggleChat = () => {
+    if (!isOpen) {
+      dismissGuide();
+    }
+
+    setIsOpen((current) => !current);
   };
 
   return (
@@ -350,9 +399,43 @@ export default function AiChatbot() {
         </section>
       )}
 
+      {isGuideVisible && !isOpen && (
+        <div className="mb-3 ml-auto w-[min(calc(100vw-2rem),19rem)] rounded-2xl border border-black/10 bg-white p-3.5 shadow-2xl shadow-black/20">
+          <div className="mb-2 flex items-start justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-black text-white">
+                <Bot size={16} aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-[0.7rem] font-black uppercase tracking-[0.18em] text-zinc-400">Quick tour</p>
+                <h3 className="text-sm font-black tracking-tight text-black">Meet Blitz Assistant</h3>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={dismissGuide}
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-black/55 transition hover:bg-black/5 hover:text-black"
+              aria-label="Dismiss chatbot tour"
+            >
+              <X size={16} aria-hidden="true" />
+            </button>
+          </div>
+          <p className="text-[0.82rem] leading-5 text-zinc-600">
+            Tap here to ask about pricing, services, timelines, or the best plan for your project.
+          </p>
+          <button
+            type="button"
+            onClick={openChatFromGuide}
+            className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-black px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:bg-primary-fixed"
+          >
+            Start chat
+          </button>
+        </div>
+      )}
+
       <button
         type="button"
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={toggleChat}
         className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-xl shadow-black/25 transition hover:scale-105 hover:bg-primary-fixed focus:outline-none focus:ring-4 focus:ring-black/20 active:scale-95"
         aria-label={isOpen ? 'Close AI chat' : 'Open AI chat'}
       >
