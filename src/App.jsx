@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Footer, Navbar } from './components';
 import AiChatbot from './components/ui/AiChatbot';
+import AdminPage from './pages/AdminPage';
+import CareersPage from './pages/CareersPage';
 import HomePage from './pages/HomePage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 
@@ -41,6 +43,8 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
       </Routes>
 

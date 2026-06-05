@@ -77,8 +77,14 @@ export default function MobileAdPopup() {
   useEffect(() => {
     if (!isEligible || isOpen) {
       if (!isEligible) {
-        setIsOpen(false);
-        setActiveAdIndex(null);
+        const resetTimer = window.setTimeout(() => {
+          setIsOpen(false);
+          setActiveAdIndex(null);
+        }, 0);
+
+        return () => {
+          window.clearTimeout(resetTimer);
+        };
       }
 
       return undefined;
@@ -87,8 +93,6 @@ export default function MobileAdPopup() {
     const nextAdIndex = findNextAdIndex();
 
     if (nextAdIndex === -1) {
-      setIsOpen(false);
-      setActiveAdIndex(null);
       return undefined;
     }
 

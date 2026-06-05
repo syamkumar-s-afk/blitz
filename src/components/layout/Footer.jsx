@@ -3,7 +3,7 @@ import { FaBriefcase, FaEnvelope, FaHouse, FaInstagram, FaLinkedinIn, FaPaperPla
 const socialLinks = [
   {
     label: 'Instagram',
-    href: 'https://instagram.com/',
+    href: 'https://www.instagram.com/blitz_solutions.dev/',
     icon: FaInstagram,
   },
   {
